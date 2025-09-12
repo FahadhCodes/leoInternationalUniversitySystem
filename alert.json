@@ -1,0 +1,18 @@
+[
+  {
+    "type": "success",
+    "message": "something"
+  },
+  {
+    "type": "danger",
+    "message": "something"
+  },
+  {
+    "type": "info",
+    "message": "something"
+  },
+  {
+    "type": "warning",
+    "message": "something"
+  }
+]
