@@ -407,7 +407,9 @@ include('Includes/function.php');
       } else {
         $PROFILEPICPATH = !empty($profilepic) ? "static images/sampleImage.png" : "$onlineprofilepic";
       }
-      echo "<a href='index.php?logout' class='navItem nav1 navLink smallsrcOnly d-flex align-content-center rounded' data-bs-toggle='modal' data-bs-target='#accountDetails'>{$UNAME}</a>";
+      if (!empty($_SESSION['STDID']) || !empty($_SESSION['STFID'])) {
+        echo "<a href='index.php?logout' class='navItem nav1 navLink smallsrcOnly d-flex align-content-center rounded' data-bs-toggle='modal' data-bs-target='#accountDetails'>{$UNAME}</a>";
+      }
       echo "<img src='{$PROFILEPICPATH}' width='50em' data-bs-target='#account' data-bs-toggle='modal' class='d-inline'/>";
       ?>
     </div>
