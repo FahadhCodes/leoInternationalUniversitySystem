@@ -181,6 +181,19 @@ CREATE TABLE `studentaccount` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -------------------------------------------------------
+--
+-- Table structure for table `staffsaccount`
+--
+
+CREATE TABLE `staffsaccount` (
+  `IP` varchar(255) DEFAULT NULL,
+  `Createddate` datetime DEFAULT NULL,
+  `staffID` varchar(50) DEFAULT NULL,
+  `userName` varchar(255) DEFAULT NULL,
+  `pswrd` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-------------------------------------------------------
 
 --
 -- Table structure for table `studets`

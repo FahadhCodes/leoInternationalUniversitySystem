@@ -1925,8 +1925,11 @@ a.footerLink:hover {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 2vw;
+  border: none;
 }
-
+.modal-content.blurStyleModelBackground > h1 {
+  border-bottom: 1px solid var(--color6);
+}
 .logContainer > img {
   width: 13vw;
   justify-self: center;
@@ -1943,8 +1946,12 @@ a.footerLink:hover {
   color: var(--color1);
   grid-column: span 2;
 }
-.modal-content {
-  background-color: #00000000;
+/* .modal.fade#account {
+  overflow: hidden;
+  height: 77vh;
+} */
+.logContainer.staffs {
+  display: none;
 }
 .logContainer > label {
   color: var(--colorA);

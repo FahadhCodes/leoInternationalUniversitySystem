@@ -61,14 +61,20 @@ include('Includes/function.php');
   global $Message;
   ?>
   <!------------------------------------------------------Logging/Signin Portal------------------------------------------------------>
+  <!-- signIN -->
   <div class="modal fade" id="account" aria-hidden="true" aria-labelledby="accountLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" class="logContainer formContainer blurStyleModelBackground" method="post">
-          <h1 class="text-center text-uppercase fw-bolder">Account Creating form</h1>
+      <div class="modal-content blurStyleModelBackground">
+        <h1 class="text-center text-uppercase fw-bolder">Account Creating form</h1>
+        <div class="btn-group mx-4 mt-3">
+          <button class="btn generalButton studentReg">Student</button>
+          <button class="btn generalButton staffReg">Staffs</button>
+        </div>
+        <!------------------------------- Students SignIN--------------------------------------->
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" class="logContainer formContainer students" method="post">
           <img src="static images/LOGO1.png">
-          <label for="admin">Admission Number</label>
-          <input class="signInBar mustFILL" id="admin" name="admissionNumer" type="text">
+          <label for="stdIDreg">Admission Number</label>
+          <input class="signInBar mustFILL" id="stdIDreg" name="admissionNumer" type="text">
           <label for="pswd">Password</label>
           <div class="passwordbarcont align-items-center">
             <input class="signInBar mustFILL inputBarDesign h-100" id="pswd" name="passwrd" type="password">
@@ -137,18 +143,99 @@ include('Includes/function.php');
           }
         }
         ?>
+        <!------------------------------- /Students SignIN--------------------------------------->
+        <!------------------------------- Staffs SignIN--------------------------------------->
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" class="logContainer formContainer staffs" method="post">
+          <img src="static images/LOGO1.png">
+          <label for="staffIdReg">Staff ID</label>
+          <input class="signInBarL mustFILL" id="staffIdReg" name="staffIDL" type="text">
+          <label for="pswd_stf">Password</label>
+          <div class="passwordbarcont align-items-center">
+            <input class="signInBarL mustFILL inputBarDesign h-100" id="pswd_stf" name="passwrdL" type="password">
+            <button type="button" class="btn generalButton h-100 passwordButton" onmousedown=" passwordButtonHold(this)" onmouseup="passwordButtonunhold(this)">
+              <i class="passwordEye fa-solid fa-eye-slash"></i>
+            </button>
+          </div>
+          <label for="cnfrmPassword_stf">Confirm Password</label>
+          <div class="passwordbarcont align-items-center">
+            <input class="signInBarL mustFILL inputBarDesign h-100" id="cnfrmPassword_stf" name="cnfrmpasswrdL" type="password">
+            <button type="button" class="btn generalButton h-100 passwordButton" onmousedown=" passwordButtonHold(this)" onmouseup="passwordButtonunhold(this)">
+              <i class="passwordEye fa-solid fa-eye-slash"></i>
+            </button>
+          </div>
+          <button name="submitButtonACCL" type="submit" class="btn generalButton submitButton" data-section="signInBarL">Create an Account</button>
+        </form>
+        <?php
+        if (isset($_POST['submitButtonACCL'])) {
+          $ip = getIPAddress();
+          $staffID = trim($_POST['staffIDL'] ?? '');
+          $password = htmlspecialchars(trim($_POST['passwrdL'] ?? ''));
+          $confrmpassword = htmlspecialchars(trim($_POST['cnfrmpasswrdL'] ?? ''));
+          $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+          $selectQuery = "SELECT `staffID`, `staff_fname`, `staff_lname`, `dob`, `nic`, `mail`, `gender`, `profile_pic`, `role`, `sub_role` FROM `staffs` WHERE `staffID`='$staffID'";
+          $result = mysqli_query($con, $selectQuery);
+          $count = mysqli_num_rows($result);
+          $row = mysqli_fetch_assoc($result);
+          $stdID = $row['staffID'] ?? "";
+
+          $selectQuery1 = "SELECT `IP`, `Createddate`, `staffID`, `userName`, `pswrd` FROM `staffsaccount` WHERE `staffID`='$staffID'";
+          $result1 = mysqli_query($con, $selectQuery1);
+          $count1 = mysqli_num_rows($result1);
+
+          $FNAME = str_split($row['staff_fname'] ?? "");
+          $intial = $FNAME[0] ?? "";
+          $LNAME = $row['staff_lname'] ?? "";
+          $UNAME = $intial . "." . $LNAME;
+
+
+          if ($password != $confrmpassword) {
+            // echo "<script>alert('The entered Password is not Matching')</script>";
+            $type = "info";
+            $Message = "THE ENTERED PASSWORD IS NOT MATCHING";
+          } else if (empty($staffID) || empty($password) || empty($confrmpassword)) {
+            $type = "danger";
+            $Message = "PLEASE FILL ALL THE REQUIRED FIELDS";
+          } else if (empty($count)) {
+            $type = "warning";
+            $Message = "ENTERED ADMISSION NUMBER IS INVALID!!!";
+          } else if ($count1 > 0) {
+            $type = "warning";
+            $Message = "ADMISSION NUMBER ALREADY USED!!!";
+          } else {
+
+            $_SESSION['UNAME'] = $UNAME ?? '';
+            $_SESSION['STFID'] = $row['staffID'] ?? '';
+            $_SESSION['GENDER'] = $row['gender'] ?? '';
+            $_SESSION['NIC'] = $row['nic'] ?? '';
+            $_SESSION['PROFILEPIC'] = $row['profile_pic'] ?? '';
+
+            $insertQuery = "INSERT INTO `staffsaccount`(`IP`, `Createddate`, `staffID`, `userName`, `pswrd`) VALUES ('$ip',NOW(),'$staffID','$UNAME','$hashedPassword')";
+            mysqli_query($con, $insertQuery);
+            $type = "success";
+            $Message = "ACCOUNT CREATED SUCCESS FULLY!!!";
+          }
+        }
+        ?>
+        <!------------------------------- /Staffs --------------------------------------->
         <button class="btn generalButton" data-bs-target="#account2" data-bs-toggle="modal">Already have an account?</button>
       </div>
     </div>
   </div>
+  <!-- LogIN -->
   <div class="modal fade" id="account2" aria-hidden="true" aria-labelledby="accountLabel2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" class="logContainer formContainer blurStyleModelBackground" method="post">
-          <h1 class="text-center text-uppercase fw-bolder">LogIn form</h1>
+      <div class="modal-content blurStyleModelBackground">
+        <h1 class="text-center text-uppercase fw-bolder">LogIn form</h1>
+        <div class="btn-group mx-4 mt-3">
+          <button class="btn generalButton studentReg">Student</button>
+          <button class="btn generalButton staffReg">Staffs</button>
+        </div>
+        <!------------------------------- Students LogIN--------------------------------------->
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" class="logContainer formContainer students" method="post">
           <img src="static images/LOGO1.png">
-          <label for="admin1">Admission Number</label>
-          <input class="loginBar mustFILL" id="admin1" name="admissionNumer1" type="text">
+          <label for="stdID1">Admission Number</label>
+          <input class="loginBar mustFILL" id="stdID1" name="admissionNumer1" type="text">
           <label for="pswd1">Password</label>
           <div class="passwordbarcont align-items-center">
             <input class="loginBar mustFILL inputBarDesign h-100" id="pswd1" name="passwrd1" type="password">
@@ -190,6 +277,54 @@ include('Includes/function.php');
           }
         }
         ?>
+        <!------------------------------- /Students LogIN--------------------------------------->
+        <!------------------------------- Staffs LogIN--------------------------------------->
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" class="logContainer formContainer staffs" method="post">
+          <img src="static images/LOGO1.png">
+          <label for="stfId1">Staff ID</label>
+          <input class="loginBar mustFILL" id="stfId1" name="staffIdL" type="text">
+          <label for="pswd1_L">Password</label>
+          <div class="passwordbarcont align-items-center">
+            <input class="loginBar mustFILL inputBarDesign h-100" id="pswd1_L" name="passwrd1L" type="password">
+            <button type="button" class="btn generalButton h-100 passwordButton" onmousedown=" passwordButtonHold(this)" onmouseup="passwordButtonunhold(this)">
+              <i class="passwordEye fa-solid fa-eye-slash"></i>
+            </button>
+          </div>
+          <button name="submitButtonLOGL" type="submit" class="btn generalButton submitButton" data-section="loginBar">LogIn</button>
+        </form>
+        <?php
+        if (isset($_POST['submitButtonLOGL'])) {
+          $stffID = $_POST['staffIdL'] ?? "";
+          $password = htmlspecialchars(trim($_POST['passwrd1L'] ?? ""));
+          $selectQuery = "SELECT staffsaccount.staffID, staffsaccount.userName,staffsaccount.pswrd, staffs.staff_fname,staffs.staff_lname,staffs.dob,staffs.nic,staffs.mail,staffs.profile_pic,staffs.role,staffs.sub_role,studets.gender FROM staffsaccount INNER JOIN staffs WHERE staffsaccount.staffID = staffs.staffID AND staffsaccount.staffID='$stffID'";
+          $result = mysqli_query($con, $selectQuery);
+          $row = mysqli_fetch_assoc($result);
+          if (mysqli_num_rows($result) > 0) {
+            if (password_verify($password, $row['pswrd'])) {
+
+              $FNAME = str_split($row['staff_fname'] ?? "");
+              $intial = $FNAME[0] ?? "";
+              $LNAME = $row['staff_lname'] ?? "";
+              $UNAME = $intial . "." . $LNAME;
+
+              $_SESSION['UNAME'] = $UNAME ?? "";
+              $_SESSION['STFID'] = $row['staffID'] ?? "";
+              $_SESSION['GENDER'] = $row['gender'] ?? "";
+              $_SESSION['NIC'] = $row['nic'] ?? "";
+              $_SESSION['PROFILEPIC'] = $row['profile_pic'] ?? "";
+              $type = "success";
+              $Message = strtoupper("Logged in Succesfully!");
+            } else {
+              $type = "danger";
+              $Message = strtoupper("Entered Password is incorrect!");
+            }
+          } else {
+            $type = "info";
+            $Message = strtoupper("You do not have any account!");
+          }
+        }
+        ?>
+        <!------------------------------- /Staffs --------------------------------------->
         <button class="btn generalButton" data-bs-target="#account" data-bs-toggle="modal">Don't you have an Account?</button>
       </div>
     </div>
@@ -205,12 +340,15 @@ include('Includes/function.php');
   <!-- Modal -->
   <div class="modal fade" id="accountDetails" tabindex="-1" aria-labelledby="accountDetailsLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="container blurStyleModelBackground">
+      <div class="modal-content blurStyleModelBackground">
+        <div class="container">
           <div class="modal-body">
             <?php
-            $diR = "";
-            stdCard($con, $_SESSION['STDID'] ?? "", $diR);
+            if (!empty($_SESSION['STDID']) && empty($_SESSION['STFID'])) {
+              stdCard($con, $_SESSION['STDID'] ?? "", "");
+            } else if (empty($_SESSION['STDID']) && !empty($_SESSION['STFID'])) {
+              stafCard($staffID, $con, "");
+            }
             ?>
           </div>
           <div class="modal-footer">
@@ -262,8 +400,13 @@ include('Includes/function.php');
 
       $profilepic = $_SESSION['PROFILEPIC'] ?? "";
       $onlineprofilepic = $_SESSION['ONLINEPROFILE'] ?? "";
-
-      $PROFILEPICPATH = !empty($profilepic) ? "Dynamic images/students/{$profilepic}" : "$onlineprofilepic";
+      if (!empty($_SESSION['STDID']) && empty($_SESSION['STFID'])) {
+        $PROFILEPICPATH = !empty($profilepic) ? "Dynamic images/students/{$profilepic}" : "$onlineprofilepic";
+      } else if (empty($_SESSION['STDID']) && !empty($_SESSION['STFID'])) {
+        $PROFILEPICPATH = !empty($profilepic) ? "Dynamic images/staffs/{$profilepic}" : "$onlineprofilepic";
+      } else {
+        $PROFILEPICPATH = !empty($profilepic) ? "static images/sampleImage.png" : "$onlineprofilepic";
+      }
       echo "<a href='index.php?logout' class='navItem nav1 navLink smallsrcOnly d-flex align-content-center rounded' data-bs-toggle='modal' data-bs-target='#accountDetails'>{$UNAME}</a>";
       echo "<img src='{$PROFILEPICPATH}' width='50em' data-bs-target='#account' data-bs-toggle='modal' class='d-inline'/>";
       ?>

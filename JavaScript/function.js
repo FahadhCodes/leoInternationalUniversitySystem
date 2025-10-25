@@ -275,4 +275,18 @@ function passwordButtonunhold(button) {
   eye.classList.remove("fa-eye");
   input.type = "password";
 }
-console.log("connected");
+const student = document.querySelectorAll(".logContainer.students");
+const staff = document.querySelectorAll(".logContainer.staffs");
+document.querySelectorAll("button.studentReg").forEach((button) => {
+  button.addEventListener("click", function () {
+    staff.forEach((stf) => (stf.style.display = "none"));
+    student.forEach((std) => (std.style.display = "grid"));
+  });
+});
+
+document.querySelectorAll("button.staffReg").forEach((button) => {
+  button.addEventListener("click", function () {
+    student.forEach((std) => (std.style.display = "none"));
+    staff.forEach((stf) => (stf.style.display = "grid"));
+  });
+});
