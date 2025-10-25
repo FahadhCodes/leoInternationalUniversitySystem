@@ -1,0 +1,16 @@
+26/10/2025
+1) add "Dashbord" button for both (students and staffs) details cards
+2) Design & create seperate dashboard pages for both
+    ----students
+        GPA calculator
+        Grading Plotes
+        message box for contact staffs(Lectures)
+
+    ----staffs(Lectures)
+        uploades lecture metirials
+        submit students results to the higher officials(Faculty Dean)
+        sent message to specific students
+        assign task as...
+            i)    group wise 
+            ii)   Department wise
+            iii)  Gender wise
