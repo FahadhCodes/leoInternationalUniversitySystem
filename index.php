@@ -354,6 +354,7 @@ include('Includes/function.php');
           <div class="modal-footer">
             <form action="index.php" method="post">
               <button type="submit" class="btn generalButton" name="logout">Logout</button>
+              <a href="stdDashboard/student.php?dashboard" class="btn generalButton">Dashboard</a>
             </form>
             <?php
             if (isset($_POST['logout'])) {

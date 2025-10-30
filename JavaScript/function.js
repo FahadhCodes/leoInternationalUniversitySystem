@@ -290,3 +290,32 @@ document.querySelectorAll("button.staffReg").forEach((button) => {
     staff.forEach((stf) => (stf.style.display = "grid"));
   });
 });
+
+cardlist = document.querySelectorAll(".card_DASH");
+cardlist.forEach((card) => {
+  card.addEventListener("mouseover", () => {
+    console.log("Hi");
+    card.querySelector("h3").style.transform = "translateY(0vh)";
+    card.querySelector(".countBar").style.transform = "translate(0%, 0%)";
+    card.querySelector(".numberBar").style.transform = "translate(0%, 0%)";
+    card.querySelectorAll(".ROW-1").forEach((x) => {
+      x.style.transform = "translateY(0%)";
+    });
+    card.querySelectorAll(".ROW-2").forEach((x) => {
+      x.style.transform = "translateY(0%)";
+    });
+  });
+  card.addEventListener("mouseout", () => {
+    console.log("Hi");
+    card.querySelector("h3").style.transform = "translateY(5vh)";
+    card.querySelector(".countBar").style.transform = "translate(-107%, 0%)";
+    card.querySelector(".numberBar").style.transform = "translate(564%, 0%)";
+    card.querySelector(".numberBar").style.transform = "translate(564%, 0%)";
+    card.querySelectorAll(".ROW-1").forEach((x) => {
+      x.style.transform = "translateY(310%)";
+    });
+    card.querySelectorAll(".ROW-2").forEach((x) => {
+      x.style.transform = "translateY(210%)";
+    });
+  });
+});

@@ -122,6 +122,7 @@ button[type="submit"],
   color: var(--color9);
   font-weight: 700;
   border: none;
+  transition: all 0.3s;
 }
 
 .buttonset2 {
@@ -173,6 +174,7 @@ h1.mainheading {
   grid-template-columns: 1fr 4fr 4fr 1fr;
   gap: 0px;
 }
+select,
 .formContainer > input,
 .formContainer > select,
 .inputBarDesign {
@@ -196,6 +198,14 @@ h1.mainheading {
   color: var(--color1);
   background-color: var(--color9);
 }
+select {
+  background-color: var(--color1);
+  color: var(--color9);
+}
+select > option:hover {
+  color: var(--color1);
+  background-color: var(--color9);
+}
 .formContainer > .depa,
 .formContainer > .sub,
 .hiddenFormElement,
@@ -203,6 +213,7 @@ h1.mainheading {
   transform: scale(0, 0);
   transition: all 0.5s ease;
 }
+
 .formContainer > input:focus,
 .formContainer > select:focus,
 .inputBarDesign:focus,
@@ -236,7 +247,8 @@ h1.mainheading {
   font-weight: 600;
   align-self: center;
 }
-.formContainer > h2 {
+.formContainer > h2,
+.headType1 {
   grid-column: span 4;
   font-weight: 700;
   color: var(--color1);
@@ -2061,3 +2073,178 @@ button.passwordButton:active {
     opacity: 0;
   }
 }
+
+/* dashbords */
+/* students_dashboards */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #f7f9fb;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: minmax(50px, 100px) 30fr;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--color1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px 30px;
+  overflow-y: auto;
+}
+
+.header {
+  background-color: var(--color7);
+  grid-column: span 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#yearSelector,
+#subjectSearch {
+  padding: 10px;
+  font-size: 1rem;
+}
+/* Bottom Section */
+.bottom-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+/* Subject Results Popup */
+.subject-results {
+}
+
+/* Task Cards */
+.task-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+  height: 25vh;
+}
+.dashBordTable {
+  height: 80%;
+  width: 100%;
+}
+.card_DASH {
+  display: flex;
+  background: var(--color1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px #00000072;
+  transition: transform 0.2s;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card_DASH:hover {
+  transform: translateY(-4px);
+}
+
+.card_DASH h3 {
+  font-weight: 700;
+  color: var(--color9);
+  transform: translateY(5vh);
+  transition: all 0.5s ease;
+}
+.countBar {
+  border: 1px solid var(--colorA);
+  height: 10px;
+  width: 100%;
+  overflow: hidden;
+  transform: translate(-107%, 0%);
+  transition: all 0.5s ease;
+}
+.numberBar {
+  transform: translate(564%, 0%);
+  transition: all 0.5s ease;
+}
+.ROW-1 {
+  transform: translateY(310%);
+  transition: all 0.5s ease;
+}
+.ROW-2 {
+  transform: translateY(210%);
+  transition: all 0.5s ease;
+}
+.bar {
+  display: block;
+  height: 100%;
+  width: 90%;
+  background-color: var(--colorA);
+}
+
+.profileCard {
+  background-color: var(--color1);
+  width: fit-content;
+  padding: 0.2em;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-self: center;
+}
+.profilePicture {
+  border-radius: 50%;
+}
+.logoDashboard {
+  flex-grow: 2fr;
+}
+
+a.dashBoardLink {
+  color: var(--color6);
+  font-size: 2em;
+}
+.textBOX {
+  font-size: 0em;
+  transition: all 0.3s ease;
+}
+a.dashBoardLink:hover {
+  color: var(--color9);
+  transition: all 0.3s ease;
+}
+.sideBarContet {
+  height: 100%;
+}
+.sideBarContet:hover {
+  cursor: pointer;
+}
+.sideBarContet:hover .textBOX {
+  font-size: 0.9em;
+}
+.fa-solid {
+  transition: all 0.3s ease;
+}
+.sideBarContet:hover .fa-solid {
+  font-size: 0.85em;
+}
+
+div.message-box {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 3fr 3fr 1fr;
+  grid-column: span 2;
+}
+.dashBordMessage {
+  grid-column: span 3;
+}
+textarea.message-box {
+  height: 120px;
+  grid-column: span 3;
+}
+.dashBordsendButton {
+  grid-column-start: 4;
+}
+/* students_dashboards ends */
+/* dashbords ends*/
