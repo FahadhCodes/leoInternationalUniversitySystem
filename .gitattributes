@@ -1,0 +1,5 @@
+# Treat all .php files as PHP (not Hack)
+*.php linguist-language=PHP
+
+# Ignore vendor or auto-generated files
+vendor/* linguist-vendored

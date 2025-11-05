@@ -1,0 +1,32 @@
+26/10/2025 (pushed-date)
+1) add "Dashbord" button for both (students and staffs) details cards
+2) Design & create seperate dashboard pages for both
+    ----students
+        GPA calculator
+        Grading Plotes
+        message box for contact staffs(Lectures)
+
+    ----staffs(Lectures)
+        uploades lecture metirials
+        submit students results to the higher officials(Faculty Dean)
+        sent message to specific students
+        assign task as...
+            i)    group wise 
+            ii)   Department wise
+            iii)  Gender wise
+
+30/10/2025 (pushed-date)
+1) student dashbord home page UI ✅
+2) student dashbord subjects should dynamically shows according to the selected year OR searched    
+   subjects (try lear fetch.API or jQuery dynamic wepage updating technique) 
+3) Side Bar content should be make functional
+
+  ----staffs(Lectures)
+        uploades lecture metirials
+        submit students results to the higher officials(Faculty Dean)
+        sent message to specific students
+        assign task as...
+            i)    group wise 
+            ii)   Department wise
+            iii)  Gender wise
+4) have to make some interactive animation on the university page using GSAP.js library (learn before use it)
