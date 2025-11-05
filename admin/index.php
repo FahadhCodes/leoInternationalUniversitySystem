@@ -193,7 +193,7 @@ if (isset($_POST['AdminSub'])) {
     </script>
     <?php if ($_SESSION['type'] ?? "" === "danger") : ?>
         <script>
-            autoToast("dangers", strtoupper("Admin acredentials are incorrect contact the Developer"));
+            autoToast("dangers", ("Admin acredentials are incorrect contact the Developer").toUpperCase());
             setTimeout(() => {
                 document.querySelector("#dev>img").style.height = "60px";
             }, 50);
