@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2025 at 08:22 PM
+-- Generation Time: Nov 06, 2025 at 03:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,6 +81,14 @@ CREATE TABLE `eventtable` (
   `bgmImage` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `eventtable`
+--
+
+INSERT INTO `eventtable` (`eventID`, `eventTitle`, `eventLocation`, `eventDate`, `bgmImage`) VALUES
+(1, 'Inter University Games 2025', 'University Stadium – Ground A', '2025-11-18', '1.jpg'),
+(2, 'Hackatons-2025', 'Main Computer Lab Building', '2025-11-11', '2.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -119,6 +127,14 @@ CREATE TABLE `notice` (
   `faculty` varchar(255) DEFAULT NULL,
   `departments` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notice`
+--
+
+INSERT INTO `notice` (`notice_id`, `title`, `content`, `faculty`, `departments`) VALUES
+(1, 'Calling Exam Applications', 'Year III Semester I\r\nMedical & Repeat', 'AP', 'Department of Physical Sciences and Technology '),
+(2, 'Issuing Admission Card', 'Year I, Year II and Year III', 'SS', 'All Department');
 
 -- --------------------------------------------------------
 
@@ -163,7 +179,65 @@ CREATE TABLE `staffs` (
   `sub_role` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `staffs`
+--
 
+INSERT INTO `staffs` (`staffID`, `staff_fname`, `staff_lname`, `dob`, `nic`, `mail`, `gender`, `profile_pic`, `role`, `sub_role`) VALUES
+('ALF_A_22567', 'Alice', 'Perera', '1985-08-22', '198508225678', 'aliceP@c.leo.ac.lk', 'Female', NULL, 'Academic', '2'),
+('ALN_NA_22567', 'Ayesha', 'Liyanage', '1980-03-22', '198003223456', 'ayeshaL@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '2'),
+('AMF_A_44567', 'Anjali', 'Mendis', '1984-01-20', '198401209876', 'anjaliM@c.leo.ac.lk', 'Female', NULL, 'Academic', '4'),
+('AMN_NA_44567', 'Amara', 'Nissanka', '1979-02-20', '197902206789', 'amaraN@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '4'),
+('CTM_A_33567', 'Chaminda', 'Tissera', '1979-06-15', '197906154567', 'chamindaT@ap.leo.ac.lk', 'Male', NULL, 'Academic', '3'),
+('CTN_NA_33567', 'Chathura', 'Thennakoon', '1974-08-15', '197408152345', 'chathuraT@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '3'),
+('DWM_A_31234', 'Dinesh', 'Weerasinghe', '1983-09-12', '198309123456', 'dineshW@tc.leo.ac.lk', 'Male', NULL, 'Academic', '3'),
+('DWM_A_31256', 'Damith', 'Wickramasinghe', '1981-10-15', '198110156789', 'damithW@ms.leo.ac.lk', 'Male', NULL, 'Academic', '3'),
+('DWN_NA_31234', 'Dilshan', 'Wanniarachchi', '1977-04-12', '197704128765', 'dilshanW@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '2'),
+('DWN_NA_31256', 'Dhanushka', 'Wijeratne', '1976-10-15', '197610157654', 'dhanushkaW@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '2'),
+('EMF_A_44512', 'Emma', 'Silva', '1982-11-30', '198211309876', 'emmaS@md.leo.ac.lk', 'Female', NULL, 'Academic', '4'),
+('EMN_NA_44512', 'Erandi', 'Munaweera', '1978-12-30', '197812302345', 'erandiM@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '4'),
+('JDM_A_55623', 'Janaka', 'Dissanayake', '1976-12-05', '197612053214', 'janakaD@ge.leo.ac.lk', 'Male', NULL, 'Academic', '5'),
+('JDN_NA_55623', 'Jaliya', 'Dharmasena', '1971-11-05', '197111054321', 'jaliyaD@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '5'),
+('JGF_A_22345', 'Jacqueline', 'Gunasekara', '1987-02-28', '198702287654', 'jacquelineG@ag.leo.ac.lk', 'Female', NULL, 'Academic', '2'),
+('JGN_NA_22345', 'Jeevani', 'Gajanayake', '1982-01-28', '198201283456', 'jeevaniG@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '1'),
+('JSM_A_11024', 'John', 'Fernando', '1980-05-15', '198005151234', 'johnF@ap.leo.ac.lk', 'Male', NULL, 'Academic', '1'),
+('JSN_NA_11024', 'Jerome', 'Nanayakkara', '1975-06-18', '197506189876', 'jeromeN@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '1'),
+('LMF_A_61234', 'Lakmini', 'Fonseka', '1989-07-30', '198907307654', 'lakminiF@md.leo.ac.lk', 'Female', NULL, 'Academic', '6'),
+('LMN_NA_61234', 'Lasanthi', 'Marapana', '1984-09-30', '198409309876', 'lasanthiM@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '6'),
+('MTM_A_55678', 'Manoj', 'Jayawardena', '1975-07-18', '197507182345', 'manojJ@ms.leo.ac.lk', 'Male', NULL, 'Academic', '5'),
+('MTN_NA_55678', 'Malik', 'Thilakarathne', '1970-05-15', '197005156789', 'malikT@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '5'),
+('PTM_A_33489', 'Prasanna', 'Abeykoon', '1977-08-18', '197708185678', 'prasannaA@tc.leo.ac.lk', 'Male', NULL, 'Academic', '3'),
+('PTN_NA_33489', 'Pradeep', 'Thalagala', '1973-07-18', '197307183456', 'pradeepT@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '3'),
+('RBM_A_33456', 'Rajiv', 'Bandara', '1978-03-10', '197803104321', 'rajivB@ge.leo.ac.lk', 'Male', NULL, 'Academic', '3'),
+('RBN_NA_33456', 'Roshan', 'Balasuriya', '1972-09-10', '197209107654', 'roshanB@admin.leo.ac.lk', 'Male', NULL, 'NON-Academic', '3'),
+('SGF_A_22378', 'Shanika', 'Galappaththi', '1986-04-22', '198604224321', 'shanikaG@ss.leo.ac.lk', 'Female', NULL, 'Academic', '2'),
+('SGN_NA_22378', 'Sachini', 'Gamage', '1981-05-22', '198105225432', 'sachiniG@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '1'),
+('SLF_A_65987', 'Samantha', 'Ratnayake', '1988-04-25', '198804256789', 'samanthaR@ss.leo.ac.lk', 'Female', NULL, 'Academic', '6'),
+('SLN_NA_65987', 'Shiromi', 'Lokuge', '1983-07-25', '198307254321', 'shiromiL@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '6'),
+('XXX_NA_2739', '', '', '0000-00-00', '', '', '', 'XXX_NA_2739.', '0', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staffsaccount`
+--
+
+CREATE TABLE `staffsaccount` (
+  `IP` varchar(255) DEFAULT NULL,
+  `Createddate` datetime DEFAULT NULL,
+  `staffID` varchar(50) DEFAULT NULL,
+  `userName` varchar(255) DEFAULT NULL,
+  `pswrd` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staffsaccount`
+--
+
+INSERT INTO `staffsaccount` (`IP`, `Createddate`, `staffID`, `userName`, `pswrd`) VALUES
+('::1', '2025-10-26 00:14:41', 'ALF_A_22567', 'A.Perera', '$2y$10$t11g5tYrILOVomIs1V2R0uycB3slBUFs9iepwrqHFbDTtbNcO.X6.'),
+('::1', '2025-11-03 15:47:06', 'ALN_NA_22567', 'A.Liyanage', '$2y$10$U4chqIMEpiACeOWOJzt.2e5hlMDxbQTewJmrAcsEHTGNcW9/p6iR2'),
+('::1', '2025-11-04 21:21:50', 'CTM_A_33567', 'C.Tissera', '$2y$10$3rOrM.iYMcPk8s6SQv1nvu4q6famgLc7HeGX0o4vYYvARkVlcU18K');
 
 -- --------------------------------------------------------
 
@@ -180,20 +254,21 @@ CREATE TABLE `studentaccount` (
   `tag` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--------------------------------------------------------
 --
--- Table structure for table `staffsaccount`
+-- Dumping data for table `studentaccount`
 --
 
-CREATE TABLE `staffsaccount` (
-  `IP` varchar(255) DEFAULT NULL,
-  `Createddate` datetime DEFAULT NULL,
-  `staffID` varchar(50) DEFAULT NULL,
-  `userName` varchar(255) DEFAULT NULL,
-  `pswrd` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `studentaccount` (`IP`, `Createddate`, `stdID`, `userName`, `pswrd`, `tag`) VALUES
+('::1', '2025-08-18 02:08:15', '20APF7261', 'Z.Niyas', '$2y$10$JOVds0o2dEo.agi/cyjfWeKrYVFj8p34QUdLUCsDUa5kYy1ADmROa', 'BR'),
+('::1', '2025-08-18 09:53:53', '20MDP2123', 'Q.Perera', '$2y$10$0SUt/bJstYSG7yj4ce.bLe3oWqIl1LZBfz7VfVtdovqGXEO..C996', 'BR'),
+('::1', '2025-08-18 09:55:20', '20GRS9123', 'G.Tissera', '$2y$10$8J8KNukc7oi6lq2Q5U9vCOQbdMAmAovFTY8U6okSGESw6FNPE6FjG', 'BR'),
+('::1', '2025-08-18 09:56:00', '20GSG5936', 'W.Kariyawasam', '$2y$10$/K6JBQiwlnT6KEUxG.f8buyWpdffH25I2GmSbN4St69.YgryPSS4e', 'BR'),
+('::1', '2025-08-18 10:12:12', '21APP7890', 'N.Herath', '$2y$10$eqhBVyx7/mg/tUpsIt0tNO68cSBOvbgGsgSbnXwQhLhue8N7UqzPW', 'TI'),
+('::1', '2025-08-18 13:56:57', '20ASL5123', 'R.Gunaratne', '$2y$10$moDQdAr505O80Homz59p6.6V3j1a6zbayQVenn9.gO3WHvWv/1e3C', 'TI'),
+('::1', '2025-08-21 01:33:06', '20TET5123', 'H.Peiris', '$2y$10$aPt9hCuNz1WizFV82yFdIe4G6mRlGstTe/9FDOk/ZvY8.GAOmpNGi', 'AE'),
+('::1', '2025-08-29 07:37:23', '24MAF7890', 'V.Lokuge', '$2y$10$yftV4gYmr/KkqRvaKkPKZe11Hspdx9XIUYlg2xajAWXy5hMqjxmgm', NULL);
 
--------------------------------------------------------
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `studets`
@@ -212,6 +287,125 @@ CREATE TABLE `studets` (
   `aYear` varchar(7) NOT NULL,
   `profile_pic_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `studets`
+--
+
+INSERT INTO `studets` (`stdID`, `std_fname`, `std_lname`, `std_dob`, `nic`, `email`, `gender`, `faculty_id`, `department_id`, `aYear`, `profile_pic_path`) VALUES
+('20APF5123', 'Saman', 'Jayawardena', '2000-04-10', '200004101234', 'samanJ@ap.leo.ac.lk', 'Male', 'AP', 'APF', '19/20', ''),
+('20APF7261', 'Zainab', 'Niyas', '2000-02-25', '200002251636', 'zainabN@ap.leo.ac.lk', 'Female', 'AP', 'APF', '19/20', ''),
+('20APN3716', 'Erandi', 'Seneviratne', '2000-12-19', '200012196181', 'erandiS@ap.leo.ac.lk', 'Female', 'AP', 'APN', '19/20', ''),
+('20APN6123', 'Tharindu', 'Ratnayake', '2000-07-17', '200007171358', 'tharinduR@ap.leo.ac.lk', 'Male', 'AP', 'APN', '19/20', ''),
+('20ASA4123', 'Kamal', 'Perera', '2000-05-12', '200005121234', 'kamalP@ag.leo.ac.lk', 'Male', 'AG', 'ASA', '19/20', ''),
+('20ASA6157', 'Nuwan', 'Kodithuwakku', '2000-01-14', '200001141575', 'nuwanK@ag.leo.ac.lk', 'Male', 'AG', 'ASA', '19/20', ''),
+('20ASL2648', 'Uthpala', 'Kobbekaduwa', '2000-11-03', '200011036020', 'uthpalaK@ag.leo.ac.lk', 'Female', 'AG', 'ASL', '19/20', ''),
+('20ASL5123', 'Ruwan', 'Gunaratne', '2000-08-25', '200008251357', 'ruwanG@ag.leo.ac.lk', 'Male', 'AG', 'ASL', '19/20', ''),
+('20GRS9123', 'Gayan', 'Tissera', '2000-09-12', '200009121234', 'gayanT@ge.leo.ac.lk', 'Male', 'GE', 'GRS', '19/20', ''),
+('20GRS9481', 'Ravindu', 'Fonseka', '2000-04-27', '200004271838', 'ravinduF@ge.leo.ac.lk', 'Male', 'GE', 'GRS', '19/20', ''),
+('20GSG0123', 'Lalith', 'Wickremesinghe', '2000-12-05', '200012051360', 'lalithW@ge.leo.ac.lk', 'Male', 'GE', 'GSG', '19/20', ''),
+('20GSG5936', 'Wathsala', 'Kariyawasam', '2000-02-12', '200002128383', 'wathsalaK@ge.leo.ac.lk', 'Female', 'GE', 'GSG', '19/20', ''),
+('20MAF5123', 'Rangana', 'Gamage', '2000-08-18', '200008181234', 'ranganaG@ms.leo.ac.lk', 'Male', 'MS', 'MAF', '19/20', ''),
+('20MAF7269', 'Hiruni', 'Vitharana', '2000-06-08', '200006082939', 'hiruniV@ms.leo.ac.lk', 'Female', 'MS', 'MAF', '19/20', ''),
+('20MBM2714', 'Malith', 'Abeysekara', '2000-04-23', '200004237484', 'malithA@ms.leo.ac.lk', 'Male', 'MS', 'MBM', '19/20', ''),
+('20MBM6123', 'Wasantha', 'Mendis', '2000-11-27', '200011271362', 'wasanthaM@ms.leo.ac.lk', 'Male', 'MS', 'MBM', '19/20', ''),
+('20MDA1123', 'Lakmal', 'Zoysa', '2000-06-25', '200006251234', 'lakmalZ@md.leo.ac.lk', 'Male', 'MD', 'MDA', '19/20', ''),
+('20MDA7159', 'Xavier', 'Liyanage', '2000-05-28', '200005281939', 'xavierL@md.leo.ac.lk', 'Male', 'MD', 'MDA', '19/20', ''),
+('20MDP2123', 'Quentin', 'Perera', '2000-10-19', '200010191361', 'quentinP@md.leo.ac.lk', 'Male', 'MD', 'MDP', '19/20', ''),
+('20MDP2604', 'Chathura', 'Qadir', '2000-03-13', '200003137484', 'chathuraQ@md.leo.ac.lk', 'Male', 'MD', 'MDP', '19/20', ''),
+('20SLE6123', 'Wasantha', 'Premaratne', '2000-10-05', '200010051234', 'wasanthaP@ss.leo.ac.lk', 'Male', 'SS', 'SLE', '19/20', ''),
+('20SLG7123', 'Chamari', 'Wickramasinghe', '2000-12-15', '200012151363', 'chamariW@ss.leo.ac.lk', 'Female', 'SS', 'SLG', '19/20', ''),
+('20TBT4123', 'Chamara', 'Wijesekara', '2000-12-15', '200012151234', 'chamaraW@tc.leo.ac.lk', 'Male', 'TC', 'TBT', '19/20', ''),
+('20TET5123', 'Harsha', 'Peiris', '2000-11-25', '200011251364', 'harshaP@tc.leo.ac.lk', 'Male', 'TC', 'TET', '19/20', ''),
+('21APN6789', 'Kanchana', 'Wickramasinghe', '2001-08-25', '200108252345', 'kanchanaW@ap.leo.ac.lk', 'Female', 'AP', 'APN', '20/21', ''),
+('21APN8372', 'Amila', 'Ovitigala', '2001-07-30', '200107302747', 'amilaO@ap.leo.ac.lk', 'Male', 'AP', 'APN', '20/21', ''),
+('21APP4827', 'Fazal', 'Thahir', '2001-10-24', '200110247292', 'fazalT@ap.leo.ac.lk', 'Male', 'AP', 'APP', '20/21', ''),
+('21APP6712', 'Fahadh', 'Muhammadh', '2001-11-01', '200130600443', 'fahadmohamed2948@gmail.com', 'male', 'AP', 'APP', '21/22', 'FahadhMuhammadh_21APP6712.jpeg'),
+('21APP7890', 'Nadeesha', 'Herath', '2001-05-22', '200105222469', 'nadeeshaH@ap.leo.ac.lk', 'Female', 'AP', 'APP', '20/21', ''),
+('21ASA3759', 'Viraj', 'Liyanagamage', '2001-09-16', '200109167131', 'virajL@ag.leo.ac.lk', 'Male', 'AG', 'ASA', '20/21', ''),
+('21ASA6879', 'Shiromi', 'Peiris', '2001-04-30', '200104302468', 'shiromiP@ag.leo.ac.lk', 'Female', 'AG', 'ASA', '20/21', ''),
+('21ASE5876', 'Nimali', 'Fernando', '2001-03-18', '200103182345', 'nimaliF@ag.leo.ac.lk', 'Female', 'AG', 'ASE', '20/21', ''),
+('21ASE7284', 'Piyumi', 'Vithanage', '2001-06-29', '200106292686', 'piyumiV@ag.leo.ac.lk', 'Female', 'AG', 'ASE', '20/21', ''),
+('21GRS6789', 'Manori', 'Peiris', '2001-07-10', '200107102471', 'manoriP@ge.leo.ac.lk', 'Female', 'GE', 'GRS', '20/21', ''),
+('21GSG1592', 'Sajani', 'Gunatilake', '2001-09-02', '200109022949', 'sajaniG@ge.leo.ac.lk', 'Female', 'GE', 'GSG', '20/21', ''),
+('21GSG5678', 'Hiruni', 'Nanayakkara', '2001-04-20', '200104202345', 'hiruniN@ge.leo.ac.lk', 'Female', 'GE', 'GSG', '20/21', ''),
+('21MBM5678', 'Sanduni', 'Hettiarachchi', '2001-05-30', '200105302345', 'sanduniH@ms.leo.ac.lk', 'Female', 'MS', 'MBM', '20/21', ''),
+('21MBM8370', 'Isuru', 'Wickremasinghe', '2001-11-13', '200111133040', 'isuruW@ms.leo.ac.lk', 'Male', 'MS', 'MBM', '20/21', ''),
+('21MDB5678', 'Manori', 'Alwis', '2001-03-12', '200103122345', 'manoriA@md.leo.ac.lk', 'Female', 'MD', 'MDB', '20/21', ''),
+('21MDB8260', 'Yasodara', 'Mendis', '2001-10-03', '200110033040', 'yasodaraM@md.leo.ac.lk', 'Female', 'MD', 'MDB', '20/21', ''),
+('21MDPH3715', 'Dilrukshi', 'Rathnayake', '2001-08-18', '200108188595', 'dilrukshiR@md.leo.ac.lk', 'Female', 'MD', 'MDPH', '20/21', ''),
+('21MDPH6789', 'Ramani', 'Silva', '2001-08-24', '200108242472', 'ramaniS@md.leo.ac.lk', 'Female', 'MD', 'MDPH', '20/21', ''),
+('21MMM3825', 'Nimashi', 'Bandara', '2001-09-28', '200109288595', 'nimashiB@ms.leo.ac.lk', 'Female', 'MS', 'MMM', '20/21', ''),
+('21MMM7890', 'Yasodha', 'Nanayakkara', '2001-09-02', '200109022473', 'yasodhaN@ms.leo.ac.lk', 'Female', 'MS', 'MMM', '20/21', ''),
+('21SLG5678', 'Yasodha', 'Ratnayake', '2001-07-18', '200107182345', 'yasodhaR@ss.leo.ac.lk', 'Female', 'SS', 'SLG', '20/21', ''),
+('21SLL6789', 'Dinesh', 'Alwis', '2001-10-20', '200110202474', 'dineshA@ss.leo.ac.lk', 'Male', 'SS', 'SLL', '20/21', ''),
+('21TBT6789', 'Iresha', 'Silva', '2001-08-30', '200108302475', 'ireshaS@tc.leo.ac.lk', 'Female', 'TC', 'TBT', '20/21', ''),
+('21TET5678', 'Dilhani', 'Ekanayake', '2001-09-22', '200109222345', 'dilhaniE@tc.leo.ac.lk', 'Female', 'TC', 'TET', '20/21', ''),
+('22APF5938', 'Gimhani', 'Uduwawala', '2002-06-09', '200206098303', 'gimhaniU@ap.leo.ac.lk', 'Female', 'AP', 'APF', '21/22', ''),
+('22APF9345', 'Chaminda', 'Weerasinghe', '2002-10-05', '200210053580', 'chamindaW@ap.leo.ac.lk', 'Male', 'AP', 'APF', '21/22', ''),
+('22APP8901', 'Ruwan', 'Gunasekara', '2002-01-12', '200201123456', 'ruwanG@ap.leo.ac.lk', 'Male', 'AP', 'APP', '21/22', ''),
+('22APP9483', 'Buddhika', 'Pannila', '2002-04-12', '200204123858', 'buddhikaP@ap.leo.ac.lk', 'Male', 'AP', 'APP', '21/22', ''),
+('22ASE4860', 'Yasas', 'Mudalige', '2002-05-21', '200205218242', 'yasasM@ag.leo.ac.lk', 'Male', 'AG', 'ASE', '21/22', ''),
+('22ASE8234', 'Lakmal', 'Jayasuriya', '2002-09-15', '200209153579', 'lakmalJ@ag.leo.ac.lk', 'Male', 'AG', 'ASE', '21/22', ''),
+('22ASL7234', 'Sunil', 'Rathnayake', '2002-07-22', '200207223456', 'sunilR@ag.leo.ac.lk', 'Male', 'AG', 'ASL', '21/22', ''),
+('22ASL8391', 'Roshan', 'Dabare', '2002-03-07', '200203073797', 'roshanD@ag.leo.ac.lk', 'Male', 'AG', 'ASL', '21/22', ''),
+('22GRS2603', 'Tharaka', 'Hettiarachchi', '2002-06-17', '200206175050', 'tharakaH@ge.leo.ac.lk', 'Male', 'GE', 'GRS', '21/22', ''),
+('22GRS8901', 'Isuru', 'Balasuriya', '2002-08-15', '200208153456', 'isuruB@ge.leo.ac.lk', 'Male', 'GE', 'GRS', '21/22', ''),
+('22GSG9012', 'Nalin', 'Karunaratne', '2002-02-25', '200202253582', 'nalinK@ge.leo.ac.lk', 'Male', 'GE', 'GSG', '21/22', ''),
+('22MDF8901', 'Niroshan', 'Pathirana', '2002-07-08', '200207083456', 'niroshanP@md.leo.ac.lk', 'Male', 'MD', 'MDF', '21/22', ''),
+('22MDF9371', 'Zahir', 'Nanayakkara', '2002-07-18', '200207184151', 'zahirN@md.leo.ac.lk', 'Male', 'MD', 'MDF', '21/22', ''),
+('22MDS4826', 'Eshan', 'Samarawickrama', '2002-05-03', '200205039606', 'eshanS@md.leo.ac.lk', 'Male', 'MD', 'MDS', '21/22', ''),
+('22MDS9012', 'Saman', 'Fernando', '2002-03-07', '200203073583', 'samanF@md.leo.ac.lk', 'Male', 'MD', 'MDS', '21/22', ''),
+('22MMM8901', 'Tharindu', 'Jayasinghe', '2002-09-15', '200209153456', 'tharinduJ@ms.leo.ac.lk', 'Male', 'MS', 'MMM', '21/22', ''),
+('22MMM9481', 'Jayani', 'Xavier', '2002-08-28', '200208284151', 'jayaniX@ms.leo.ac.lk', 'Female', 'MS', 'MMM', '21/22', ''),
+('22MTM4936', 'Ovin', 'Cooray', '2002-06-13', '200206139606', 'ovinC@ms.leo.ac.lk', 'Male', 'MS', 'MTM', '21/22', ''),
+('22MTM9123', 'Zacky', 'Peiris', '2002-04-17', '200204173584', 'zackyP@ms.leo.ac.lk', 'Male', 'MS', 'MTM', '21/22', ''),
+('22SLL8901', 'Zacky', 'Seneviratne', '2002-02-28', '200202283456', 'zackyS@ss.leo.ac.lk', 'Male', 'SS', 'SLL', '21/22', ''),
+('22SLT9012', 'Eranga', 'Bandara', '2002-05-05', '200205053585', 'erangaB@ss.leo.ac.lk', 'Male', 'SS', 'SLT', '21/22', ''),
+('22TBT8901', 'Eshan', 'Kulatunga', '2002-04-05', '200204053456', 'eshanK@tc.leo.ac.lk', 'Male', 'TC', 'TBT', '21/22', ''),
+('22TET9012', 'Janaka', 'Almeida', '2002-03-15', '200203153586', 'janakaA@tc.leo.ac.lk', 'Male', 'TC', 'TET', '21/22', ''),
+('23APN5678', 'Shamali', 'Dissanayake', '2001-11-28', '200111284691', 'shamaliD@ap.leo.ac.lk', 'Female', 'AP', 'APN', '22/23', ''),
+('23APN6049', 'Harsha', 'Vitharana', '2001-11-14', '200111149414', 'harshaV@ap.leo.ac.lk', 'Male', 'AP', 'APN', '22/23', ''),
+('23APS1594', 'Chamodi', 'Qureshi', '2001-09-27', '200109274969', 'chamodiQ@ap.leo.ac.lk', 'Female', 'AP', 'APS', '22/23', ''),
+('23APS4567', 'Dilini', 'Abeysekara', '2001-09-18', '200109184567', 'diliniA@ap.leo.ac.lk', 'Female', 'AP', 'APS', '22/23', ''),
+('23ASA3567', 'Chamari', 'Silva', '2001-11-30', '200111304567', 'chamariS@ag.leo.ac.lk', 'Female', 'AG', 'ASA', '22/23', ''),
+('23ASA9426', 'Sachini', 'Hapugoda', '2001-08-22', '200108224808', 'sachiniH@ag.leo.ac.lk', 'Female', 'AG', 'ASA', '22/23', ''),
+('23ASL4567', 'Anoma', 'Wickramasinghe', '2001-12-08', '200112084680', 'anomaW@ag.leo.ac.lk', 'Female', 'AG', 'ASL', '22/23', ''),
+('23GRS4567', 'Oshadi', 'Samarakoon', '2001-09-08', '200109084693', 'oshadiS@ge.leo.ac.lk', 'Female', 'GE', 'GRS', '22/23', ''),
+('23GSG3456', 'Janani', 'Dharmasena', '2001-10-30', '200110304567', 'jananiD@ge.leo.ac.lk', 'Female', 'GE', 'GSG', '22/23', ''),
+('23GSG3714', 'Umayanga', 'Illangakoon', '2001-11-22', '200111226161', 'umayangaI@ge.leo.ac.lk', 'Male', 'GE', 'GSG', '22/23', ''),
+('23MAF4567', 'Amandi', 'Ratnayake', '2001-10-20', '200110204695', 'amandiR@ms.leo.ac.lk', 'Female', 'MS', 'MAF', '22/23', ''),
+('23MDM0482', 'Ama', 'Ovitigama', '2001-12-23', '200112235262', 'amaO@md.leo.ac.lk', 'Female', 'MD', 'MDM', '22/23', ''),
+('23MDM3456', 'Oshadi', 'Samarasekara', '2001-11-22', '200111224567', 'oshadiS@md.leo.ac.lk', 'Female', 'MD', 'MDM', '22/23', ''),
+('23MDMB4567', 'Tharushi', 'Gunasekara', '2001-12-30', '200112304694', 'tharushiG@md.leo.ac.lk', 'Female', 'MD', 'MDMB', '22/23', ''),
+('23MDMB5937', 'Fathima', 'Tissera', '2001-10-08', '200110081717', 'fathimaT@md.leo.ac.lk', 'Female', 'MD', 'MDMB', '22/23', ''),
+('23MTM0592', 'Kusal', 'Yapa', '2001-12-03', '200112035262', 'kusalY@ms.leo.ac.lk', 'Male', 'MS', 'MTM', '22/23', ''),
+('23MTM3456', 'Upeksha', 'Kariyawasam', '2001-12-08', '200112084567', 'upekshaK@ms.leo.ac.lk', 'Female', 'MS', 'MTM', '22/23', ''),
+('23SLE4567', 'Fathima', 'Fernando', '2001-11-18', '200111184696', 'fathimaF@ss.leo.ac.lk', 'Female', 'SS', 'SLE', '22/23', ''),
+('23SLT3456', 'Amandi', 'Tennakoon', '2001-08-14', '200108144567', 'amandiT@ss.leo.ac.lk', 'Female', 'SS', 'SLT', '22/23', ''),
+('23TBT4567', 'Kusum', 'Fernando', '2001-12-28', '200112284697', 'kusumF@tc.leo.ac.lk', 'Female', 'TC', 'TBT', '22/23', ''),
+('23TET3456', 'Fathima', 'Mohideen', '2001-10-18', '200110184567', 'fathimaM@tc.leo.ac.lk', 'Female', 'TC', 'TET', '22/23', ''),
+('24APF1234', 'Prasanna', 'Fonseka', '2003-06-30', '200306306789', 'prasannaF@ap.leo.ac.lk', 'Male', 'AP', 'APF', '23/24', ''),
+('24APF2605', 'Dhanushka', 'Ratnayake', '2003-05-14', '200305145070', 'dhanushkaR@ap.leo.ac.lk', 'Male', 'AP', 'APF', '23/24', ''),
+('24APS1902', 'Dilshan', 'Peiris', '2003-04-15', '200304155702', 'dilshanP@ap.leo.ac.lk', 'Male', 'AP', 'APS', '23/24', ''),
+('24APS7150', 'Ishara', 'Wickramasooriya', '2003-08-29', '200308295525', 'isharaW@ap.leo.ac.lk', 'Male', 'AP', 'APS', '23/24', ''),
+('24ASA7890', 'Prasanna', 'Alwis', '2003-05-22', '200305225791', 'prasannaA@ag.leo.ac.lk', 'Male', 'AG', 'ASA', '23/24', ''),
+('24ASE1537', 'Thilina', 'Jayasekara', '2003-04-18', '200304185919', 'thilinaJ@ag.leo.ac.lk', 'Male', 'AG', 'ASE', '23/24', ''),
+('24ASE6890', 'Dinesh', 'Bandara', '2003-02-15', '200302156789', 'dineshB@ag.leo.ac.lk', 'Male', 'AG', 'ASE', '23/24', ''),
+('24GRS4825', 'Vihanga', 'Jayakody', '2003-07-07', '200307077272', 'vihangaJ@ge.leo.ac.lk', 'Male', 'GE', 'GRS', '23/24', ''),
+('24GRS7890', 'Kasun', 'Herath', '2003-01-18', '200301186789', 'kasunH@ge.leo.ac.lk', 'Male', 'GE', 'GRS', '23/24', ''),
+('24GSG1234', 'Pradeep', 'Gamage', '2003-06-20', '200306205704', 'pradeepG@ge.leo.ac.lk', 'Male', 'GE', 'GSG', '23/24', ''),
+('24MAF1603', 'Lihini', 'Zoysa', '2003-09-18', '200309186373', 'lihiniZ@ms.leo.ac.lk', 'Female', 'MS', 'MAF', '23/24', ''),
+('24MAF7890', 'Viraj', 'Lokuge', '2003-04-22', '200304226789', 'virajL@ms.leo.ac.lk', 'Male', 'MS', 'MAF', '23/24', ''),
+('24MBM1234', 'Bhanuka', 'Silva', '2003-07-05', '200307055706', 'bhanukaS@ms.leo.ac.lk', 'Male', 'MS', 'MBM', '23/24', ''),
+('24MDA1234', 'Upul', 'Jayasundera', '2003-09-15', '200309155705', 'upulJ@md.leo.ac.lk', 'Male', 'MD', 'MDA', '23/24', ''),
+('24MDA6048', 'Gayan', 'Udugama', '2003-06-23', '200306232828', 'gayanU@md.leo.ac.lk', 'Male', 'MD', 'MDA', '23/24', ''),
+('24MDMB1593', 'Bhanu', 'Prasanna', '2003-08-08', '200308086373', 'bhanuP@md.leo.ac.lk', 'Male', 'MD', 'MDMB', '23/24', ''),
+('24MDMB7890', 'Prabath', 'Wickramaratne', '2003-02-14', '200302146789', 'prabathW@md.leo.ac.lk', 'Male', 'MD', 'MDMB', '23/24', ''),
+('24SLE7890', 'Bhanuka', 'Udawatte', '2003-01-30', '200301306789', 'bhanukaU@ss.leo.ac.lk', 'Male', 'SS', 'SLE', '23/24', ''),
+('24SLG1234', 'Gayan', 'Gunasekara', '2003-08-03', '200308035707', 'gayanG@ss.leo.ac.lk', 'Male', 'SS', 'SLG', '23/24', ''),
+('24TBT7890', 'Gihan', 'Navaratne', '2003-05-30', '200305306789', 'gihanN@tc.leo.ac.lk', 'Male', 'TC', 'TBT', '23/24', ''),
+('24TET1234', 'Lakshan', 'Gunasekara', '2003-09-10', '200309105708', 'lakshanG@tc.leo.ac.lk', 'Male', 'TC', 'TET', '23/24', '');
 
 -- --------------------------------------------------------
 
@@ -232,7 +426,6 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`subject_id`, `department_id`, `Year`, `semester`, `subject_name`) VALUES
-('', 'MBM', 0, 0, ''),
 ('FST1101', 'APF', 1, 1, 'Introduction to Food Science and Technology'),
 ('FST1102', 'APF', 1, 1, 'Food Biology and Practicum'),
 ('FST1103', 'APF', 1, 1, 'General Chemistry for Food Science'),
