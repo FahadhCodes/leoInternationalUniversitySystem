@@ -2163,7 +2163,7 @@ button.passwordButton:active {
   transition: all 0.5s ease;
 }
 .numberBar {
-  transform: translate(564%, 0%);
+  transform: translate(650%, 0%);
   transition: all 0.5s ease;
 }
 /* dashboarCard Specific */

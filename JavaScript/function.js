@@ -310,7 +310,7 @@ cardlist.forEach((card) => {
   });
   card.addEventListener("mouseout", () => {
     card.querySelector("h3").style.transform = "translateY(5vh)";
-    card.querySelector(".numberBar").style.transform = "translate(564%, 0%)";
+    card.querySelector(".numberBar").style.transform = "translate(650%, 0%)";
     card.querySelector(".countBar").style.transform = "translate(-107%, 0%)";
     card.querySelectorAll(".ROW-1").forEach((x) => {
       x.style.transform = "translateY(310%)";
