@@ -69,7 +69,7 @@ include('../Includes/function.php');
                     <img src="../static images/LOGO1.png" width="125px">
                 </a>
                 <div class="path">
-                    <a href="student_dashboard.php" class="themLink fs-4">Home</a>
+                    <a href="student.php?dashboard" class="themLink">Home</a>
                 </div>
             </div>
             <div class="Container d-flex align-items-center">
@@ -96,7 +96,7 @@ include('../Includes/function.php');
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sideBarContet text-center">
-                <a class="dashBoardLink" href="student_dashboard.php" title="Home">
+                <a class="dashBoardLink" href="student.php?dashboard" title="Home">
                     <i class="fa-solid fa-house"></i>
                 </a>
                 <div class="textBOX tradi-yellow2">Home</div>

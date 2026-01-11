@@ -300,7 +300,9 @@ cardlist.forEach((card) => {
   card.addEventListener("mouseover", () => {
     card.querySelector("h3").style.transform = "translateY(0vh)";
     card.querySelector(".numberBar").style.transform = "translate(0%, 0%)";
+    card.querySelector(".numberBar").style.opacity = "1";
     card.querySelector(".countBar").style.transform = "translate(0%, 0%)";
+    card.querySelector(".countBar").style.opacity = "1";
     card.querySelectorAll(".ROW-1").forEach((x) => {
       x.style.transform = "translateY(0%)";
     });
@@ -311,7 +313,9 @@ cardlist.forEach((card) => {
   card.addEventListener("mouseout", () => {
     card.querySelector("h3").style.transform = "translateY(5vh)";
     card.querySelector(".numberBar").style.transform = "translate(564%, 0%)";
+    card.querySelector(".numberBar").style.opacity = "0";
     card.querySelector(".countBar").style.transform = "translate(-107%, 0%)";
+    card.querySelector(".countBar").style.opacity = "0";
     card.querySelectorAll(".ROW-1").forEach((x) => {
       x.style.transform = "translateY(310%)";
     });

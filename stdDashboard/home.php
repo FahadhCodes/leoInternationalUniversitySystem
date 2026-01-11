@@ -72,8 +72,8 @@
         </div>
         <div class="subject-results">
             <h2 class="headType1 text-center pb-3">Subjects</h2>
-            <div class="row pb-3 px-3 align-items-center">
-                <select name="" id="" class="col-3">
+            <div class="row pb-3 px-lg-3 align-items-center">
+                <select name="" id="" class="col-lg-3 col-12">
                     <option value="0" selected hidden>Select Year</option>
                     <option value="1">1.1</option>
                     <option value="2">1.2</option>
@@ -84,11 +84,11 @@
                     <option value="7">4.1</option>
                     <option value="8">4.2</option>
                 </select>
-                <label for="search" class="fw-bolder col-2">Search: </label>
-                <input type="search" name="search" id="search" class="inputBarDesign search read col-6">
+                <label for="search" class="fw-bolder col-lg-2 col-12">Search: </label>
+                <input type="search" name="search" id="search" class="inputBarDesign search read col-10">
                 <button
                     type="submit"
-                    class="btn btn-dark submit-C read btn readButton col-1">
+                    class="btn btn-dark submit-C read btn readButton col-2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -126,7 +126,7 @@
             </table>
         </div>
         <div class="message-box">
-            <h2 class="headType1 text-center pb-3">Send Message to Lecturer</h2>
+            <h2 class="headType1 text-center pb-3 pt-md-3">Send Message to Lecturer</h2>
             <label for="Email">Lecturer Email: </label>
             <input id="Email" type="text" class="dashBordMessage inputBarDesign" placeholder="example@email.com">
             <label for="messageText">Message: </label>

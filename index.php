@@ -395,7 +395,7 @@ include('Includes/function.php');
     <a href="#" class="navItem nav1 navLink" title="Online Learning System">OLS</a>
     <a href="#" class="navItem nav1 navLink">Downloads</a>
     <a href="#" class="navItem nav1 navLink">Contact Us</a>
-    <div class="navItem nav1 smallsrcOnly d-flex gap-3" style="padding-right: 0.7vw !important;">
+    <div class="navItem nav1 smallsrcOnly d-flex gap-lg-3 gap-1" style="padding-right: 0.7vw !important;">
       <a href='admin/' class='navItem nav1 navLink smallsrcOnly d-flex align-content-center rounded'>ADMIN</a>
       <?php
       $UNAME = $_SESSION['UNAME'] ?? "";

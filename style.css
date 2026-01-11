@@ -1604,11 +1604,11 @@ a.footerLink:hover {
 }
 /* /previewCard */
 
-/* SmallDevices */
+/* SmallDevices Mobiles*/
 /* SmallDevice webElemnt styles */
-:root {
-  /* --bs-border-width: none; */
-}
+/* :root {
+  --bs-border-width: none;
+} */
 .offCanvasButton {
   flex-grow: 1;
   color: var(--colorA);
@@ -1672,7 +1672,7 @@ a.footerLink:hover {
     --hidout: -20vw;
     --hideout2: 25vw;
     --line: 45vh;
-    --caption3height: 10vh;
+    --caption3height: 40vh;
   }
   .navItem:not(.smallsrcOnly) {
     display: none;
@@ -1863,8 +1863,48 @@ a.footerLink:hover {
     grid-column: span 2;
   }
 }
-
+/* mobile */
 @media (min-width: 320px) and (max-width: 480px) {
+  /* landingPage */
+  .socialMedia {
+    flex-wrap: nowrap;
+  }
+  .navItem.nav1.smallsrcOnly {
+    font-size: 0.7em;
+  }
+
+  :root {
+    --caption3height: 38.5vh;
+  }
+  /* landingPage */
+  .logoDashboard > a > img {
+    width: 75px;
+  }
+  .path > a {
+    font-size: 0.9em;
+  }
+  .profile_text > p {
+    display: none;
+  }
+  .bottom-section {
+    display: block !important;
+  }
+  .dashboard-container {
+    grid-template-columns: 1fr 5fr !important;
+  }
+  .dashboard-container
+    > .main-content
+    > .bottom-section
+    > :nth-child(n)
+    > .headType1,
+  .card_DASH > .headType1 {
+    font-size: 1em;
+    padding-block: 0.8em;
+  }
+
+  table.dashBordTable {
+    font-size: 0.7em;
+  }
 }
 /* mobile properties ends */
 
@@ -2080,7 +2120,7 @@ button.passwordButton:active {
 
 .dashboard-container {
   display: grid;
-  grid-template-columns: minmax(50px, 100px) 30fr;
+  grid-template-columns: 1fr 20fr;
   height: 100vh;
 }
 
@@ -2161,9 +2201,11 @@ button.passwordButton:active {
   overflow: hidden;
   transform: translate(-107%, 0%);
   transition: all 0.5s ease;
+  opacity: 0;
 }
 .numberBar {
   transform: translate(564%, 0%);
+  opacity: 0;
   transition: all 0.5s ease;
 }
 /* dashboarCard Specific */
