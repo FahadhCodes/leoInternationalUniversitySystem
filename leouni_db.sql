@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2025 at 10:41 AM
+-- Generation Time: Jan 12, 2026 at 07:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `leouni_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assessment`
+--
+
+CREATE TABLE `assessment` (
+  `assessment_id` varchar(255) NOT NULL,
+  `subject_id` varchar(20) NOT NULL,
+  `assessment_type` varchar(20) NOT NULL,
+  `max_marks` int(11) DEFAULT NULL,
+  `weight` decimal(10,5) DEFAULT NULL,
+  `filePath` varchar(255) DEFAULT NULL,
+  `assigned_date` datetime DEFAULT NULL,
+  `closing_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -113,6 +130,26 @@ INSERT INTO `faculty` (`faculty_id`, `facultyName`) VALUES
 ('MS', 'Faculty of Management Studies'),
 ('SS', 'Faculty of Social Sciences and Languages'),
 ('TC', 'Faculty of Technology');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `finalexam`
+--
+
+CREATE TABLE `finalexam` (
+  `stdID` varchar(50) NOT NULL,
+  `subject_id` varchar(20) NOT NULL,
+  `staffID` varchar(200) DEFAULT NULL,
+  `marks` decimal(5,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `finalexam`
+--
+
+INSERT INTO `finalexam` (`stdID`, `subject_id`, `staffID`, `marks`) VALUES
+('21APP7890', 'PST22107', 'ALN_NA_22567', 75.20);
 
 -- --------------------------------------------------------
 
@@ -267,6 +304,29 @@ INSERT INTO `studentaccount` (`IP`, `Createddate`, `stdID`, `userName`, `pswrd`,
 ('::1', '2025-08-18 13:56:57', '20ASL5123', 'R.Gunaratne', '$2y$10$moDQdAr505O80Homz59p6.6V3j1a6zbayQVenn9.gO3WHvWv/1e3C', 'TI'),
 ('::1', '2025-08-21 01:33:06', '20TET5123', 'H.Peiris', '$2y$10$aPt9hCuNz1WizFV82yFdIe4G6mRlGstTe/9FDOk/ZvY8.GAOmpNGi', 'AE'),
 ('::1', '2025-08-29 07:37:23', '24MAF7890', 'V.Lokuge', '$2y$10$yftV4gYmr/KkqRvaKkPKZe11Hspdx9XIUYlg2xajAWXy5hMqjxmgm', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `studentmarkings`
+--
+
+CREATE TABLE `studentmarkings` (
+  `recodeId` varchar(255) NOT NULL,
+  `stdID` varchar(50) DEFAULT NULL,
+  `assessment_id` varchar(255) DEFAULT NULL,
+  `marks` int(11) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `filePath` varchar(255) DEFAULT NULL,
+  `submission_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `studentmarkings`
+--
+
+INSERT INTO `studentmarkings` (`recodeId`, `stdID`, `assessment_id`, `marks`, `status`, `filePath`, `submission_date`) VALUES
+('A1', '20MDP2123', NULL, 76, 'compleate', '#random', NULL);
 
 -- --------------------------------------------------------
 
@@ -800,6 +860,13 @@ INSERT INTO `subject` (`subject_id`, `department_id`, `Year`, `semester`, `subje
 --
 
 --
+-- Indexes for table `assessment`
+--
+ALTER TABLE `assessment`
+  ADD PRIMARY KEY (`assessment_id`),
+  ADD KEY `subject_id` (`subject_id`);
+
+--
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
@@ -817,6 +884,14 @@ ALTER TABLE `eventtable`
 --
 ALTER TABLE `faculty`
   ADD PRIMARY KEY (`faculty_id`);
+
+--
+-- Indexes for table `finalexam`
+--
+ALTER TABLE `finalexam`
+  ADD PRIMARY KEY (`stdID`,`subject_id`),
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `staffID` (`staffID`);
 
 --
 -- Indexes for table `notice`
@@ -841,6 +916,14 @@ ALTER TABLE `staffs`
 --
 ALTER TABLE `studentaccount`
   ADD KEY `stdID` (`stdID`);
+
+--
+-- Indexes for table `studentmarkings`
+--
+ALTER TABLE `studentmarkings`
+  ADD PRIMARY KEY (`recodeId`),
+  ADD KEY `stdID` (`stdID`),
+  ADD KEY `assessment_id` (`assessment_id`);
 
 --
 -- Indexes for table `studets`
@@ -872,16 +955,37 @@ ALTER TABLE `notice`
 --
 
 --
+-- Constraints for table `assessment`
+--
+ALTER TABLE `assessment`
+  ADD CONSTRAINT `assessment_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`);
+
+--
 -- Constraints for table `department`
 --
 ALTER TABLE `department`
   ADD CONSTRAINT `department_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`faculty_id`);
 
 --
+-- Constraints for table `finalexam`
+--
+ALTER TABLE `finalexam`
+  ADD CONSTRAINT `finalexam_ibfk_1` FOREIGN KEY (`stdID`) REFERENCES `studets` (`stdID`),
+  ADD CONSTRAINT `finalexam_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`),
+  ADD CONSTRAINT `finalexam_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
+
+--
 -- Constraints for table `studentaccount`
 --
 ALTER TABLE `studentaccount`
   ADD CONSTRAINT `studentaccount_ibfk_1` FOREIGN KEY (`stdID`) REFERENCES `studets` (`stdID`);
+
+--
+-- Constraints for table `studentmarkings`
+--
+ALTER TABLE `studentmarkings`
+  ADD CONSTRAINT `studentmarkings_ibfk_1` FOREIGN KEY (`stdID`) REFERENCES `studets` (`stdID`),
+  ADD CONSTRAINT `studentmarkings_ibfk_2` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`assessment_id`);
 
 --
 -- Constraints for table `studets`

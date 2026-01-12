@@ -57,7 +57,7 @@
                 `;
                     })
                 })
-                .catch(err => console.log("Erro: ", err));
+                .catch(err => console.log("Error: ", err));
         }
         select.addEventListener("change", fetchData);
         search.addEventListener("keyup", fetchData);

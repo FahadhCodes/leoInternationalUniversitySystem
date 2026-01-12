@@ -1877,6 +1877,7 @@ a.footerLink:hover {
     --caption3height: 38.5vh;
   }
   /* landingPage */
+  /*Dashbord common*/
   .logoDashboard > a > img {
     width: 75px;
   }
@@ -1905,6 +1906,15 @@ a.footerLink:hover {
   table.dashBordTable {
     font-size: 0.7em;
   }
+  /*Dashbord common*/
+  /*Dashbord staff*/
+  .numberBarLec {
+    display: none;
+  }
+  .card_DASH h3 {
+    transform: translateY(0vh) !important;
+  }
+  /*Dashbord staff*/
 }
 /* mobile properties ends */
 

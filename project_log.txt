@@ -30,3 +30,11 @@
             ii)   Department wise
             iii)  Gender wise
 4) have to make some interactive animation on the university page using GSAP.js library (learn before use it)
+
+13/01/2026
+Compleated
+✅Student Acychronouns behaviored Resultable created
+Available and New Plan
+1) lectures can upload materials that will stored in "studentmarkings" table 
+2) staffs(lectures) can  directly  access studentmarkings AND finalExam tables
+3) using fetch API most places is RECOMMENDED    

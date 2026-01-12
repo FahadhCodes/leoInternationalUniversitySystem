@@ -324,3 +324,59 @@ cardlist.forEach((card) => {
     });
   });
 });
+function marksToResult(marks) {
+  if (marks >= 90) {
+    return "A+";
+  } else if (marks < 90 && marks >= 80) {
+    return "A";
+  } else if (marks < 80 && marks >= 75) {
+    return "A-";
+  } else if (marks < 75 && marks >= 70) {
+    return "B+";
+  } else if (marks < 70 && marks >= 65) {
+    return "B";
+  } else if (marks < 65 && marks >= 60) {
+    return "B-";
+  } else if (marks < 60 && marks >= 55) {
+    return "C+";
+  } else if (marks < 55 && marks >= 50) {
+    return "C";
+  } else if (marks < 50 && marks >= 45) {
+    return "C-";
+  } else if (marks < 45 && marks >= 40) {
+    return "D+";
+  } else if (marks < 40 && marks >= 30) {
+    return "D";
+  } else if (marks < 30) {
+    return "E";
+  }
+}
+//_requestANDResponses________________________________________________________________________________________________
+const yearSem = document.querySelector(".yearAndSem");
+const search = document.getElementById("search");
+const result = document.getElementById("tab1");
+function stdDashboard_Home_subject() {
+  fetch(
+    `../stdDashboard/Server.php?YEAR_AND_SEM=${yearSem.value}&SEARCH=${search.value}`
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      result.innerHTML = "";
+      data.forEach((item) => {
+        result.innerHTML += `
+          <tr>
+            <td>${item.subject_id}</td>
+            <td>${item.subject_name}</td>
+            <td>${marksToResult(item.marks)}</td>
+          </tr>
+        `;
+      });
+    })
+    .catch((err) => console.error("Error: ", err));
+}
+yearSem.addEventListener("change", stdDashboard_Home_subject);
+search.addEventListener("keyup", stdDashboard_Home_subject);
+
+//_________________________________________________

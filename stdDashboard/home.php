@@ -73,22 +73,22 @@
         <div class="subject-results">
             <h2 class="headType1 text-center pb-3">Subjects</h2>
             <div class="row pb-3 px-lg-3 align-items-center">
-                <select name="" id="" class="col-lg-3 col-12">
+                <select name="" id="" class="col-lg-3 col-12 yearAndSem">
                     <option value="0" selected hidden>Select Year</option>
-                    <option value="1">1.1</option>
-                    <option value="2">1.2</option>
-                    <option value="3">2.1</option>
-                    <option value="4">2.2</option>
-                    <option value="5">3.1</option>
-                    <option value="6">3.2</option>
-                    <option value="7">4.1</option>
-                    <option value="8">4.2</option>
+                    <option value="1.1">1.1</option>
+                    <option value="1.2">1.2</option>
+                    <option value="2.1">2.1</option>
+                    <option value="2.2">2.2</option>
+                    <option value="3.1">3.1</option>
+                    <option value="3.2">3.2</option>
+                    <option value="4.1">4.1</option>
+                    <option value="4.2">4.2</option>
                 </select>
                 <label for="search" class="fw-bolder col-lg-2 col-12">Search: </label>
-                <input type="search" name="search" id="search" class="inputBarDesign search read col-10">
+                <input type="search" name="search" id="search" class="inputBarDesign search read col-lg-6 col-10">
                 <button
                     type="submit"
-                    class="btn btn-dark submit-C read btn readButton col-2">
+                    class="btn btn-dark submit-C read btn readButton col-lg-1 col-2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -98,31 +98,8 @@
                     <th>Subject Name</th>
                     <th>Subject Result</th>
                 </thead>
-                <tr>
-                    <td>PSTXXXXX</td>
-                    <td>Subject 1</td>
-                    <td>A+</td>
-                </tr>
-                <tr>
-                    <td>PSTXXXXX</td>
-                    <td>Subject 1</td>
-                    <td>A+</td>
-                </tr>
-                <tr>
-                    <td>PSTXXXXX</td>
-                    <td>Subject 1</td>
-                    <td>A+</td>
-                </tr>
-                <tr>
-                    <td>PSTXXXXX</td>
-                    <td>Subject 1</td>
-                    <td>A+</td>
-                </tr>
-                <tr>
-                    <td>PSTXXXXX</td>
-                    <td>Subject 1</td>
-                    <td>A+</td>
-                </tr>
+                <tbody id="tab1">
+                </tbody>
             </table>
         </div>
         <div class="message-box">
