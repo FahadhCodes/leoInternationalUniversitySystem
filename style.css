@@ -596,6 +596,13 @@ a.navItemLink:hover {
   .notbigScreen {
     display: none;
   }
+  .task-cards.desktop {
+    display: grid;
+  }
+  /* Dashboard Std */
+  .task-cards.mobile {
+    display: none;
+  }
 }
 
 /* carousel */
@@ -1907,6 +1914,14 @@ a.footerLink:hover {
     font-size: 0.7em;
   }
   /*Dashbord common*/
+  .task-cards.desktop {
+    display: none;
+  }
+  /* Dashboard Std */
+  .task-cards.mobile {
+    display: grid;
+  }
+  /* Dashboard Std */
   /*Dashbord staff*/
   .numberBarLec {
     display: none;
@@ -1953,6 +1968,14 @@ a.footerLink:hover {
   .noticeContent:hover {
     background-size: 2200px;
   }
+  /* Dashboard Std */
+  .task-cards.desktop {
+    display: grid;
+  }
+  .task-cards.mobile {
+    display: none;
+  }
+  /* Dashboard Std */
 }
 @media (min-width: 1025px) {
   .navItem {

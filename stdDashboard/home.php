@@ -9,7 +9,7 @@
 
 <body>
     <!-- Dashboard Cards -->
-    <div class="task-cards">
+    <div class="task-cards desktop">
         <div class="card_DASH assignment">
             <h3 class="headType1">Assignments</h3>
             <div class="countBar rounded-pill">
@@ -61,6 +61,21 @@
                 <div class="ROW-2 col-6 tradi-yellow2">Balance</div>
                 <div class="ROW-2 col-6 tradi-blue2">2</div>
             </div>
+        </div>
+    </div>
+    <!-- Dashboard Cards Mobile-->
+    <div class="task-cards mobile">
+        <div class="card_DASH assignment">
+            <h3 class="headType1">Assignments</h3>
+        </div>
+        <div class="card_DASH quiz">
+            <h3 class="headType1">Quizzes</h3>
+        </div>
+        <div class="card_DASH midterm">
+            <h3 class="headType1">Online Mid-Term</h3>
+        </div>
+        <div class="card_DASH group-task">
+            <h3 class="headType1">Group Tasks</h3>
         </div>
     </div>
 
