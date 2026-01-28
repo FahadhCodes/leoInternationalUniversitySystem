@@ -38,3 +38,11 @@ Available and New Plan
 1) lectures can upload materials that will stored in "studentmarkings" table 
 2) staffs(lectures) can  directly  access studentmarkings AND finalExam tables
 3) using fetch API most places is RECOMMENDED    
+
+29/01/2026
+Compleated
+1) lecturer department and faculty assigning
+Available and New Plan
+1) lectures can upload materials that will stored in "studentmarkings" table 
+2) staffs(lectures) can  directly  access studentmarkings AND finalExam tables
+3) using fetch API most places is RECOMMENDED    

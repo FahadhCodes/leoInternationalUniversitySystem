@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2026 at 07:50 PM
+-- Generation Time: Jan 28, 2026 at 07:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -260,21 +260,21 @@ INSERT INTO `staffs` (`staffID`, `staff_fname`, `staff_lname`, `dob`, `nic`, `ma
 --
 
 CREATE TABLE `staffsaccount` (
-  `IP` varchar(255) DEFAULT NULL,
+  `IP` varchar(255) NOT NULL,
   `Createddate` datetime DEFAULT NULL,
   `staffID` varchar(50) DEFAULT NULL,
   `userName` varchar(255) DEFAULT NULL,
-  `pswrd` varchar(255) DEFAULT NULL
+  `pswrd` varchar(255) DEFAULT NULL,
+  `faculty_ids` varchar(500) DEFAULT NULL,
+  `department_ids` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staffsaccount`
 --
 
-INSERT INTO `staffsaccount` (`IP`, `Createddate`, `staffID`, `userName`, `pswrd`) VALUES
-('::1', '2025-10-26 00:14:41', 'ALF_A_22567', 'A.Perera', '$2y$10$t11g5tYrILOVomIs1V2R0uycB3slBUFs9iepwrqHFbDTtbNcO.X6.'),
-('::1', '2025-11-03 15:47:06', 'ALN_NA_22567', 'A.Liyanage', '$2y$10$U4chqIMEpiACeOWOJzt.2e5hlMDxbQTewJmrAcsEHTGNcW9/p6iR2'),
-('::1', '2025-11-04 21:21:50', 'CTM_A_33567', 'C.Tissera', '$2y$10$3rOrM.iYMcPk8s6SQv1nvu4q6famgLc7HeGX0o4vYYvARkVlcU18K');
+INSERT INTO `staffsaccount` (`IP`, `Createddate`, `staffID`, `userName`, `pswrd`, `faculty_ids`, `department_ids`) VALUES
+('::1', '2026-01-28 19:18:08', 'DWM_A_31234', 'D.Weerasinghe', '$2y$10$d06gHjByvf/ksl4Nt4qNxOvIu89YqiCbb.G4mMLMVFLv1WGNGl6Pu', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -912,6 +912,12 @@ ALTER TABLE `staffs`
   ADD PRIMARY KEY (`staffID`);
 
 --
+-- Indexes for table `staffsaccount`
+--
+ALTER TABLE `staffsaccount`
+  ADD KEY `staffID` (`staffID`);
+
+--
 -- Indexes for table `studentaccount`
 --
 ALTER TABLE `studentaccount`
@@ -973,6 +979,12 @@ ALTER TABLE `finalexam`
   ADD CONSTRAINT `finalexam_ibfk_1` FOREIGN KEY (`stdID`) REFERENCES `studets` (`stdID`),
   ADD CONSTRAINT `finalexam_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`),
   ADD CONSTRAINT `finalexam_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
+
+--
+-- Constraints for table `staffsaccount`
+--
+ALTER TABLE `staffsaccount`
+  ADD CONSTRAINT `staffID` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
 
 --
 -- Constraints for table `studentaccount`

@@ -180,7 +180,7 @@ function subjectIDgenorator() {
     }
   };
   xhr.send(
-    `departmentID=${departmentID}&subjectYear=${subjectYear}&sem=${sem}`
+    `departmentID=${departmentID}&subjectYear=${subjectYear}&sem=${sem}`,
   );
 }
 
@@ -220,7 +220,7 @@ function updateFormValidation() {
       if (!valid || filledForm === "") {
         if (
           confirm(
-            "YOU MUST FILL THE ID FIELDS AND AT LEAST ONE OF OTHER FIELDS TO UPDATE"
+            "YOU MUST FILL THE ID FIELDS AND AT LEAST ONE OF OTHER FIELDS TO UPDATE",
           )
         ) {
           e.reset();
@@ -352,13 +352,47 @@ function marksToResult(marks) {
   }
 }
 //_requestANDResponses________________________________________________________________________________________________
+//_______FacDep___________________________________________________________________________________________________________________
+const container = document.querySelector(".checkBoxContent.dep");
+const checkBoxs = document.querySelectorAll(".CheckBoX");
+
+checkBoxs.forEach((checkBox) => {
+  function departmentCheckBox() {
+    fetch(`../Server.php?faculty_id=${checkBox.value}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        container.innerHTML = "";
+        data.forEach((item) => {
+          container.innerHTML += `
+            <div class="checkBox">
+              <input type="checkbox" name="${item.department_id}" id="${item.department_id}" value="${item.department_id}">
+              <label for="${item.department_id}">${item.department_name}</label>
+            </div>
+          `;
+        });
+      })
+      .catch((ex) => {
+        console.log("Exeption: ", ex);
+      });
+  }
+  // Check what value you're sending
+  checkBox.addEventListener("change", function () {
+    if (this.checked) {
+      console.log("Checkbox value:", this.value); // Add this
+      departmentCheckBox();
+    }
+  });
+});
+//_______FacDep___________________________________________________________________________________________________________________
+
+//____Exam Result Table Respons_______________________________________________________________________________________
 const yearSem = document.querySelector(".yearAndSem");
 const search = document.getElementById("search");
 const result = document.getElementById("tab1");
 function stdDashboard_Home_subject() {
-  fetch(
-    `../stdDashboard/Server.php?YEAR_AND_SEM=${yearSem.value}&SEARCH=${search.value}`
-  )
+  fetch(`../Server.php?YEAR_AND_SEM=${yearSem.value}&SEARCH=${search.value}`)
     .then((res) => {
       return res.json();
     })
@@ -366,11 +400,11 @@ function stdDashboard_Home_subject() {
       result.innerHTML = "";
       data.forEach((item) => {
         result.innerHTML += `
-          <tr>
-            <td>${item.subject_id}</td>
-            <td>${item.subject_name}</td>
-            <td>${marksToResult(item.marks)}</td>
-          </tr>
+        <tr>
+        <td>${item.subject_id}</td>
+        <td>${item.subject_name}</td>
+        <td>${marksToResult(item.marks)}</td>
+        </tr>
         `;
       });
     })
@@ -378,5 +412,4 @@ function stdDashboard_Home_subject() {
 }
 yearSem.addEventListener("change", stdDashboard_Home_subject);
 search.addEventListener("keyup", stdDashboard_Home_subject);
-
-//_________________________________________________
+//____Exam Result Table Respons_______________________________________________________________________________________
