@@ -252,11 +252,11 @@ function stafCard($staffID, $con, $directory)
             <img
               src='{$directory}static images/LOGO1.png'
               width='150px'
-              alt='LOGO' />
+              alt='LOGO' 
+              class='previewCardIMG stf'/>
           </div>
           <div
-            class='col-9 d-flex justify-content-center align-items-center fw-bolder tradi-blue1'
-            style='font-size: 1.9em'>
+            class='col-9 d-flex justify-content-center align-items-center fw-bolder tradi-blue1 previewCardTitle stf'>
             LEO INTERNATIONAL UNIVERSITY
           </div>
         </div>
@@ -271,7 +271,7 @@ function stafCard($staffID, $con, $directory)
             style='font-size: 0.9em'>
             {$SUB_ROLE}
           </div>
-          <div class='col-4 text-center pb-1'>
+          <div class='col-lg-4 col-12 text-center pb-1'>
             <img
               class = 'rounded'
               src='{$PROFILEPICPATH}'
@@ -279,7 +279,7 @@ function stafCard($staffID, $con, $directory)
               width='200px'
               style='border-radius: 10px; border: 3px solid #122044' />
           </div>
-          <div class='col-8 row'>
+          <div class='col-lg-8 col-12 row'>
             <span class='col-4 tradi-yellow1 fw-medium'>Name</span>
             <span class='col-1 tradi-blue2'>:</span>
             <span class='col-7 tradi-yellow2 fw-light'>{$FULLNAME}</span>

@@ -28,12 +28,13 @@ include('../Includes/function.php');
             display: grid;
             grid-template-columns: 1fr 9fr;
             height: 100vh;
+            overflow: hidden;
         }
 
-        /* Sidebar */
+        /* Sidebar
         .sidebar {
             padding: 20px;
-        }
+        } */
 
         /* Main content */
         .main-content {

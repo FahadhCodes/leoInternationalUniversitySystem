@@ -1597,10 +1597,12 @@ a.footerLink:hover {
 }
 /* previewCard */
 /* student */
-.previewCardTitle.std {
+.previewCardTitle.std,
+.previewCardTitle.stf {
   font-size: 1.9em;
 }
-.previewCardIMG.std {
+.previewCardIMG.std,
+.previewCardIMG.stf {
   width: 150px;
 }
 .precrdFAC {
@@ -1657,10 +1659,12 @@ a.footerLink:hover {
 @media (min-width: 320px) and (max-width: 1024px) {
   /* previewCard */
   /* student */
-  .previewCardTitle.std {
+  .previewCardTitle.std,
+  .previewCardTitle.stf {
     font-size: 0.9em;
   }
-  .previewCardIMG.std {
+  .previewCardIMG.std,
+  .previewCardIMG.stf {
     width: 25vw;
     height: 25vw;
     padding: 3vw;
@@ -1929,6 +1933,28 @@ a.footerLink:hover {
   .card_DASH h3 {
     transform: translateY(0vh) !important;
   }
+  .formContainer.form3,
+  .main-content,
+  .multiFormsCont {
+    display: block !important;
+  }
+  select > option {
+    font-size: 0.5em;
+    height: 0.5em;
+  }
+  .sideBarContet > .fa-solid {
+    font-size: 0.85em;
+  }
+  .sideBarContet > .textBOX {
+    font-size: 0.5em;
+    padding-inline: 1em;
+  }
+  .sideBarContet:hover .textBOX {
+    font-size: 0.5em !important;
+  }
+  .sideBarContet:hover .fa-solid {
+    font-size: 0.85em;
+  }
   /*Dashbord staff*/
 }
 /* mobile properties ends */
@@ -2168,7 +2194,7 @@ button.passwordButton:active {
 .main-content {
   flex: 1;
   padding: 20px 30px;
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .header {
