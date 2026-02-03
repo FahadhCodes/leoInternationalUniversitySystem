@@ -180,7 +180,7 @@ function subjectIDgenorator() {
     }
   };
   xhr.send(
-    `departmentID=${departmentID}&subjectYear=${subjectYear}&sem=${sem}`,
+    `departmentID=${departmentID}&subjectYear=${subjectYear}&sem=${sem}`
   );
 }
 
@@ -220,7 +220,7 @@ function updateFormValidation() {
       if (!valid || filledForm === "") {
         if (
           confirm(
-            "YOU MUST FILL THE ID FIELDS AND AT LEAST ONE OF OTHER FIELDS TO UPDATE",
+            "YOU MUST FILL THE ID FIELDS AND AT LEAST ONE OF OTHER FIELDS TO UPDATE"
           )
         ) {
           e.reset();
@@ -355,7 +355,7 @@ function marksToResult(marks) {
 //_______FacDep___________________________________________________________________________________________________________________
 const container = document.querySelector(".checkBoxContent.dep");
 const checkBoxs = document.querySelectorAll(".CheckBoX");
-const checkedBox = [];
+let depcheckedBoxArr = [];
 
 function departmentCheckBox(checkBox) {
   fetch(`../Server.php?faculty_id=${checkBox.value}`)
@@ -384,6 +384,24 @@ checkBoxs.forEach((checkBox) => {
       departmentCheckBox(checkBox);
     }
   });
+});
+container.addEventListener("change", (e) => {
+  //the change event added here because avoid this following code run before department checkboxes exist in the DOM
+  if (e.target.classList.contains("selDep")) {
+    const depCheckBoxes = document.querySelectorAll(".selDep");
+    depCheckBoxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        depcheckedBoxArr.push(checkbox.value);
+      } else {
+        //Study the Javascript array and iterative first to remove unchecked elements from array
+      }
+    });
+
+    // Remove duplicates
+    let uniqueValues = [...new Set(depcheckedBoxArr)];
+
+    console.log(uniqueValues);
+  }
 });
 //_______FacDep___________________________________________________________________________________________________________________
 
@@ -415,6 +433,11 @@ try {
   yearSem.addEventListener("change", stdDashboard_Home_subject);
   search.addEventListener("keyup", stdDashboard_Home_subject);
 } catch (error) {
-  console.log(error);
+  if (error.name == "TypeError") {
+    console.log(
+      error.message,
+      ": this happans because stdDashboard_Home_subject() function works on student dashboard"
+    );
+  }
 }
 //____Exam Result Table Respons_______________________________________________________________________________________
