@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 $yearSem = $_GET['YEAR_AND_SEM'] ?? "";
 $year = explode(".", $yearSem)[0] ?? "";
 $Sem  = explode(".", $yearSem)[1] ?? "";
-$stdId = $_SESSION['STDID'];
+$stdId = $_SESSION['STDID'] ?? "";
 $search = $_GET['SEARCH'] ?? "";
 
 $selectQuery = "SELECT fe.subject_id , sb.subject_name , fe.marks
@@ -26,9 +26,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 $fid = $_GET['faculty_id'] ?? "";
 $depid = $_GET['department_id'] ?? "";
 $stfID = $_SESSION['STFID'] ?? "";
-
-// $selectQuery1 = "SELECT `faculty_id`, `facultyName` FROM `faculty`";
-// $result1 = mysqli_query($con, $selectQuery1);
 
 $selectQuery1 = "SELECT faculty.faculty_id, faculty.facultyName, department.department_id, department.department_name 
                  FROM `faculty` 

@@ -40,6 +40,13 @@ include('../Includes/connection.php');
             <div class="checkBoxContent dep">
             </div>
         </fieldset>
+        <fieldset>
+            <legend>Selected Departments</legend>
+            <div class="checkBoxContent">
+                <ul class="sdep">
+                </ul>
+            </div>
+        </fieldset>
     </form>
     <script src="../JavaScript/function.js">
 

@@ -351,37 +351,37 @@ function marksToResult(marks) {
     return "E";
   }
 }
-//_requestANDResponses________________________________________________________________________________________________
+//_requestANDResponses_________________________________________________________________________________________________________________
 //_______FacDep___________________________________________________________________________________________________________________
 const container = document.querySelector(".checkBoxContent.dep");
 const checkBoxs = document.querySelectorAll(".CheckBoX");
+const checkedBox = [];
 
-checkBoxs.forEach((checkBox) => {
-  function departmentCheckBox() {
-    fetch(`../Server.php?faculty_id=${checkBox.value}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        container.innerHTML = "";
-        data.forEach((item) => {
-          container.innerHTML += `
-            <div class="checkBox">
-              <input type="checkbox" name="${item.department_id}" id="${item.department_id}" value="${item.department_id}">
-              <label for="${item.department_id}">${item.department_name}</label>
-            </div>
-          `;
-        });
-      })
-      .catch((ex) => {
-        console.log("Exeption: ", ex);
+function departmentCheckBox(checkBox) {
+  fetch(`../Server.php?faculty_id=${checkBox.value}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      container.innerHTML = "";
+      data.forEach((item) => {
+        container.innerHTML += `
+          <div class="checkBox">
+            <input class="selDep" type="checkbox" name="${item.department_id}" id="${item.department_id}" value="${item.department_id}">
+            <label for="${item.department_id}">${item.department_name}</label>
+          </div>
+        `;
       });
-  }
-  // Check what value you're sending
+    })
+    .catch((ex) => {
+      console.log("Exeption: ", ex);
+    });
+}
+checkBoxs.forEach((checkBox) => {
   checkBox.addEventListener("change", function () {
-    if (this.checked) {
-      console.log("Checkbox value:", this.value); // Add this
-      departmentCheckBox();
+    if (checkBox.checked) {
+      console.log(checkBox);
+      departmentCheckBox(checkBox);
     }
   });
 });
@@ -410,6 +410,11 @@ function stdDashboard_Home_subject() {
     })
     .catch((err) => console.error("Error: ", err));
 }
-yearSem.addEventListener("change", stdDashboard_Home_subject);
-search.addEventListener("keyup", stdDashboard_Home_subject);
+
+try {
+  yearSem.addEventListener("change", stdDashboard_Home_subject);
+  search.addEventListener("keyup", stdDashboard_Home_subject);
+} catch (error) {
+  console.log(error);
+}
 //____Exam Result Table Respons_______________________________________________________________________________________
