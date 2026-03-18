@@ -220,8 +220,8 @@ function updateFormValidation() {
   });
 }
 
-var dropdownMain = document.querySelectorAll("div.navItem.nav2");
-var height = 0;
+const dropdownMain = document.querySelectorAll("div.navItem.nav2");
+const height = 0;
 dropdownMain.forEach((element) => {
   element.addEventListener("mouseover", () => {
     const arr = new Array();
