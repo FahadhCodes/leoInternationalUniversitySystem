@@ -1,26 +1,14 @@
 function selectFunction1() {
   const role = document.getElementById("role");
-  //const facultiesCheck = document.getElementsByClassName("faculties-check");
   if (role.value === "Academic") {
     document.querySelector("#role-A").style.transform = "scale(1, 1)";
     document.querySelector("#role-NA").style.transform = "scale(0, 0)";
-    // for (let i = 0; i < facultiesCheck.length; i++) {
-    //   role.value === "Academic"
-    //     ? (facultiesCheck[i].style.transform = "scale(1, 1)")
-    //     : (facultiesCheck[i].style.transform = "scale(0, 0)");
-    // }
   } else if (role.value === "NON-Academic") {
     document.querySelector("#role-A").style.transform = "scale(0, 0)";
     document.querySelector("#role-NA").style.transform = "scale(1, 1)";
-    // for (let i = 0; i < facultiesCheck.length; i++) {
-    //   facultiesCheck[i].style.transform = "scale(0, 0)";
-    // }
   } else {
     document.querySelector("#role-NA").style.transform = "scale(0, 0)";
     document.querySelector("#role-A").style.transform = "scale(0, 0)";
-    // for (let i = 0; i < facultiesCheck.length; i++) {
-    //   facultiesCheck[i].style.transform = "scale(0, 0)";
-    // }
   }
 }
 
@@ -232,8 +220,8 @@ function updateFormValidation() {
   });
 }
 
-const dropdownMain = document.querySelectorAll("div.navItem.nav2");
-let height = 0;
+var dropdownMain = document.querySelectorAll("div.navItem.nav2");
+var height = 0;
 dropdownMain.forEach((element) => {
   element.addEventListener("mouseover", () => {
     const arr = new Array();
@@ -399,7 +387,6 @@ function departmentCheckBox(checkBox) {
     });
 }
 const selcDep = document.querySelector(".selc.dep");
-console.log(selcDep.length);
 faccheckBoxs.forEach((checkBox) => {
   checkBox.addEventListener("change", function () {
     if (checkBox.checked) {
@@ -413,21 +400,21 @@ storingCheckedBoxes(faccheckBoxs, faccheckedBox, selcFac);
 let faculties = "";
 let departments = "";
 //facDep Request_________________________
-document.querySelector(".facDepSubmit").addEventListener("click", () => {
-  faccheckedBox.forEach((item) => {
-    faculties += item.value + ",";
-  });
-  depcheckedBox.forEach((item) => {
-    departments += item.value + ",";
-  });
-  console.log(faculties);
-  console.log(departments);
-  sendStoredArr(faculties, departments);
-});
+// document.querySelector(".facDepSubmit").addEventListener("click", () => {
+//   faccheckedBox.forEach((item) => {
+//     faculties += item.value + ",";
+//   });
+//   depcheckedBox.forEach((item) => {
+//     departments += item.value + ",";
+//   });
+//   console.log(faculties);
+//   console.log(departments);
+//   sendStoredArr(faculties, departments);
+// });
 
-function sendStoredArr(fac, dep) {
-  fetch(`../Server.php?fac=${fac}&dep=${dep}`);
-}
+// function sendStoredArr(fac, dep) {
+//   fetch(`../Server.php?fac=${fac}&dep=${dep}`);
+// }
 //facDep Request_________________________
 //_______FacDep___________________________________________________________________________________________________________________
 

@@ -1873,6 +1873,45 @@ a.footerLink:hover {
   .footerContent:nth-child(5) {
     grid-column: span 2;
   }
+  /*Dashbord common*/
+  .task-cards.desktop {
+    display: none;
+  }
+  /* Dashboard Std */
+  .task-cards.mobile {
+    display: grid;
+  }
+  /* Dashboard Std */
+  /*Dashbord staff*/
+  .numberBarLec {
+    display: none;
+  }
+  .card_DASH h3 {
+    transform: translateY(0vh) !important;
+  }
+  .formContainer.form3,
+  .main-content,
+  .multiFormsCont {
+    display: block !important;
+  }
+  select > option {
+    font-size: 0.5em;
+    height: 0.5em;
+  }
+  .sideBarContet > .fa-solid {
+    font-size: 0.85em;
+  }
+  .sideBarContet > .textBOX {
+    font-size: 0.5em;
+    padding-inline: 1em;
+  }
+  .sideBarContet:hover .textBOX {
+    font-size: 0.5em !important;
+  }
+  .sideBarContet:hover .fa-solid {
+    font-size: 0.85em;
+  }
+  /*Dashbord staff*/
 }
 /* mobile */
 @media (min-width: 320px) and (max-width: 480px) {
@@ -1917,45 +1956,6 @@ a.footerLink:hover {
   table.dashBordTable {
     font-size: 0.7em;
   }
-  /*Dashbord common*/
-  .task-cards.desktop {
-    display: none;
-  }
-  /* Dashboard Std */
-  .task-cards.mobile {
-    display: grid;
-  }
-  /* Dashboard Std */
-  /*Dashbord staff*/
-  .numberBarLec {
-    display: none;
-  }
-  .card_DASH h3 {
-    transform: translateY(0vh) !important;
-  }
-  .formContainer.form3,
-  .main-content,
-  .multiFormsCont {
-    display: block !important;
-  }
-  select > option {
-    font-size: 0.5em;
-    height: 0.5em;
-  }
-  .sideBarContet > .fa-solid {
-    font-size: 0.85em;
-  }
-  .sideBarContet > .textBOX {
-    font-size: 0.5em;
-    padding-inline: 1em;
-  }
-  .sideBarContet:hover .textBOX {
-    font-size: 0.5em !important;
-  }
-  .sideBarContet:hover .fa-solid {
-    font-size: 0.85em;
-  }
-  /*Dashbord staff*/
 }
 /* mobile properties ends */
 

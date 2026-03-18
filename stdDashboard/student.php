@@ -155,37 +155,7 @@ include('../Includes/function.php');
             ?>
         </main>
     </div>
-    <script src="../JavaScript/function.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('gpaChart').getContext('2d');
-        const gradient = ctx.createLinearGradient(0, 0, 100, 400);
-        gradient.addColorStop(0, ' #b0d8ff');
-        gradient.addColorStop(1, '#80b4e721');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['1.1', '1.2', '2.1', '2.2', '3.1', '3.2', '4.1', '4.2'],
-                datasets: [{
-                    label: 'GPA',
-                    data: [3.2, 3.5, 3.8, 3.6, 3.2, 3.5, 3.8, 3.6],
-                    borderColor: '#122044',
-                    backgroundColor: gradient,
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 4
-                    }
-                }
-            }
-        });
-    </script>
+
 </body>
 
 </html>
