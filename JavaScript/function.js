@@ -354,8 +354,26 @@ function marksToResult(marks) {
 //_requestANDResponses_________________________________________________________________________________________________________________
 //_______FacDep___________________________________________________________________________________________________________________
 const container = document.querySelector(".checkBoxContent.dep");
-const checkBoxs = document.querySelectorAll(".CheckBoX");
-const checkedBox = [];
+const faccheckBoxs = document.querySelectorAll(".CheckBoX");
+const faccheckedBox = [];
+const depcheckedBox = [];
+//created for store checked box
+function storingCheckedBoxes(allcheckBoxesarr, checkedBoxesArr, modifyingDom) {
+  allcheckBoxesarr.forEach((dep) => {
+    dep.addEventListener("change", () => {
+      if (dep.checked) {
+        checkedBoxesArr.push(dep);
+      } else {
+        checkedBoxesArr.splice(checkedBoxesArr.indexOf(dep), 1);
+      }
+      console.log(checkedBoxesArr);
+      modifyingDom.innerHTML = "";
+      checkedBoxesArr.forEach((item) => {
+        modifyingDom.innerHTML += item.value + "<br>";
+      });
+    });
+  });
+}
 
 function departmentCheckBox(checkBox) {
   fetch(`../Server.php?faculty_id=${checkBox.value}`)
@@ -372,12 +390,17 @@ function departmentCheckBox(checkBox) {
           </div>
         `;
       });
+      const depCheckboxes = document.querySelectorAll(".selDep");
+      const selcDep = document.querySelector(".selc.dep");
+      storingCheckedBoxes(depCheckboxes, depcheckedBox, selcDep);
     })
     .catch((ex) => {
       console.log("Exeption: ", ex);
     });
 }
-checkBoxs.forEach((checkBox) => {
+const selcDep = document.querySelector(".selc.dep");
+console.log(selcDep.length);
+faccheckBoxs.forEach((checkBox) => {
   checkBox.addEventListener("change", function () {
     if (checkBox.checked) {
       console.log(checkBox);
@@ -385,6 +408,27 @@ checkBoxs.forEach((checkBox) => {
     }
   });
 });
+const selcFac = document.querySelector(".selc.fac");
+storingCheckedBoxes(faccheckBoxs, faccheckedBox, selcFac);
+let faculties = "";
+let departments = "";
+//facDep Request_________________________
+document.querySelector(".facDepSubmit").addEventListener("click", () => {
+  faccheckedBox.forEach((item) => {
+    faculties += item.value + ",";
+  });
+  depcheckedBox.forEach((item) => {
+    departments += item.value + ",";
+  });
+  console.log(faculties);
+  console.log(departments);
+  sendStoredArr(faculties, departments);
+});
+
+function sendStoredArr(fac, dep) {
+  fetch(`../Server.php?fac=${fac}&dep=${dep}`);
+}
+//facDep Request_________________________
 //_______FacDep___________________________________________________________________________________________________________________
 
 //____Exam Result Table Respons_______________________________________________________________________________________

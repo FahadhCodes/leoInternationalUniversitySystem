@@ -17,7 +17,7 @@ include('../Includes/connection.php');
 </head>
 
 <body>
-    <form action="" method="post">
+    <form action="../Server.php" method="post">
         <fieldset>
             <legend>Faculty</legend>
             <div class="checkBoxContent">
@@ -41,12 +41,18 @@ include('../Includes/connection.php');
             </div>
         </fieldset>
         <fieldset>
-            <legend>Selected Departments</legend>
-            <div class="checkBoxContent">
-                <ul class="sdep">
-                </ul>
+            <legend>Selected Faculties</legend>
+            <div class="selc fac">
+
             </div>
         </fieldset>
+        <fieldset>
+            <legend>Selected Departments</legend>
+            <div class="selc dep">
+
+            </div>
+        </fieldset>
+        <button type="submit" class="facDepSubmit" onclick="sendStoredArr()">Sumbit</button>
     </form>
     <script src="../JavaScript/function.js">
 
