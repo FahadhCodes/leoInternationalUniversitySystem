@@ -79,6 +79,7 @@ include('../Includes/function.php');
             align-content: center;
             row-gap: 30px;
             grid-template-columns: 1fr;
+            border: none;
         }
 
         .formContainer.form1>select,
@@ -262,17 +263,61 @@ include('../Includes/function.php');
             <h3 class="text-center fw-bolder">Lecturer Activity Overview</h3>
             <canvas id="activityChart"></canvas>
         </section>
-        <section>
-            <form class="formContainer form1">
-                <h3>Upload Lecture Materials</h3>
-                <select>
-                    <option>Select Subject</option>
-                    <option>Web Programming</option>
-                    <option>Database Systems</option>
-                </select>
-                <input class="inputBarDesign" type="file">
-                <button class="generalButton button1">Upload</button>
-            </form>
+        <section class="p-3">
+            <h3 class="text-center fw-bolder">Teaching affiliations</h3>
+            <!-- PHP -->
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Faculty of Applied Science
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body tradi-blue2-bg tradi-blue1">
+                            <ul>
+                                <li>Physical Sciences & technology</li>
+                                <li>Natural Resources</li>
+                                <li>Food Sciences and Technology</li>
+                                <li>Sport Sciences</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Faculty of Applied Science
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body tradi-blue2-bg tradi-blue1">
+                            <ul>
+                                <li>Physical Sciences & technology</li>
+                                <li>Natural Resources</li>
+                                <li>Food Sciences and Technology</li>
+                                <li>Sport Sciences</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Accordion Item #3
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body tradi-blue2-bg tradi-blue1">
+                            <ul>
+                                <li>Physical Sciences & technology</li>
+                                <li>Natural Resources</li>
+                                <li>Food Sciences and Technology</li>
+                                <li>Sport Sciences</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section class="multiFormsCont">
             <form class="formContainer form3">

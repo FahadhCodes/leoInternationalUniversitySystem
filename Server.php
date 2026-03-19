@@ -41,6 +41,7 @@ while ($row = mysqli_fetch_assoc($result1)) {
 #________FacDepDB_________________________________________________________________________________________________________________
 $fids = $_GET['fac'] ?? "";
 $deps = $_GET['dep'] ?? "";
+$sftId = $_GET['stfId'] ?? "";
 #________FacDepDB_________________________________________________________________________________________________________________
 
 
@@ -51,7 +52,9 @@ if (isset($_GET['YEAR_AND_SEM'], $_GET['SEARCH'])) {
     echo json_encode($examResultTable);
 } else if (isset($_GET['faculty_id'])) {
     echo json_encode($data);
-} else if (isset($_GET['fac']) && isset($_GET['dep'])) {
-    echo $_GET['fac'] + $_GET['dep'];
+} else if (!empty($fids) && !empty($deps) && !empty($sftId)) {
+    $update = "UPDATE `staffsaccount` SET `faculty_ids`='$fids',`department_ids`='$deps' WHERE `staffID`='$sftId'";
+    mysqli_query($con, $update);
+    echo "Teaching affiliations updated";
 } 
 #_________________________________________________FunctionCall____________________________________________________________________

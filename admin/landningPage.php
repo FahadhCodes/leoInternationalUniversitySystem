@@ -34,6 +34,7 @@ if (!empty($_SESSION['message'])) {
 </head>
 
 <body class="main-1">
+  <div class="toastCont"></div>
   <div class="container-fluid">
     <!--------------------------------------------------------------------------COURSES----------------------------------------------------------------------->
     <form action="" method="post" class="my-3 STUDENTS">
@@ -55,6 +56,59 @@ if (!empty($_SESSION['message'])) {
         <button type="submit" name="submit-A" class="btn btn-dark submit-A submitButton" data-section="STUDENTS">
           Update
         </button>
+      </div>
+      <?php
+      $stdID = $tag = "";
+      if (isset($_POST['submit-A'])) {
+        $stdID = $_POST['stdID'];
+        if ($tag = $_POST['tag']) {
+          $updateQuery = "UPDATE `studentaccount` SET `tag`='$tag' WHERE `stdID`='$stdID'";
+          mysqli_query($con, $updateQuery);
+          notify($message = ["success" => strtoupper("Student tag Updated")], "success");
+        }
+      }
+      ?>
+    </form>
+    <form action="" method="post" class="my-3 STUDENTS">
+      <div class="formContainer">
+        <h2 id="std-panel">Teaching affiliations</h2>
+        <!--------------------------------------------------------------------------STAFF----------------------------------------------------------------------->
+        <label for="stf">Staff ID: </label>
+        <input type="text" name="stf" id="stf" class="stfId">
+
+        <div class="tradi-blue1-border mx-1 p-1 rounded checkBoxContainers row">
+          <span class="d-flex align-items-center fw-medium col">Faculty</span>
+          <div class="checkBoxContent row align-items-center col-8">
+            <?php
+            $selectQuery = "SELECT `faculty_id`, `facultyName` FROM `faculty`";
+            $result = mysqli_query($con, $selectQuery);
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "
+                      <div class='checkBox'>
+                          <input type='checkbox' name='{$row['facultyName']}' id={$row['faculty_id']}   class='CheckBoX' value={$row['faculty_id']}>
+                          <label for={$row['faculty_id']}>{$row['facultyName']}</label>
+                      </div>
+                  ";
+            }
+            ?>
+          </div>
+        </div>
+
+        <div class="tradi-blue1-border mx-1 p-1 rounded checkBoxContainers row">
+          <span class="d-flex align-items-center fw-medium col">Department</span>
+          <div class="checkBoxContent dep row align-items-center col-8">
+          </div>
+        </div>
+
+        <span class="d-flex align-items-center fw-medium">Selected Faculties</span>
+        <div class="selc fac">
+        </div>
+
+        <span class="d-flex align-items-center fw-medium">Selected Departments</span>
+        <div class="selc dep">
+        </div>
+
+        <button type="button" class="facDepSubmit generalButton">Submit</button>
       </div>
       <?php
       $stdID = $tag = "";

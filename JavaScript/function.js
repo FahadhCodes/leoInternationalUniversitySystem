@@ -87,7 +87,7 @@ function autoToast(type, message) {
           </div>
           <button type="button" class="btn text-${headerType} closeButton"><i class="fa-solid fa-rectangle-xmark"></i></button>
         </div>
-        <div class="bodyToast p-2">
+        <div class="bodyToast p-2" style="color:${messageColor}">
           ${message}
         </div>
       </div>
@@ -344,21 +344,29 @@ function marksToResult(marks) {
 const container = document.querySelector(".checkBoxContent.dep");
 const faccheckBoxs = document.querySelectorAll(".CheckBoX");
 const faccheckedBox = [];
+const facNameList = [];
 const depcheckedBox = [];
+const depNameList = [];
+let faculties = "";
+let departments = "";
 //created for store checked box
-function storingCheckedBoxes(allcheckBoxesarr, checkedBoxesArr, modifyingDom) {
-  allcheckBoxesarr.forEach((dep) => {
-    dep.addEventListener("change", () => {
-      if (dep.checked) {
-        checkedBoxesArr.push(dep);
+function storingCheckedBoxes(
+  allcheckBoxesarr,
+  checkedBoxesArr,
+  nameList,
+  modifyingDom,
+) {
+  allcheckBoxesarr.forEach((aCheckBox) => {
+    aCheckBox.addEventListener("change", () => {
+      if (aCheckBox.checked) {
+        checkedBoxesArr.push(aCheckBox.value);
+        nameList.push(aCheckBox.name);
       } else {
-        checkedBoxesArr.splice(checkedBoxesArr.indexOf(dep), 1);
+        checkedBoxesArr.splice(checkedBoxesArr.indexOf(aCheckBox.value), 1);
+        nameList.splice(nameList.indexOf(aCheckBox.name), 1);
       }
-      console.log(checkedBoxesArr);
-      modifyingDom.innerHTML = "";
-      checkedBoxesArr.forEach((item) => {
-        modifyingDom.innerHTML += item.value + "<br>";
-      });
+      console.log("Debugging: ", checkedBoxesArr);
+      modifyingDom.innerHTML = nameList.join("<br>");
     });
   });
 }
@@ -373,48 +381,92 @@ function departmentCheckBox(checkBox) {
       data.forEach((item) => {
         container.innerHTML += `
           <div class="checkBox">
-            <input class="selDep" type="checkbox" name="${item.department_id}" id="${item.department_id}" value="${item.department_id}">
+            <input class="selDep" type="checkbox" name="${item.department_name}" id="${item.department_id}" value="${item.department_id}">
             <label for="${item.department_id}">${item.department_name}</label>
           </div>
         `;
       });
       const depCheckboxes = document.querySelectorAll(".selDep");
       const selcDep = document.querySelector(".selc.dep");
-      storingCheckedBoxes(depCheckboxes, depcheckedBox, selcDep);
+      storingCheckedBoxes(depCheckboxes, depcheckedBox, depNameList, selcDep);
     })
     .catch((ex) => {
       console.log("Exeption: ", ex);
     });
 }
+
 const selcDep = document.querySelector(".selc.dep");
 faccheckBoxs.forEach((checkBox) => {
   checkBox.addEventListener("change", function () {
     if (checkBox.checked) {
       console.log(checkBox);
       departmentCheckBox(checkBox);
+    } else {
+      //refetching data for eliminate unchecked elements in department based on faculty arrays
+      fetch(`../Server.php?faculty_id=${checkBox.value}`)
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach((item) => {
+            console.log("Eliminating departments list:", item.department_id);
+            if (
+              //checking the uncheked faculty's deparments included in the arrya or not
+              depcheckedBox.includes(item.department_id) ||
+              depNameList.includes(item.department_name)
+            ) {
+              //eliminating spefic department id from "depcheckedBox" array
+              depcheckedBox.splice(
+                depcheckedBox.indexOf(item.department_id),
+                1,
+              );
+              //eliminating spefic department name from "depNameList" array
+              depNameList.splice(depNameList.indexOf(item.department_name), 1);
+              //refreshing and displaying
+              document.querySelector(".selc.dep").innerHTML =
+                depNameList.join("<br>");
+              faculties = faccheckedBox.join("|");
+              departments = depcheckedBox.join("|");
+              console.log(
+                "A list of departments eliminated based on unchecked faculties:",
+                depcheckedBox,
+              );
+            }
+          });
+        });
     }
   });
 });
 const selcFac = document.querySelector(".selc.fac");
-storingCheckedBoxes(faccheckBoxs, faccheckedBox, selcFac);
-let faculties = "";
-let departments = "";
-//facDep Request_________________________
-// document.querySelector(".facDepSubmit").addEventListener("click", () => {
-//   faccheckedBox.forEach((item) => {
-//     faculties += item.value + ",";
-//   });
-//   depcheckedBox.forEach((item) => {
-//     departments += item.value + ",";
-//   });
-//   console.log(faculties);
-//   console.log(departments);
-//   sendStoredArr(faculties, departments);
-// });
+storingCheckedBoxes(faccheckBoxs, faccheckedBox, facNameList, selcFac);
 
-// function sendStoredArr(fac, dep) {
-//   fetch(`../Server.php?fac=${fac}&dep=${dep}`);
-// }
+//facDep Request_________________________
+document.querySelector(".facDepSubmit").addEventListener("click", () => {
+  // if click that submit button
+  let stfId = document.querySelector(".stfId").value;
+  faculties = faccheckedBox.join("|");
+  departments = depcheckedBox.join("|");
+  if (stfId == "") {
+    autoToast("dangers", "Pleas fill Staff Id field".toUpperCase());
+    document.querySelector(".stfId").style.border = "1px solid red";
+  } else {
+    //debugging
+    console.info("Sending data to DataBase...");
+    console.log("faculties:", faculties);
+    console.log("departments:", departments);
+    //debugging
+    sendStoredArr(stfId, faculties, departments);
+  }
+});
+
+function sendStoredArr(stfid, fac, dep) {
+  fetch(`../Server.php?stfId=${stfid}&fac=${fac}&dep=${dep}`)
+    .then((res) => res.text())
+    .then((data) => {
+      autoToast("infos", data);
+    })
+    .catch((ex) => {
+      console.warn("Exception: ", ex);
+    });
+}
 //facDep Request_________________________
 //_______FacDep___________________________________________________________________________________________________________________
 

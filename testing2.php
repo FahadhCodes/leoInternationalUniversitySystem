@@ -1,5 +1,9 @@
 <?php
-require "Includes/function.php"
+
+use LDAP\Result;
+
+require "Includes/function.php";
+require "Includes/connection.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,12 +41,47 @@ require "Includes/function.php"
     <button type="button" name="hello1">Hello</button>
   </form>
   <?php
-  if (isset($_POST['hello'])) {
-    notify($message = ["danger" => "Hello"], "danger");
+  echo "
+  <table>
+      <tr>
+          <td>DID</td>
+          <td>DepName</td>
+          <td>FID</td>
+          <td>FName</td>
+      </tr>
+  ";
+  $faculties = array('AG', 'GE', 'TC');
+  foreach ($faculties as $fac) {
+    $query = "CALL facAndDep('$fac')";
+    $Result = mysqli_query($con, $query);
+
+    $departments = array('ASE', 'ASA', 'GSG', 'TET', 'TBT');
+
+
+
+    while ($row = mysqli_fetch_assoc($Result)) {
+      // Filter while fetching
+      if (in_array($row['department_id'], $departments)) {
+        echo "
+          <tr>
+              <td>" . htmlspecialchars($row['department_id']) . "</td>
+              <td>" . htmlspecialchars($row['department_name']) . "</td>
+              <td>" . htmlspecialchars($row['faculty_id']) . "</td>
+              <td>" . htmlspecialchars($row['facultyName']) . "</td>
+          </tr>
+          ";
+      }
+    }
+
+    mysqli_free_result($Result);
+    // Consume next result sets
+    while (mysqli_next_result($con)) {
+      if ($result = mysqli_store_result($con)) {
+        mysqli_free_result($result);
+      }
+    }
   }
-  if (isset($_POST['hello1'])) {
-    notify($message = ["warning" => "Hello"], "warning");
-  }
+  echo "</table>";
   ?>
   <script src="JavaScript/function.js"></script>
 </body>

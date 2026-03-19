@@ -8,6 +8,7 @@ include('../Includes/connection.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEST</title>
+    <link rel="stylesheet" href="../style.css">
     <style>
         .checkBoxContent {
             display: grid;
@@ -17,7 +18,10 @@ include('../Includes/connection.php');
 </head>
 
 <body>
+    <div class="toastCont"></div>
     <form action="../Server.php" method="post">
+        <label for="stf">Staff ID: </label>
+        <input type="text" name="stf" id="stf" class="stfId">
         <fieldset>
             <legend>Faculty</legend>
             <div class="checkBoxContent">
@@ -52,7 +56,7 @@ include('../Includes/connection.php');
 
             </div>
         </fieldset>
-        <button type="submit" class="facDepSubmit" onclick="sendStoredArr()">Sumbit</button>
+        <button type="button" class="facDepSubmit">Submit</button>
     </form>
     <script src="../JavaScript/function.js">
 
