@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2026 at 07:55 PM
+-- Generation Time: Mar 20, 2026 at 02:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `leouni_db`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `facAndDep` (`p_faculty_id` VARCHAR(50))   BEGIN
+    SELECT department.department_id, department.department_name, faculty.faculty_id, faculty.facultyName 
+    FROM department 
+    INNER JOIN faculty ON department.faculty_id = faculty.faculty_id 
+    WHERE faculty.faculty_id = p_faculty_id;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -63,6 +76,7 @@ INSERT INTO `department` (`date`, `department_id`, `department_name`, `faculty_i
 ('2025-07-27 16:05:56', 'ASA', ' Agribusiness Management ', 'AG'),
 ('2025-07-27 16:09:35', 'ASE', 'Export Agriculture', 'AG'),
 ('2025-07-27 16:12:43', 'ASL', 'Livestock Production', 'AG'),
+('2026-03-20 10:50:29', 'CSE', 'Software Engineering', 'C'),
 ('2025-07-27 16:15:15', 'GRS', ' Remote Sensing and GIS', 'GE'),
 ('2025-07-27 16:15:37', 'GSG', 'Surveying and Geodesy', 'GE'),
 ('2025-07-27 16:16:56', 'MAF', 'Accountancy & Finance', 'MS'),
@@ -274,7 +288,7 @@ CREATE TABLE `staffsaccount` (
 --
 
 INSERT INTO `staffsaccount` (`IP`, `Createddate`, `staffID`, `userName`, `pswrd`, `faculty_ids`, `department_ids`) VALUES
-('::1', '2026-01-28 19:18:08', 'DWM_A_31234', 'D.Weerasinghe', '$2y$10$d06gHjByvf/ksl4Nt4qNxOvIu89YqiCbb.G4mMLMVFLv1WGNGl6Pu', NULL, NULL);
+('::1', '2026-01-28 19:18:08', 'DWM_A_31234', 'D.Weerasinghe', '$2y$10$d06gHjByvf/ksl4Nt4qNxOvIu89YqiCbb.G4mMLMVFLv1WGNGl6Pu', 'TC|MD', 'TET|TBT|MDMB|MDPH');
 
 -- --------------------------------------------------------
 

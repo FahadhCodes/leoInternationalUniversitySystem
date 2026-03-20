@@ -221,7 +221,7 @@ function updateFormValidation() {
 }
 
 const dropdownMain = document.querySelectorAll("div.navItem.nav2");
-const height = 0;
+let height = 0;
 dropdownMain.forEach((element) => {
   element.addEventListener("mouseover", () => {
     const arr = new Array();
@@ -233,7 +233,7 @@ dropdownMain.forEach((element) => {
       arr[i] = list.length;
     }
     height = Math.max(...arr) * 45.5 + 70;
-    console.log(Math.max(...arr));
+    // console.log(Math.max(...arr));
     if (dropDown) {
       dropDown.style.height = height + "px";
       dropDown.style.opacity = "1";
@@ -449,23 +449,32 @@ const selcFac = document.querySelector(".selc.fac");
 storingCheckedBoxes(faccheckBoxs, faccheckedBox, facNameList, selcFac);
 
 //facDep Request_________________________
-document.querySelector(".facDepSubmit").addEventListener("click", () => {
-  // if click that submit button
-  let stfId = document.querySelector(".stfId").value;
-  faculties = faccheckedBox.join("|");
-  departments = depcheckedBox.join("|");
-  if (stfId == "") {
-    autoToast("dangers", "Pleas fill Staff Id field".toUpperCase());
-    document.querySelector(".stfId").style.border = "1px solid red";
-  } else {
-    //debugging
-    console.info("Sending data to DataBase...");
-    console.log("faculties:", faculties);
-    console.log("departments:", departments);
-    //debugging
-    sendStoredArr(stfId, faculties, departments);
+try {
+  document.querySelector(".facDepSubmit").addEventListener("click", () => {
+    // if click that submit button
+    let stfId = document.querySelector(".stfId").value;
+    faculties = faccheckedBox.join("|");
+    departments = depcheckedBox.join("|");
+    if (stfId == "") {
+      autoToast("dangers", "Pleas fill Staff Id field".toUpperCase());
+      document.querySelector(".stfId").style.border = "1px solid red";
+    } else {
+      //debugging
+      console.info("Sending data to DataBase...");
+      console.log("faculties:", faculties);
+      console.log("departments:", departments);
+      //debugging
+      sendStoredArr(stfId, faculties, departments);
+    }
+  });
+} catch (error) {
+  if (
+    error.message ==
+    "Cannot read properties of null (reading 'addEventListener')"
+  ) {
+    throw "Not an Error : facDepSubmit button is not in the landing-page";
   }
-});
+}
 
 function sendStoredArr(stfid, fac, dep) {
   fetch(`../Server.php?stfId=${stfid}&fac=${fac}&dep=${dep}`)

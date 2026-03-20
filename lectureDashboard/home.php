@@ -266,6 +266,17 @@ include('../Includes/function.php');
         <section class="p-3">
             <h3 class="text-center fw-bolder">Teaching affiliations</h3>
             <!-- PHP -->
+            <?php
+            $selectQuery  = "SELECT `faculty_ids`, `department_ids` FROM `staffsaccount` WHERE `staffID` = '{$_SESSION['STFID']}'";
+            $result = mysqli_query($con, $selectQuery);
+            $row = mysqli_fetch_assoc($result);
+            $str1 = $row['faculty_ids'];
+            $str2 = $row['department_ids'];
+            $faculties = explode('|', $str1);
+            $departments = explode("|", $str2);
+            echo "{$faculties[0]}<br>";
+            echo "{$departments[0]}<br>";
+            ?>
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">

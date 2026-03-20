@@ -57,7 +57,8 @@ require "Includes/connection.php";
 
     $departments = array('ASE', 'ASA', 'GSG', 'TET', 'TBT');
 
-
+    print_r($Result);
+    var_dump($Result);
 
     while ($row = mysqli_fetch_assoc($Result)) {
       // Filter while fetching
