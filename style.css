@@ -432,6 +432,21 @@ button[type="submit"].submit-A.delete {
 .checkBoxContainers > span {
   border-right: 1px solid var(--color1);
 }
+.selectedArea {
+  grid-column: span 2;
+  margin-inline: 0.2em;
+  display: inline;
+}
+.selc {
+  border: none;
+  border-top: 1px solid;
+}
+.facDepSubmit {
+  grid-column-start: 4;
+  display: inline;
+  justify-self: end;
+  padding: 0.2em;
+}
 /* Uni-WebSite */
 
 /* PC desktop & Laptop + general*/

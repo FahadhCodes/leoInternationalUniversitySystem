@@ -77,7 +77,7 @@ if (!empty($_SESSION['message'])) {
         <input type="text" name="stf" id="stf" class="stfId">
 
         <div class="tradi-blue1-border mx-1 p-1 rounded checkBoxContainers row">
-          <span class="d-flex align-items-center fw-medium col">Faculty</span>
+          <span class="d-flex align-items-center justify-content-center text-light tradi-blue1-bg rounded fw-bold col">Faculty</span>
           <div class="checkBoxContent row align-items-center col-8">
             <?php
             $selectQuery = "SELECT `faculty_id`, `facultyName` FROM `faculty`";
@@ -86,7 +86,7 @@ if (!empty($_SESSION['message'])) {
               echo "
                       <div class='checkBox'>
                           <input type='checkbox' name='{$row['facultyName']}' id={$row['faculty_id']}   class='CheckBoX' value={$row['faculty_id']}>
-                          <label for={$row['faculty_id']}>{$row['facultyName']}</label>
+                          <label class='tradi-blue1 fw-medium' for={$row['faculty_id']}>{$row['facultyName']}</label>
                       </div>
                   ";
             }
@@ -95,32 +95,25 @@ if (!empty($_SESSION['message'])) {
         </div>
 
         <div class="tradi-blue1-border mx-1 p-1 rounded checkBoxContainers row">
-          <span class="d-flex align-items-center fw-medium col">Department</span>
+          <span class="d-flex align-items-center justify-content-center text-light tradi-blue1-bg rounded fw-bold col">Department</span>
           <div class="checkBoxContent dep row align-items-center col-8">
           </div>
         </div>
 
-        <span class="d-flex align-items-center fw-medium">Selected Faculties</span>
-        <div class="selc fac">
+        <div class="selectedArea row">
+          <span class="d-flex align-items-center justify-content-center p-1 mb-1 fw-medium col-12 tradi-blue1-bg text-light rounded">Selected Faculties</span>
+          <div class="selc fac tradi-blue1-border rounded">
+          </div>
         </div>
 
-        <span class="d-flex align-items-center fw-medium">Selected Departments</span>
-        <div class="selc dep">
+        <div class="selectedArea row">
+          <span class="d-flex align-items-center justify-content-center p-1 mb-1 fw-medium col-12 tradi-blue1-bg text-light rounded">Selected Departments</span>
+          <div class="selc dep tradi-blue1-border rounded">
+          </div>
         </div>
 
         <button type="button" class="facDepSubmit generalButton">Submit</button>
       </div>
-      <?php
-      $stdID = $tag = "";
-      if (isset($_POST['submit-A'])) {
-        $stdID = $_POST['stdID'];
-        if ($tag = $_POST['tag']) {
-          $updateQuery = "UPDATE `studentaccount` SET `tag`='$tag' WHERE `stdID`='$stdID'";
-          mysqli_query($con, $updateQuery);
-          notify($message = ["success" => strtoupper("Student tag Updated")], "success");
-        }
-      }
-      ?>
     </form>
     <form action="" method="post" class="my-3 NOTICE">
       <div class="formContainer notice">

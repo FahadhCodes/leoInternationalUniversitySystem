@@ -349,6 +349,16 @@ const depcheckedBox = [];
 const depNameList = [];
 let faculties = "";
 let departments = "";
+//Checked List UI property--------------------<
+function CheckedListUI_property(nameList) {
+  let str = "";
+  nameList.forEach((item) => {
+    console.info("UI function execuring...");
+    str += `<span class='badge tradi-blue1-border text-dark m-1 fw-medium'>${item}</span>`;
+  });
+  return str;
+}
+//Checked List UI property--------------------<
 //created for store checked box
 function storingCheckedBoxes(
   allcheckBoxesarr,
@@ -366,7 +376,7 @@ function storingCheckedBoxes(
         nameList.splice(nameList.indexOf(aCheckBox.name), 1);
       }
       console.log("Debugging: ", checkedBoxesArr);
-      modifyingDom.innerHTML = nameList.join("<br>");
+      modifyingDom.innerHTML = CheckedListUI_property(nameList);
     });
   });
 }
@@ -382,7 +392,7 @@ function departmentCheckBox(checkBox) {
         container.innerHTML += `
           <div class="checkBox">
             <input class="selDep" type="checkbox" name="${item.department_name}" id="${item.department_id}" value="${item.department_id}">
-            <label for="${item.department_id}">${item.department_name}</label>
+            <label class='tradi-blue1 fw-medium' for="${item.department_id}">${item.department_name}</label>
           </div>
         `;
       });
@@ -422,11 +432,11 @@ faccheckBoxs.forEach((checkBox) => {
               depNameList.splice(depNameList.indexOf(item.department_name), 1);
               //refreshing and displaying
               document.querySelector(".selc.dep").innerHTML =
-                depNameList.join("<br>");
+                CheckedListUI_property(depNameList);
               faculties = faccheckedBox.join("|");
               departments = depcheckedBox.join("|");
               console.log(
-                "A list of departments eliminated based on unchecked faculties:",
+                "A list of departments after elimination based on unchecked faculties:",
                 depcheckedBox,
               );
             }
