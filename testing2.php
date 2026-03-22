@@ -57,9 +57,6 @@ require "Includes/connection.php";
 
     $departments = array('ASE', 'ASA', 'GSG', 'TET', 'TBT');
 
-    print_r($Result);
-    var_dump($Result);
-
     while ($row = mysqli_fetch_assoc($Result)) {
       // Filter while fetching
       if (in_array($row['department_id'], $departments)) {
@@ -83,6 +80,20 @@ require "Includes/connection.php";
     }
   }
   echo "</table>";
+  // $query = "CALL facAndDep('AP')";
+  // $Result = mysqli_query($con, $query);
+
+  // print_r($Result);
+  // var_dump($Result);
+
+  // echo "<br>";
+  // $depID = [];
+  // $i = 0;
+  // while ($row = mysqli_fetch_assoc($Result)) {
+  //   $depID[$i] = $row['department_id'];
+  //   $i += 1;
+  // }
+  // echo $depID[2];
   ?>
   <script src="JavaScript/function.js"></script>
 </body>

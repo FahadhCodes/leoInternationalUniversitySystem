@@ -354,7 +354,7 @@ function CheckedListUI_property(nameList) {
   let str = "";
   nameList.forEach((item) => {
     console.info("UI function execuring...");
-    str += `<span class='badge tradi-blue1-border text-dark m-1 fw-medium'>${item}</span>`;
+    str += `<span class='badge tradi-blue1-border text-dark m-1 fw-medium depCheckBox'>${item}</span>`;
   });
   return str;
 }

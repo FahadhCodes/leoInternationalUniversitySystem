@@ -86,7 +86,7 @@ if (!empty($_SESSION['message'])) {
               echo "
                       <div class='checkBox'>
                           <input type='checkbox' name='{$row['facultyName']}' id={$row['faculty_id']}   class='CheckBoX' value={$row['faculty_id']}>
-                          <label class='tradi-blue1 fw-medium' for={$row['faculty_id']}>{$row['facultyName']}</label>
+                          <label class='tradi-blue1 fw-medium facCheckBox' for={$row['faculty_id']}>{$row['facultyName']}</label>
                       </div>
                   ";
             }

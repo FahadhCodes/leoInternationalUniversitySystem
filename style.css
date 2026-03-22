@@ -447,6 +447,10 @@ button[type="submit"].submit-A.delete {
   justify-self: end;
   padding: 0.2em;
 }
+.facCheckBox,
+.depCheckBox {
+  font-size: 0.9em;
+}
 /* Uni-WebSite */
 
 /* PC desktop & Laptop + general*/

@@ -272,10 +272,33 @@ include('../Includes/function.php');
             $row = mysqli_fetch_assoc($result);
             $str1 = $row['faculty_ids'];
             $str2 = $row['department_ids'];
+
+            //specific Lecturer modules
             $faculties = explode('|', $str1);
             $departments = explode("|", $str2);
-            echo "{$faculties[0]}<br>";
-            echo "{$departments[0]}<br>";
+            //specific Lecturer modules
+            $conn = new mysqli("localhost", "root", "", "leoUni_db");
+            if ($conn->connect_error) {
+                notify($message = ["danger" => "Not Connected"], "danger");
+            } else {
+                notify($message = ["success" => "Connected"], "success");
+            }
+            // $query1 = ;
+            //Design
+            $uni = array("ID1" => array(
+                "facultyName" => "X",
+                "departments" => array("id1" => "name1", "id2" => "name2", "id3" => "name3")
+            ), "ID2" => array(
+                "facultyName" => "X",
+                "departments" => array("id1" => "name1", "id2" => "name2", "id3" => "name3")
+            ));
+            $df = json_encode($uni);
+            // echo $df;
+            //Design
+            //
+            $uni = [];
+
+            //
             ?>
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
