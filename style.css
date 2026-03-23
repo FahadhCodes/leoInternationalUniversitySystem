@@ -64,6 +64,12 @@ div.subContainer::-webkit-scrollbar-thumb {
 .tradi-blue2-border {
   border: var(--color6) 1px solid;
 }
+.tradi-yellow1-border {
+  border: var(--color9) 1px solid;
+}
+.tradi-yellow2-border {
+  border: var(--colorD) 1px solid;
+}
 .tradi-blue2 {
   color: var(--color6);
 }

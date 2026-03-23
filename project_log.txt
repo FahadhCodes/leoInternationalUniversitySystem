@@ -46,3 +46,10 @@ Available and New Plan
 1) lectures can upload materials that will stored in "studentmarkings" table 
 2) staffs(lectures) can  directly  access studentmarkings AND finalExam tables
 3) using fetch API most places is RECOMMENDED    
+
+24/03/2026
+Compleated
+1) Lectures dashboard Teaching affiliations 
+
+Next Plan
+1) A dynamic page for each deparment in lecture dashboard to manage student department wise

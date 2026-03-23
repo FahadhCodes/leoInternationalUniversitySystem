@@ -137,6 +137,35 @@ include('../Includes/function.php');
         .inputBarDesign.form2 {
             grid-column: span 4;
         }
+
+        .accordion-item {
+            overflow: visible;
+            border-width: 1px 0px 1px 0px;
+            border-top: 1px solid var(--color1);
+            border-bottom: 1px solid var(--color1);
+        }
+
+        .accordion-button {
+            background-color: var(--color7) !important;
+            color: var(--color1);
+            font-weight: 800;
+            font-size: 0.7em;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--color1) !important;
+            color: var(--colorD);
+        }
+
+        .badge {
+            font-size: 0.8em;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            color: var(--color1);
+            border-color: var(--color1);
+        }
     </style>
 </head>
 
@@ -274,83 +303,70 @@ include('../Includes/function.php');
             $str2 = $row['department_ids'];
 
             //specific Lecturer modules
-            $faculties = explode('|', $str1);
-            $departments = explode("|", $str2);
+            $selectedFaculties = explode('|', $str1);
+            $selectedDepartments = explode("|", $str2);
             //specific Lecturer modules
-            $conn = new mysqli("localhost", "root", "", "leoUni_db");
-            if ($conn->connect_error) {
-                notify($message = ["danger" => "Not Connected"], "danger");
-            } else {
-                notify($message = ["success" => "Connected"], "success");
-            }
-            // $query1 = ;
-            //Design
-            $uni = array("ID1" => array(
-                "facultyName" => "X",
-                "departments" => array("id1" => "name1", "id2" => "name2", "id3" => "name3")
-            ), "ID2" => array(
-                "facultyName" => "X",
-                "departments" => array("id1" => "name1", "id2" => "name2", "id3" => "name3")
-            ));
-            $df = json_encode($uni);
-            // echo $df;
-            //Design
-            //
-            $uni = [];
 
-            //
+            //LOGIC
+            $uniData = [];
+            $facultyArr = [];
+            foreach ($selectedFaculties as $faculty) {
+                $uni = "SELECT faculty.faculty_id, faculty.facultyName, 
+                                GROUP_CONCAT(department.department_id SEPARATOR '|') AS department_ids,
+                                GROUP_CONCAT(department.department_name SEPARATOR '|') AS department_names
+                        FROM department 
+                        INNER JOIN faculty ON department.faculty_id = faculty.faculty_id 
+                        WHERE faculty.faculty_id = '{$faculty}'
+                        GROUP BY faculty_id";
+                $result = mysqli_query($con, $uni);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    // echo "<h3>{$row['facultyName']}</h3>";
+
+                    $facultyArr[$faculty] = $row['facultyName'];
+
+                    $allDepId = explode('|', $row['department_ids']);
+                    $allDepName = explode('|', $row['department_names']);
+                    $index = 0;
+                    for ($i = 0; $i < count($allDepId); $i++) {
+                        if (in_array($allDepId[$i], $selectedDepartments)) {
+                            // echo "{$allDepId[$i]}       {$allDepName[$i]}<br>";
+                            $uniData[$faculty]['did'][$index] = $allDepId[$i];
+                            $uniData[$faculty]['dname'][$index] = $allDepName[$i];
+                            $index++;
+                        }
+                    }
+                }
+            }
+            //LOGIC
+            //debug Purpose
+            // print_r($uniData);
+            // echo "<br>";
+            // print_r($facultyArr);
+            //debug Purpose
             ?>
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Faculty of Applied Science
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body tradi-blue2-bg tradi-blue1">
-                            <ul>
-                                <li>Physical Sciences & technology</li>
-                                <li>Natural Resources</li>
-                                <li>Food Sciences and Technology</li>
-                                <li>Sport Sciences</li>
-                            </ul>
+            <div class="accordion" id="dashboard_stf_acc">
+                <?php
+                foreach ($selectedFaculties as $faculty) {
+                    echo "
+        <div class='accordion-item'>
+            <h2 class='accordion-header'>
+                <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#{$faculty}' aria-expanded='false' aria-controls='{$faculty}'>
+                    {$facultyArr[$faculty]}
+            </h2>
+            <div id='{$faculty}' class='accordion-collapse collapse' data-bs-parent='#dashboard_stf_acc'>
+                <div class='accordion-body p-0 '>
+                    <ul class='btn-group'>";
+                    for ($index = 0; $index < count($uniData[$faculty]['did']); $index++) {
+                        echo "<a href='home.php?{$uniData[$faculty]['did'][$index]}' class = 'badge tradi-yellow1 tradi-yellow1-border m-1 fw-medium'>";
+                        echo $uniData[$faculty]['dname'][$index];
+                        echo '</a>';
+                    }
+                    echo "</ul>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Faculty of Applied Science
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body tradi-blue2-bg tradi-blue1">
-                            <ul>
-                                <li>Physical Sciences & technology</li>
-                                <li>Natural Resources</li>
-                                <li>Food Sciences and Technology</li>
-                                <li>Sport Sciences</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Accordion Item #3
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body tradi-blue2-bg tradi-blue1">
-                            <ul>
-                                <li>Physical Sciences & technology</li>
-                                <li>Natural Resources</li>
-                                <li>Food Sciences and Technology</li>
-                                <li>Sport Sciences</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                </div>";
+                }
+                ?>
             </div>
         </section>
         <section class="multiFormsCont">
