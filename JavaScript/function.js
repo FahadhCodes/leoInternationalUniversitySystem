@@ -66,7 +66,7 @@ function autoToast(type, message) {
   } else if (type === "infos") {
     headerType = "info";
     symbole = "fa-solid fa-circle-info";
-    messageColor = "#ADD8E6";
+    messageColor = "#00bfff";
   } else if (type === "dangers") {
     headerType = "danger";
     symbole = "fa-solid fa-circle-xmark";
@@ -74,7 +74,7 @@ function autoToast(type, message) {
   } else if (type === "successes") {
     headerType = "success";
     symbole = "fa-solid fa-square-check";
-    messageColor = "#90EE90";
+    messageColor = "#00ff00";
   }
   document.querySelector(".toastCont").innerHTML = `
   <div class="Notify">
@@ -133,8 +133,7 @@ function departmentSelectUpdator(facutyformElement, departmentformElement) {
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
-      document.getElementById(departmentformElement).innerHTML =
-        xhr.responseText;
+      document.getElementById(departmentformElement).innerHTML = xhr.responseText;
     } else if (xhr.readyState != 4) {
       console.error(`Request Not processed: ${xhr.readyState}`);
     } else if (xhr.status != 200) {
@@ -153,23 +152,17 @@ function subjectIDgenorator() {
   xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
-      document
-        .getElementById("subIdAuto")
-        .addEventListener("click", function () {
-          document.getElementById("suggestedSubjectID").innerHTML =
-            xhr.responseText;
-          document.getElementById("suggestedSubjectID").style.transform =
-            "scale(1,1)";
-        });
+      document.getElementById("subIdAuto").addEventListener("click", function () {
+        document.getElementById("suggestedSubjectID").innerHTML = xhr.responseText;
+        document.getElementById("suggestedSubjectID").style.transform = "scale(1,1)";
+      });
     } else if (xhr.status != 200) {
       console.error("ERROR WITH RECIEVING DATA: ", xhr.status);
     } else if (xhr.readyState != 4) {
       console.error("ERROR IN READY STATE", xhr.readyState);
     }
   };
-  xhr.send(
-    `departmentID=${departmentID}&subjectYear=${subjectYear}&sem=${sem}`,
-  );
+  xhr.send(`departmentID=${departmentID}&subjectYear=${subjectYear}&sem=${sem}`);
 }
 
 function facultyCheckBoxes() {
@@ -206,11 +199,7 @@ function updateFormValidation() {
       });
 
       if (!valid || filledForm === "") {
-        if (
-          confirm(
-            "YOU MUST FILL THE ID FIELDS AND AT LEAST ONE OF OTHER FIELDS TO UPDATE",
-          )
-        ) {
+        if (confirm("YOU MUST FILL THE ID FIELDS AND AT LEAST ONE OF OTHER FIELDS TO UPDATE")) {
           e.reset();
         } else {
           e.preventDefault();
@@ -342,37 +331,48 @@ function marksToResult(marks) {
 //_requestANDResponses_________________________________________________________________________________________________________________
 //_______FacDep___________________________________________________________________________________________________________________
 const container = document.querySelector(".checkBoxContent.dep");
+const container1 = document.querySelector(".checkBoxContent.sub");
 const faccheckBoxs = document.querySelectorAll(".CheckBoX");
+const SelectYear = document.querySelector(".SelectYear");
+const SelectSem = document.querySelector(".SelectSem");
+const selcSub = document.querySelector(".selc.sub");
+//Faculty
 const faccheckedBox = [];
 const facNameList = [];
+//Department
 const depcheckedBox = [];
 const depNameList = [];
+//Subject
+const subcheckedBox = [];
+const subNameList = [];
+const unChecked = [];
+//DB
 let faculties = "";
 let departments = "";
+let subjects = "";
 //Checked List UI property--------------------<
 function CheckedListUI_property(nameList) {
   let str = "";
   nameList.forEach((item) => {
     console.info("UI function execuring...");
-    str += `<span class='badge tradi-blue1-border text-dark m-1 fw-medium depCheckBox'>${item}</span>`;
+    str += `<span class='badge tradi-blue1-border text-dark m-1 fw-medium'>${item}</span>`;
   });
   return str;
 }
 //Checked List UI property--------------------<
 //created for store checked box
-function storingCheckedBoxes(
-  allcheckBoxesarr,
-  checkedBoxesArr,
-  nameList,
-  modifyingDom,
-) {
+function storingCheckedBoxes(allcheckBoxesarr, checkedBoxesArr, nameList, modifyingDom) {
+  console.log("storingCheckedBoxes() funtion executing...");
   allcheckBoxesarr.forEach((aCheckBox) => {
     aCheckBox.addEventListener("change", () => {
       if (aCheckBox.checked) {
+        console.log("Value storing...");
         checkedBoxesArr.push(aCheckBox.value);
         nameList.push(aCheckBox.name);
       } else {
+        console.log("Value removing...");
         checkedBoxesArr.splice(checkedBoxesArr.indexOf(aCheckBox.value), 1);
+
         nameList.splice(nameList.indexOf(aCheckBox.name), 1);
       }
       console.log("Debugging: ", checkedBoxesArr);
@@ -381,6 +381,64 @@ function storingCheckedBoxes(
   });
 }
 
+function subjectCheckBoxes(depcheckedBox, year, sem) {
+  fetch(`../Server.php?dids=${depcheckedBox.join("|")}&year=${year}&sem=${sem}`)
+    .then((res) => res.json())
+    .then((items) => {
+      container1.innerHTML = "";
+      for (let i = 0; i < items.length; i++) {
+        container1.innerHTML += `
+            <div class="checkBox">
+              <input class="selSub" type="checkbox" name="${items[i].subject_name}" id="${items[i].subject_id}" value="${items[i].subject_id}">
+              <label class='tradi-blue1 fw-medium depCheckBox' for="${items[i].subject_id}">${items[i].subject_name}</label>
+            </div>
+          `;
+      }
+      const subCheckboxes = document.querySelectorAll(".selSub");
+      storingCheckedBoxes(subCheckboxes, subcheckedBox, subNameList, selcSub);
+    })
+    .catch((err) => console.log("Exception(Sub): ", err));
+}
+document.querySelectorAll(".SelectBoxes").forEach((selectBox) => {
+  selectBox.addEventListener("change", () => {
+    console.log("TESTING SUBJEC:", SelectYear.value);
+    console.log("TESTING SUBJEC:", SelectSem.value);
+    subjectCheckBoxes(depcheckedBox, SelectYear.value, SelectSem.value);
+    const depCheckboxes = document.querySelectorAll(".selDep");
+    unchekingSubject(depCheckboxes, SelectYear.value, SelectSem.value);
+  });
+});
+// deparment_uncheing
+function unchekingSubject(depCheckboxes, year, sem) {
+  depCheckboxes.forEach((aCheckBox) => {
+    aCheckBox.addEventListener("change", () => {
+      if (aCheckBox.checked) {
+        subjectCheckBoxes(depcheckedBox, year, sem); //changes the checkBoxes
+      } else {
+        unChecked.push(aCheckBox.value);
+        subjectCheckBoxes(depcheckedBox, year, sem); //changes the checkBoxes
+        fetch(`../Server.php?dids=${unChecked.join("|")}&year=${year}&sem=${sem}`)
+          .then((res) => res.json())
+          .then((items) => {
+            for (let i = 0; i < items.length; i++) {
+              if (
+                subcheckedBox.includes(items[i].subject_id) &&
+                subNameList.includes(items[i].subject_name)
+              ) {
+                console.log("removing: ", items[i].subject_id, items[i].subject_name);
+                subcheckedBox.splice(subcheckedBox.indexOf(items[i].subject_id), 1);
+                subNameList.splice(subNameList.indexOf(items[i].subject_name), 1);
+              }
+            }
+            console.log("|||||||||||||", subNameList, subcheckedBox);
+            selcSub.innerHTML = CheckedListUI_property(subNameList);
+          })
+          .catch((err) => console.log("Exception(Sub): ", err));
+      }
+    });
+  });
+}
+// deparment_uncheing
 function departmentCheckBox(checkBox) {
   fetch(`../Server.php?faculty_id=${checkBox.value}`)
     .then((res) => {
@@ -392,20 +450,21 @@ function departmentCheckBox(checkBox) {
         container.innerHTML += `
           <div class="checkBox">
             <input class="selDep" type="checkbox" name="${item.department_name}" id="${item.department_id}" value="${item.department_id}">
-            <label class='tradi-blue1 fw-medium' for="${item.department_id}">${item.department_name}</label>
+            <label class='tradi-blue1 fw-medium depCheckBox' for="${item.department_id}">${item.department_name}</label>
           </div>
         `;
       });
       const depCheckboxes = document.querySelectorAll(".selDep");
       const selcDep = document.querySelector(".selc.dep");
       storingCheckedBoxes(depCheckboxes, depcheckedBox, depNameList, selcDep);
+      unchekingSubject(depCheckboxes, SelectYear.value, SelectSem.value);
     })
     .catch((ex) => {
       console.log("Exeption: ", ex);
     });
 }
 
-const selcDep = document.querySelector(".selc.dep");
+// const selcDep = document.querySelector(".selc.dep");
 faccheckBoxs.forEach((checkBox) => {
   checkBox.addEventListener("change", function () {
     if (checkBox.checked) {
@@ -424,15 +483,14 @@ faccheckBoxs.forEach((checkBox) => {
               depNameList.includes(item.department_name)
             ) {
               //eliminating spefic department id from "depcheckedBox" array
-              depcheckedBox.splice(
-                depcheckedBox.indexOf(item.department_id),
-                1,
-              );
+              depcheckedBox.splice(depcheckedBox.indexOf(item.department_id), 1);
               //eliminating spefic department name from "depNameList" array
               depNameList.splice(depNameList.indexOf(item.department_name), 1);
+              //subjectFixing
+
+              //subjectFixing
               //refreshing and displaying
-              document.querySelector(".selc.dep").innerHTML =
-                CheckedListUI_property(depNameList);
+              document.querySelector(".selc.dep").innerHTML = CheckedListUI_property(depNameList);
               faculties = faccheckedBox.join("|");
               departments = depcheckedBox.join("|");
               console.log(
@@ -455,6 +513,7 @@ try {
     let stfId = document.querySelector(".stfId").value;
     faculties = faccheckedBox.join("|");
     departments = depcheckedBox.join("|");
+    subjects = subcheckedBox.join("|");
     if (stfId == "") {
       autoToast("dangers", "Pleas fill Staff Id field".toUpperCase());
       document.querySelector(".stfId").style.border = "1px solid red";
@@ -463,24 +522,22 @@ try {
       console.info("Sending data to DataBase...");
       console.log("faculties:", faculties);
       console.log("departments:", departments);
+      console.log("Subjects:", subjects);
       //debugging
-      sendStoredArr(stfId, faculties, departments);
+      sendStoredArr(stfId, faculties, departments,subjects);
     }
   });
 } catch (error) {
-  if (
-    error.message ==
-    "Cannot read properties of null (reading 'addEventListener')"
-  ) {
+  if (error.message == "Cannot read properties of null (reading 'addEventListener')") {
     throw "Not an Error : facDepSubmit button is not in the landing-page";
   }
 }
 
-function sendStoredArr(stfid, fac, dep) {
-  fetch(`../Server.php?stfId=${stfid}&fac=${fac}&dep=${dep}`)
-    .then((res) => res.text())
+function sendStoredArr(stfid, fac, dep, sub) {
+  fetch(`../Server.php?stfId=${stfid}&fac=${fac}&dep=${dep}&sub=${sub}`)
+    .then((res) => res.json())
     .then((data) => {
-      autoToast("infos", data);
+      autoToast(data.type, data.message);
     })
     .catch((ex) => {
       console.warn("Exception: ", ex);

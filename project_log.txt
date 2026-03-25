@@ -51,5 +51,10 @@ Available and New Plan
 Compleated
 1) Lectures dashboard Teaching affiliations 
 
+Fixes in Teaching affiliations
+1) Should add message box if there is no such staff id in the DB ✅
+2) adding subjects fields to the staff account table ✅
+3) modifying Teaching affiliations UI in admin panal to add subjects  
+
 Next Plan
 1) A dynamic page for each deparment in lecture dashboard to manage student department wise

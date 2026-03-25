@@ -99,7 +99,29 @@ if (!empty($_SESSION['message'])) {
           <div class="checkBoxContent dep row align-items-center col-8">
           </div>
         </div>
+        <!-- new -->
+        <div class="tradi-blue1-border mx-1 p-1 rounded checkBoxContainers row">
+          <span class="d-flex align-items-center justify-content-center text-light tradi-blue1-bg rounded fw-bold col">Subjects</span>
+          <div class="cont">
+            <div class="filterSection row justify-content-between tradi-blue1-border rounded p-1 my-1">
+              <select name="subjectyear" id="subjectyear" class="SelectYear col-5 SelectBoxes">
+                <option value="0" selected hidden>Select a Year</option>
+                <option value="1">1 st Year</option>
+                <option value="2">2 nd Year</option>
+                <option value="3">3 rd Year</option>
+                <option value="4">4 th Year</option>
+              </select>
 
+              <select name="subjectSem" id="subjectSem" class="SelectSem col-5 SelectBoxes ">
+                <option value="0" selected hidden>Select a Semester</option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+              </select>
+            </div>
+            <div class="checkBoxContent sub row align-items-center">
+            </div>
+          </div>
+        </div>
         <div class="selectedArea row">
           <span class="d-flex align-items-center justify-content-center p-1 mb-1 fw-medium col-12 tradi-blue1-bg text-light rounded">Selected Faculties</span>
           <div class="selc fac tradi-blue1-border rounded">
@@ -111,7 +133,12 @@ if (!empty($_SESSION['message'])) {
           <div class="selc dep tradi-blue1-border rounded">
           </div>
         </div>
-
+        <!-- NEW -->
+        <div class="selectedArea row">
+          <span class="d-flex align-items-center justify-content-center p-1 mb-1 fw-medium col-12 tradi-blue1-bg text-light rounded">Selected Subjects</span>
+          <div class="selc sub tradi-blue1-border rounded">
+          </div>
+        </div>
         <button type="button" class="facDepSubmit generalButton">Submit</button>
       </div>
     </form>

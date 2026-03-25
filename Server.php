@@ -37,14 +37,30 @@ $data = [];
 while ($row = mysqli_fetch_assoc($result1)) {
     $data[] = $row;
 }
+
+#_____________________subjects responses__________________________________________________
+$department_ids = $_GET['dids'] ?? "";
+$year = $_GET['year'] ?? "";
+$semester = $_GET['sem'] ?? "";
+$subjectsRes = [];
+
+$department_ids_arr = explode("|", $department_ids);
+foreach ($department_ids_arr as $dep) {
+    $subjects = mysqli_query($con, "SELECT * FROM `subject` WHERE `department_id` = '{$dep}' AND `Year` = '{$year}' AND `semester` = '{$semester}'");
+    while ($row = mysqli_fetch_assoc($subjects)) {
+        $subjectsRes[] = $row;
+    }
+}
+#_____________________subjects responses__________________________________________________
+
+
 #________FacDep___________________________________________________________________________________________________________________
 #________FacDepDB_________________________________________________________________________________________________________________
 $fids = $_GET['fac'] ?? "";
 $deps = $_GET['dep'] ?? "";
+$subs = $_GET['sub'] ?? "";
 $sftId = $_GET['stfId'] ?? "";
 #________FacDepDB_________________________________________________________________________________________________________________
-
-
 
 #_________________________________________________FunctionCall____________________________________________________________________
 if (isset($_GET['YEAR_AND_SEM'], $_GET['SEARCH'])) {
@@ -53,8 +69,19 @@ if (isset($_GET['YEAR_AND_SEM'], $_GET['SEARCH'])) {
 } else if (isset($_GET['faculty_id'])) {
     echo json_encode($data);
 } else if (!empty($fids) && !empty($deps) && !empty($sftId)) {
-    $update = "UPDATE `staffsaccount` SET `faculty_ids`='$fids',`department_ids`='$deps' WHERE `staffID`='$sftId'";
-    mysqli_query($con, $update);
-    echo "Teaching affiliations updated";
+    $autoToast = [];
+    $row = mysqli_fetch_assoc(mysqli_query($con, "SELECT `staffID` FROM `staffsaccount` WHERE `staffID` = '{$sftId}'"));
+    if (!empty($row['staffID'])) {
+        $update = "UPDATE `staffsaccount` SET `faculty_ids`='$fids',`department_ids`='$deps',`subjects`='$subs' WHERE `staffID`='$sftId'";
+        mysqli_query($con, $update);
+        $autoToast["type"] = "successes";
+        $autoToast["message"] = "Teaching affiliations updated";
+    } else {
+        $autoToast["type"] = "warnings";
+        $autoToast["message"] = "That staff did not have an account yet or invalid Staff id";
+    }
+    echo json_encode($autoToast);
+} else if (!empty($department_ids) || !empty($year) || !empty($semester)) {
+    echo json_encode($subjectsRes);
 } 
 #_________________________________________________FunctionCall____________________________________________________________________
