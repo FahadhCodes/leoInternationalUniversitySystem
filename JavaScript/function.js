@@ -524,12 +524,12 @@ try {
       console.log("departments:", departments);
       console.log("Subjects:", subjects);
       //debugging
-      sendStoredArr(stfId, faculties, departments,subjects);
+      sendStoredArr(stfId, faculties, departments, subjects);
     }
   });
 } catch (error) {
   if (error.message == "Cannot read properties of null (reading 'addEventListener')") {
-    throw "Not an Error : facDepSubmit button is not in the landing-page";
+    console.log("No facDepSubmit button is not in the landing-page");
   }
 }
 

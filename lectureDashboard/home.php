@@ -355,9 +355,9 @@ include('../Includes/function.php');
             </h2>
             <div id='{$faculty}' class='accordion-collapse collapse' data-bs-parent='#dashboard_stf_acc'>
                 <div class='accordion-body p-0 '>
-                    <ul class='btn-group'>";
+                    <ul class='btn-group p-0'>";
                     for ($index = 0; $index < count($uniData[$faculty]['did']); $index++) {
-                        echo "<a href='home.php?{$uniData[$faculty]['did'][$index]}' class = 'badge tradi-yellow1 tradi-yellow1-border m-1 fw-medium'>";
+                        echo "<a href='home.php?{$uniData[$faculty]['did'][$index]}' class = 'badge tradi-yellow1 tradi-yellow1-border p-1 m-1 fw-medium'>";
                         echo $uniData[$faculty]['dname'][$index];
                         echo '</a>';
                     }

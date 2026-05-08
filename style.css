@@ -630,7 +630,8 @@ a.navItemLink:hover {
 }
 
 /* Large Desktop: Desktop monitors, larger laptops */
-@media (min-width: 1025px) {
+/* Large Screen Only */
+@media screen and (min-aspect-ratio: 0.78) {
   .notbigScreen {
     display: none;
   }
@@ -1694,7 +1695,7 @@ a.footerLink:hover {
 .accordion-button:focus {
   box-shadow: none;
 }
-@media (min-width: 320px) and (max-width: 1024px) {
+@media screen and (min-aspect-ratio: 0.4) and (max-aspect-ratio: 0.78) {
   /* previewCard */
   /* student */
   .previewCardTitle.std,
@@ -1951,8 +1952,8 @@ a.footerLink:hover {
   }
   /*Dashbord staff*/
 }
-/* mobile */
-@media (min-width: 320px) and (max-width: 480px) {
+/* 2.Mobile Phone Portrait (0.45–0.56) */
+@media (min-aspect-ratio: 9/20) and (max-aspect-ratio: 0.624) {
   /* landingPage */
   .socialMedia {
     flex-wrap: nowrap;
@@ -1981,11 +1982,7 @@ a.footerLink:hover {
   .dashboard-container {
     grid-template-columns: 1fr 5fr !important;
   }
-  .dashboard-container
-    > .main-content
-    > .bottom-section
-    > :nth-child(n)
-    > .headType1,
+  .dashboard-container > .main-content > .bottom-section > :nth-child(n) > .headType1,
   .card_DASH > .headType1 {
     font-size: 1em;
     padding-block: 0.8em;
@@ -2005,7 +2002,8 @@ a.footerLink:hover {
 }
 
 /* Small Desktop: Tablets (landscape), smaller laptops */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* 3. Tablet Portrait (0.625–0.77) */
+@media (min-aspect-ratio: 5/8) and (max-aspect-ratio: 0.78) {
   /* previewCard */
   /* student */
   .previewCardTitle.std {
@@ -2040,6 +2038,9 @@ a.footerLink:hover {
     display: none;
   }
   /* Dashboard Std */
+  .bottom-section {
+    display: block !important;
+  }
 }
 @media (min-width: 1025px) {
   .navItem {
@@ -2252,7 +2253,7 @@ button.passwordButton:active {
 .bottom-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  /* gap: 50px; */
 }
 
 /* Task Cards */
@@ -2265,7 +2266,6 @@ button.passwordButton:active {
   grid-column: span 3;
 }
 .dashBordTable {
-  height: 80%;
   width: 100%;
 }
 .card_DASH {

@@ -58,3 +58,4 @@ Fixes in Teaching affiliations
 
 Next Plan
 1) A dynamic page for each deparment in lecture dashboard to manage student department wise
+
