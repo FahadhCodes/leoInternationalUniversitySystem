@@ -9,6 +9,14 @@
         body {
             overflow: hidden;
         }
+
+        section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #00000050;
+            margin-inline: 0.3em;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
@@ -85,14 +93,14 @@
     </div>
 
     <!-- GPA Chart + Message Box -->
-    <div class="bottom-section">
-        <div class="gpa-chart">
+    <div class="bottom-section span2">
+        <section class="gpa-chart">
             <h2 class="headType1 text-center pb-3">GPA vs Semester</h2>
             <canvas id="gpaChart"></canvas>
-        </div>
-        <div class="subject-results">
+        </section>
+        <section class="subject-results p-2">
             <h2 class="headType1 text-center pb-3">Subjects</h2>
-            <div class="row pb-3 px-lg-3 align-items-center">
+            <div class="row align-items-center p-0 m-0">
                 <select name="" id="" class="col-lg-3 col-12 yearAndSem">
                     <option value="0" selected hidden>Select Year</option>
                     <option value="1.1">1.1</option>
@@ -112,7 +120,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
-            <table class="dashBordTable p-0 m-0">
+            <table class="dashBordTable mt-3">
                 <thead>
                     <th>Subject Code</th>
                     <th>Subject Name</th>
@@ -121,15 +129,15 @@
                 <tbody id="tab1">
                 </tbody>
             </table>
-        </div>
-        <div class="message-box">
+        </section>
+        <section class="span2 row p-3">
             <h2 class="headType1 text-center pb-3 pt-md-3">Send Message to Lecturer</h2>
             <label for="Email">Lecturer Email: </label>
             <input id="Email" type="text" class="dashBordMessage inputBarDesign" placeholder="example@email.com">
             <label for="messageText">Message: </label>
             <textarea class="message-box inputBarDesign" id="messageText" placeholder="Write your message..."></textarea>
-            <button class="generalButton p-2 dashBordsendButton">Send</button>
-        </div>
+            <button class="col-3 generalButton p-2 dashBordsendButton offset-9 mt-3">Send</button>
+        </section>
     </div>
     <script src="../JavaScript/function.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
