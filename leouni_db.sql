@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2026 at 02:32 PM
+-- Generation Time: Sep 21, 2026 at 02:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,19 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `leouni_db`
 --
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `facAndDep` (`p_faculty_id` VARCHAR(50))   BEGIN
-    SELECT department.department_id, department.department_name, faculty.faculty_id, faculty.facultyName 
-    FROM department 
-    INNER JOIN faculty ON department.faculty_id = faculty.faculty_id 
-    WHERE faculty.faculty_id = p_faculty_id;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -76,7 +63,6 @@ INSERT INTO `department` (`date`, `department_id`, `department_name`, `faculty_i
 ('2025-07-27 16:05:56', 'ASA', ' Agribusiness Management ', 'AG'),
 ('2025-07-27 16:09:35', 'ASE', 'Export Agriculture', 'AG'),
 ('2025-07-27 16:12:43', 'ASL', 'Livestock Production', 'AG'),
-('2026-03-20 10:50:29', 'CSE', 'Software Engineering', 'C'),
 ('2025-07-27 16:15:15', 'GRS', ' Remote Sensing and GIS', 'GE'),
 ('2025-07-27 16:15:37', 'GSG', 'Surveying and Geodesy', 'GE'),
 ('2025-07-27 16:16:56', 'MAF', 'Accountancy & Finance', 'MS'),
@@ -164,6 +150,30 @@ CREATE TABLE `finalexam` (
 
 INSERT INTO `finalexam` (`stdID`, `subject_id`, `staffID`, `marks`) VALUES
 ('21APP7890', 'PST22107', 'ALN_NA_22567', 75.20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lectureannouncement`
+--
+
+CREATE TABLE `lectureannouncement` (
+  `message_id` int(11) NOT NULL,
+  `staffID` varchar(200) NOT NULL,
+  `subject_ids` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `due_at` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lectureannouncement`
+--
+
+INSERT INTO `lectureannouncement` (`message_id`, `staffID`, `subject_ids`, `title`, `message`, `due_at`, `created_at`) VALUES
+(18, 'DWM_A_31234', 'NR11106|PST11106', 'JunkYard', 'fjoejfjsoji\n', '2026-09-29 00:00:00', '2026-09-20 11:25:07'),
+(23, 'DWM_A_31234', 'NR11106|PST12107', 'Not-Petya', '⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️', '2026-09-21 00:00:00', '2026-09-20 12:41:26');
 
 -- --------------------------------------------------------
 
@@ -264,8 +274,7 @@ INSERT INTO `staffs` (`staffID`, `staff_fname`, `staff_lname`, `dob`, `nic`, `ma
 ('SGF_A_22378', 'Shanika', 'Galappaththi', '1986-04-22', '198604224321', 'shanikaG@ss.leo.ac.lk', 'Female', NULL, 'Academic', '2'),
 ('SGN_NA_22378', 'Sachini', 'Gamage', '1981-05-22', '198105225432', 'sachiniG@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '1'),
 ('SLF_A_65987', 'Samantha', 'Ratnayake', '1988-04-25', '198804256789', 'samanthaR@ss.leo.ac.lk', 'Female', NULL, 'Academic', '6'),
-('SLN_NA_65987', 'Shiromi', 'Lokuge', '1983-07-25', '198307254321', 'shiromiL@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '6'),
-('XXX_NA_2739', '', '', '0000-00-00', '', '', '', 'XXX_NA_2739.', '0', '');
+('SLN_NA_65987', 'Shiromi', 'Lokuge', '1983-07-25', '198307254321', 'shiromiL@admin.leo.ac.lk', 'Female', NULL, 'NON-Academic', '6');
 
 -- --------------------------------------------------------
 
@@ -280,15 +289,17 @@ CREATE TABLE `staffsaccount` (
   `userName` varchar(255) DEFAULT NULL,
   `pswrd` varchar(255) DEFAULT NULL,
   `faculty_ids` varchar(500) DEFAULT NULL,
-  `department_ids` varchar(500) DEFAULT NULL
+  `department_ids` varchar(500) DEFAULT NULL,
+  `subjects` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staffsaccount`
 --
 
-INSERT INTO `staffsaccount` (`IP`, `Createddate`, `staffID`, `userName`, `pswrd`, `faculty_ids`, `department_ids`) VALUES
-('::1', '2026-01-28 19:18:08', 'DWM_A_31234', 'D.Weerasinghe', '$2y$10$d06gHjByvf/ksl4Nt4qNxOvIu89YqiCbb.G4mMLMVFLv1WGNGl6Pu', 'TC|MD', 'TET|TBT|MDMB|MDPH');
+INSERT INTO `staffsaccount` (`IP`, `Createddate`, `staffID`, `userName`, `pswrd`, `faculty_ids`, `department_ids`, `subjects`) VALUES
+('::1', '2026-01-28 19:18:08', 'DWM_A_31234', 'D.Weerasinghe', '$2y$10$d06gHjByvf/ksl4Nt4qNxOvIu89YqiCbb.G4mMLMVFLv1WGNGl6Pu', 'AP', 'APN|APP', 'PST11204|NR11205|NR11106|PST11106|NR12206|PST12107'),
+('::1', '2026-09-20 11:44:07', 'CTM_A_33567', 'C.Tissera', '$2y$10$pay6jn2vhR40X0mnDMJASOrrnwU1ZwXVxSm2TwEJ3OXivMK.XB0tO', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -908,6 +919,13 @@ ALTER TABLE `finalexam`
   ADD KEY `staffID` (`staffID`);
 
 --
+-- Indexes for table `lectureannouncement`
+--
+ALTER TABLE `lectureannouncement`
+  ADD PRIMARY KEY (`message_id`),
+  ADD KEY `staffID` (`staffID`);
+
+--
 -- Indexes for table `notice`
 --
 ALTER TABLE `notice`
@@ -965,6 +983,12 @@ ALTER TABLE `subject`
 --
 
 --
+-- AUTO_INCREMENT for table `lectureannouncement`
+--
+ALTER TABLE `lectureannouncement`
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
@@ -993,6 +1017,12 @@ ALTER TABLE `finalexam`
   ADD CONSTRAINT `finalexam_ibfk_1` FOREIGN KEY (`stdID`) REFERENCES `studets` (`stdID`),
   ADD CONSTRAINT `finalexam_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`),
   ADD CONSTRAINT `finalexam_ibfk_3` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
+
+--
+-- Constraints for table `lectureannouncement`
+--
+ALTER TABLE `lectureannouncement`
+  ADD CONSTRAINT `lectureannouncement_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
 
 --
 -- Constraints for table `staffsaccount`

@@ -20,9 +20,7 @@ function inputbarEnabler() {
     /* 
     THIS LOGIC SPECIFICALLY CONSTRUCTED FOR ADD SECTION--->ADDING NEW DEPARTMENT PART NOT FOR ALL 
     */
-    fac1.value == "0"
-      ? (depa[i].style.transform = "scale(0,0)")
-      : (depa[i].style.transform = "scale(1,1)");
+    fac1.value == "0" ? (depa[i].style.transform = "scale(0,0)") : (depa[i].style.transform = "scale(1,1)");
   }
   //add subject logic
   const fac2 = document.getElementById("facultySelection2");
@@ -32,9 +30,7 @@ function inputbarEnabler() {
   */
   const sub = document.getElementsByClassName("sub");
   for (let i = 0; i < sub.length; i++) {
-    fac2.value == "0" || depa1.value == "0"
-      ? (sub[i].style.transform = "scale(0,0)")
-      : (sub[i].style.transform = "scale(1,1)");
+    fac2.value == "0" || depa1.value == "0" ? (sub[i].style.transform = "scale(0,0)") : (sub[i].style.transform = "scale(1,1)");
   }
 }
 //subjectIdgeneratorButton.style.transform = "scale(0,0)";
@@ -76,6 +72,13 @@ function autoToast(type, message) {
     symbole = "fa-solid fa-square-check";
     messageColor = "#00ff00";
   }
+  // 1. Use 'let' so it can be reassigned
+  let toastContainer = document.querySelector(".toastCont");
+  if (!toastContainer) {
+    toastContainer = document.createElement("div");
+    toastContainer.classList.add("toastCont");
+    document.body.appendChild(toastContainer);
+  }
   document.querySelector(".toastCont").innerHTML = `
   <div class="Notify">
     <div class="toastContainer">
@@ -83,11 +86,11 @@ function autoToast(type, message) {
         <div class="headerToast ${headerType} d-flex justify-content-between">
           <div class="message" style="color:${messageColor}">
             <i class="${symbole}"></i>
-            <span>${headerType}</span>
+            <span style="text-shadow: 0px 0px 4px #232323;">${headerType}</span>
           </div>
           <button type="button" class="btn text-${headerType} closeButton"><i class="fa-solid fa-rectangle-xmark"></i></button>
         </div>
-        <div class="bodyToast p-2" style="color:${messageColor}">
+        <div class="bodyToast p-2" style="color:${messageColor}; text-shadow: 0px 0px 4px #232323;">
           ${message}
         </div>
       </div>
@@ -421,10 +424,7 @@ function unchekingSubject(depCheckboxes, year, sem) {
           .then((res) => res.json())
           .then((items) => {
             for (let i = 0; i < items.length; i++) {
-              if (
-                subcheckedBox.includes(items[i].subject_id) &&
-                subNameList.includes(items[i].subject_name)
-              ) {
+              if (subcheckedBox.includes(items[i].subject_id) && subNameList.includes(items[i].subject_name)) {
                 console.log("removing: ", items[i].subject_id, items[i].subject_name);
                 subcheckedBox.splice(subcheckedBox.indexOf(items[i].subject_id), 1);
                 subNameList.splice(subNameList.indexOf(items[i].subject_name), 1);
@@ -493,10 +493,7 @@ faccheckBoxs.forEach((checkBox) => {
               document.querySelector(".selc.dep").innerHTML = CheckedListUI_property(depNameList);
               faculties = faccheckedBox.join("|");
               departments = depcheckedBox.join("|");
-              console.log(
-                "A list of departments after elimination based on unchecked faculties:",
-                depcheckedBox,
-              );
+              console.log("A list of departments after elimination based on unchecked faculties:", depcheckedBox);
             }
           });
         });
@@ -577,3 +574,186 @@ try {
   console.log(error);
 }
 //____Exam Result Table Respons_______________________________________________________________________________________
+// RES -----------------------------------------------------------------------------------------------------------------
+function requester(getPayload, action, triggeringElement, wannaToast, responseData) {
+  let timeout; // Variable to hold our debounce timery
+  triggeringElement.addEventListener(action, async () => {
+    // 1. Clear the timer if the user types another key quickly
+    clearTimeout(timeout);
+
+    // 2. Set a timer to wait 500ms after they STOP typing before fetching
+    let delay = action === "keyup" ? 500 : 0;
+
+    timeout = setTimeout(async () => {
+      const payload = getPayload();
+      console.log("REQUEST:", payload); //MUST BE HIDDEN
+      try {
+        const respons = await fetch("../Server.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+        if (!respons.ok) {
+          console.log("ERROR:", respons.status);
+        }
+        const data = await respons.json();
+        if (wannaToast) autoToast(data.type, data.message);
+        if (responseData) responseData(data);
+      } catch (error) {
+        console.log("ERROR:", error);
+      }
+    }, delay);
+  });
+}
+// RES -----------------------------------------------------------------------------------------------------------------
+////////////____Lecture Dashboard_______________________________________________________________________________________
+//____Lecture Annoucement_______________________________________________________________________________________
+try {
+  const multiFormsCont = document.querySelector(".multiFormsCont");
+  const selectedSubjects = multiFormsCont.querySelectorAll(".selSub");
+  const dueDate = document.getElementById("dueDate");
+  const title = multiFormsCont.querySelector(".title");
+  const messageBox = multiFormsCont.querySelector(".message-box");
+  const generalButton = multiFormsCont.querySelector(".generalButton");
+  const arr = [];
+  selectedSubjects.forEach((el) => {
+    el.addEventListener("change", () => {
+      if (el.checked) {
+        arr.push(el.value);
+        console.log(arr);
+      } else {
+        const index = arr.indexOf(el.value);
+        if (index > -1) {
+          arr.splice(index, 1);
+        }
+        console.log(arr);
+      }
+    });
+  });
+  requester(
+    () => {
+      return {
+        payloadid: "00001",
+        selectedSubjects: arr.join("|"),
+        dueDate: dueDate.value,
+        title: title.value,
+        messageBox: messageBox.value,
+      };
+    },
+    "click",
+    generalButton,
+    true,
+  );
+} catch (error) {
+  console.log("ERROR:", error);
+}
+//____Lecture Annoucement_______________________________________________________________________________________
+//____Lecture Username_______________________________________________________________________________________
+const setting_userName = document.getElementById("setting_userName");
+requester(
+  () => {
+    return {
+      payloadid: "00002",
+      setting_userName: setting_userName.value,
+    };
+  },
+  "click",
+  document.getElementById("btnUpdateUsername"),
+  true,
+);
+//____Lecture Username_______________________________________________________________________________________
+//____Lecture pwd_______________________________________________________________________________________
+const setting_current_pswrd = document.getElementById("setting_current_pswrd");
+const setting_confirm_pswrd = document.getElementById("setting_confirm_pswrd");
+const setting_new_pswrd = document.getElementById("setting_new_pswrd");
+requester(
+  () => {
+    if (setting_confirm_pswrd.value == setting_new_pswrd.value) {
+      return {
+        payloadid: "00003",
+        setting_current_pswrd: setting_current_pswrd.value,
+        setting_confirm_pswrd: setting_confirm_pswrd.value,
+      };
+    } else {
+      autoToast("dangers", "The entered passwords does not match!");
+    }
+  },
+  "click",
+  document.getElementById("btnUpdatePassword"),
+  true,
+);
+//____Lecture pwd_______________________________________________________________________________________
+//____Affiliations_______________________________________________________________________________________
+const pickedFaculties = [];
+const pickedDepartment = [];
+const pickedSubjects = [];
+const affiliatins = {
+  pickedFaculties: pickedFaculties,
+  pickedDepartment: pickedDepartment,
+  pickedSubjects: pickedSubjects,
+};
+try {
+  const setting_faculty_ids = document.getElementById("setting_faculty_ids");
+} catch (error) {}
+requester(
+  () => {
+    return {
+      payloadid: "00004",
+      setting_faculty_ids: setting_faculty_ids.value,
+    };
+  },
+  "keyup",
+  setting_faculty_ids,
+  false,
+  (data) => {
+    const suggestions = document.querySelector(".suggestBadges");
+    suggestions.innerHTML = "";
+    console.log("TEST::::::::", data);
+    data.forEach((item) => {
+      suggestions.innerHTML += `
+         <button type="button" class="badge tradi-yellow1-bg text-dark border tradi-yellow1-border px-2 py-1"
+            id="${item.faculty_id}"
+            data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="${item.facultyName}">
+            <i class="fa-solid fa-book me-1"></i> ${item.faculty_id}
+        </button>
+      `;
+    });
+    document
+      .querySelector(".suggestBadges")
+      .querySelectorAll(".badge")
+      .forEach((item) => {
+        item.addEventListener("click", () => {
+          pickedFaculties.push(item.id);
+          let uniqueIds = [...new Set(pickedFaculties)];
+          document.querySelector(".pickedFaculties").innerHTML = "";
+          uniqueIds.forEach((id) => {
+            document.querySelector(".pickedFaculties").innerHTML += `
+           <div class="btn btn-group">
+                <div class="text-dark badge btn tradi-blue2-bg">${id}</div>
+                <div id="${id}" class="text-dark badge btn tradi-yellow2-bg close"><i class="fa-solid fa-close"></i></div>
+            </div>
+          `;
+          });
+        });
+      });
+    document.querySelector(".pickedFaculties").addEventListener("click", (e) => {
+      const closeBtn = e.target.closest(".badge.close");
+      if (closeBtn) {
+        const index = pickedFaculties.indexOf(closeBtn.id);
+        if (index > -1) {
+          pickedFaculties.splice(index, 1);
+        }
+        console.log(pickedFaculties);
+        closeBtn.closest(".btn-group").remove();
+      }
+    });
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+  },
+);
+//____Affiliations_______________________________________________________________________________________

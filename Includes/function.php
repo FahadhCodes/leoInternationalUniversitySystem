@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+global $con;
 #faculty list
 function facultySelectOptions($con)
 {
@@ -69,7 +70,24 @@ function staffImageFileRenamer($ID, $firstName, $lastName, $extention, $oldImage
     echo "<script>alert('Old profile picture does not exist')</script>";
   }
 }
-
+function academicYear()
+{
+  $today = date_create(date("Y-m-d"));
+  $date1 = date_format(date_modify($today, "-1 years"), "y");
+  $date2 = date_format(date_modify($today, "-1 years"), "y");
+  $date3 = date_format(date_modify($today, "-1 years"), "y");
+  $date4 = date_format(date_modify($today, "-1 years"), "y");
+  $date5 = date_format(date_modify($today, "-1 years"), "y");
+  $date6 = date_format(date_modify($today, "-1 years"), "y");
+  $options = [
+    "$date2/$date1",
+    "$date3/$date2",
+    "$date4/$date3",
+    "$date5/$date4",
+    "$date6/$date4"
+  ];
+  return $options;
+}
 function YearSemTables($con, $did, $year)
 {
   echo "
@@ -591,3 +609,25 @@ function notify($message, $type)
   </div>
   ";
 }
+
+function pickedSubjectbyLecturer($con, $id)
+{
+  $selectQuery = "SELECT `subjects` FROM `staffsaccount` WHERE `staffID`='$id'";
+  $result = mysqli_query($con, $selectQuery);
+  $ids = explode("|", mysqli_fetch_assoc($result)["subjects"]);
+  return $ids;
+}
+// function pickedSubjectbyStudents(){} <----- for student to receive message
+function subjectInformations($con, $subject_ids)
+{
+  $subject_info = [];
+  foreach ($subject_ids as $subject_id) {
+    $selectQuery1 = "SELECT `subject_id`,`department_id`, `Year`, `semester`, `subject_name` FROM `subject` WHERE `subject_id` = '$subject_id'";
+    $result1 = mysqli_query($con, $selectQuery1);
+    while ($row = mysqli_fetch_assoc($result1)) {
+      $subject_info[] = $row;
+    }
+  }
+  return $subject_info;
+}
+// var_dump(subjectInformations($con, pickedSubjectbyLecturer($con, "DWM_A_31234")));

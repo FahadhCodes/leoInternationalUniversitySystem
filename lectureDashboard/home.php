@@ -1,6 +1,9 @@
 <?php
 session_start();
 include('../Includes/connection.php');
+global $con;
+global $STFID;
+$STFID = $_SESSION['STFID'] ?? "";
 include('../Includes/function.php');
 ?>
 <!DOCTYPE html>
@@ -27,20 +30,15 @@ include('../Includes/function.php');
             margin: 0;
             display: grid;
             grid-template-columns: 1fr 9fr;
+            grid-template-rows: 1fr 20fr;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Sidebar
-        .sidebar {
-            padding: 20px;
-        } */
-
         /* Main content */
-        .main-content {
-            display: grid;
-            gap: 10px;
-            grid-template-columns: 1fr 1fr;
+
+        .subContainer {
+            overflow: visible;
         }
 
         /* Sections */
@@ -98,11 +96,9 @@ include('../Includes/function.php');
 
         .multiFormsCont {
             grid-column: span 3;
-            display: grid;
             gap: 5px;
             padding: 10px;
             grid-template-columns: 1fr 1fr;
-            width: fit-content;
         }
 
         .formContainer.form3 {
@@ -116,10 +112,6 @@ include('../Includes/function.php');
             justify-self: end;
             height: fit-content;
             width: fit-content;
-        }
-
-        .formContainer.form2.speci1 {
-            grid-column: span 2;
         }
 
         .formContainer.form2>button {
@@ -172,13 +164,11 @@ include('../Includes/function.php');
 <body>
     <div class="header">
         <?php
-        $STFID = $_SESSION['STFID'] ?? "";
-        $selectQuery = "SELECT `staff_fname`, `staff_lname`, `dob`, `nic`, `mail`, `gender`, `profile_pic`, `role`, `sub_role` FROM `staffs` WHERE `staffID`='$STFID'";
+        // $STFID = $_SESSION['STFID'] ?? "";
+        $selectQuery = "SELECT `userName`, `pswrd`, `faculty_ids`, `department_ids`, `subjects` FROM `staffsaccount` WHERE `staffID` = '$STFID'";
         $result = mysqli_query($con, $selectQuery);
         $row = mysqli_fetch_assoc($result);
-        $fname = $row['staff_fname'] ?? "";
-        $lname = $row['staff_lname'] ?? "";
-        $name = $fname . " " . $lname;
+        $name = $row["userName"] ?? '';
         #__________________________________________________________________
         $gender = strtoupper($_SESSION['GENDER'] ?? "");
         $INT = nicToRandom($_SESSION['NIC'] ?? "");
@@ -192,9 +182,9 @@ include('../Includes/function.php');
 
         $profilepic = $_SESSION['PROFILEPIC'] ?? "";
         $onlineprofilepic = $_SESSION['ONLINEPROFILE'] ?? "";
-        if (!empty($_SESSION['STDID']) && empty($_SESSION['STFID'])) {
+        if (!empty($_SESSION['STDID']) && empty($STFID)) {
             $PROFILEPICPATH = !empty($profilepic) ? "../Dynamic images/students/{$profilepic}" : "$onlineprofilepic";
-        } else if (empty($_SESSION['STDID']) && !empty($_SESSION['STFID'])) {
+        } else if (empty($_SESSION['STDID']) && !empty($STFID)) {
             $PROFILEPICPATH = !empty($profilepic) ? "../Dynamic images/staffs/{$profilepic}" : "$onlineprofilepic";
         } else {
             $PROFILEPICPATH = !empty($profilepic) ? "../static images/sampleImage.png" : "$onlineprofilepic";
@@ -225,7 +215,7 @@ include('../Includes/function.php');
                 <?php
                 echo "
                         <p class='p-0 m-0 me-3 tradi-blue1 fw-bolder'>{$name}</p>
-                        <p class='p-0 m-0 me-3 tradi-blue1 fw-light'>{$STFID}</p>
+                        <span class='badge tradi-blue1-bg text-light py-1 px-2' style='font-size: 0.72rem;'><i class='fa-solid fa-id-badge me-1'></i>{$STFID}</span>
                         ";
                 ?>
             </div>
@@ -233,7 +223,7 @@ include('../Includes/function.php');
     </div>
     <aside class="sidebar">
         <div class="sideBarContet text-center">
-            <a class="dashBoardLink" href="student_dashboard.php" title="Home">
+            <a class="dashBoardLink" href="home.php?dashboard" title="Home">
                 <i class="fa-solid fa-chart-line"></i>
             </a>
             <div class="textBOX tradi-yellow2">Dashboard</div>
@@ -263,143 +253,21 @@ include('../Includes/function.php');
             <div class="textBOX tradi-yellow2">Messages</div>
         </div>
         <div class="sideBarContet text-center">
-            <a class="dashBoardLink" href="student_dashboard.php" title="Home">
+            <a class="dashBoardLink" href="home.php?setting" title="Setting">
                 <i class="fa-solid fa-gear"></i>
             </a>
             <div class="textBOX tradi-yellow2">Settings</div>
         </div>
     </aside>
     <div class="main-content">
-        <div class="task-cards">
-            <div class="card_DASH assignment">
-                <h3 class="headType1">Uploaded</h3>
-                <div class="numberBarLec tradi-blue2">12</div>
-            </div>
-            <div class="card_DASH submission">
-                <h3 class="headType1">Results Submitted</h3>
-                <div class="numberBarLec tradi-blue2">4</div>
-            </div>
-            <div class="card_DASH message">
-                <h3 class="headType1">Messages Sent</h3>
-                <div class="numberBarLec tradi-blue2">45</div>
-            </div>
-            <div class="card_DASH task">
-                <h3 class="headType1">Tasks Assigned</h3>
-                <div class="numberBarLec tradi-blue2">8</div>
-            </div>
-        </div>
-        <section class="chartLec">
-            <h3 class="text-center fw-bolder">Lecturer Activity Overview</h3>
-            <canvas id="activityChart"></canvas>
-        </section>
-        <section class="p-3">
-            <h3 class="text-center fw-bolder">Teaching affiliations</h3>
-            <!-- PHP -->
-            <?php
-            $selectQuery  = "SELECT `faculty_ids`, `department_ids` FROM `staffsaccount` WHERE `staffID` = '{$_SESSION['STFID']}'";
-            $result = mysqli_query($con, $selectQuery);
-            $row = mysqli_fetch_assoc($result);
-            $str1 = $row['faculty_ids'];
-            $str2 = $row['department_ids'];
-
-            //specific Lecturer modules
-            $selectedFaculties = explode('|', $str1);
-            $selectedDepartments = explode("|", $str2);
-            //specific Lecturer modules
-
-            //LOGIC
-            $uniData = [];
-            $facultyArr = [];
-            foreach ($selectedFaculties as $faculty) {
-                $uni = "SELECT faculty.faculty_id, faculty.facultyName, 
-                                GROUP_CONCAT(department.department_id SEPARATOR '|') AS department_ids,
-                                GROUP_CONCAT(department.department_name SEPARATOR '|') AS department_names
-                        FROM department 
-                        INNER JOIN faculty ON department.faculty_id = faculty.faculty_id 
-                        WHERE faculty.faculty_id = '{$faculty}'
-                        GROUP BY faculty_id";
-                $result = mysqli_query($con, $uni);
-                while ($row = mysqli_fetch_assoc($result)) {
-                    // echo "<h3>{$row['facultyName']}</h3>";
-
-                    $facultyArr[$faculty] = $row['facultyName'];
-
-                    $allDepId = explode('|', $row['department_ids']);
-                    $allDepName = explode('|', $row['department_names']);
-                    $index = 0;
-                    for ($i = 0; $i < count($allDepId); $i++) {
-                        if (in_array($allDepId[$i], $selectedDepartments)) {
-                            // echo "{$allDepId[$i]}       {$allDepName[$i]}<br>";
-                            $uniData[$faculty]['did'][$index] = $allDepId[$i];
-                            $uniData[$faculty]['dname'][$index] = $allDepName[$i];
-                            $index++;
-                        }
-                    }
-                }
-            }
-            //LOGIC
-            //debug Purpose
-            // print_r($uniData);
-            // echo "<br>";
-            // print_r($facultyArr);
-            //debug Purpose
-            ?>
-            <div class="accordion" id="dashboard_stf_acc">
-                <?php
-                foreach ($selectedFaculties as $faculty) {
-                    echo "
-        <div class='accordion-item'>
-            <h2 class='accordion-header'>
-                <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#{$faculty}' aria-expanded='false' aria-controls='{$faculty}'>
-                    {$facultyArr[$faculty]}
-            </h2>
-            <div id='{$faculty}' class='accordion-collapse collapse' data-bs-parent='#dashboard_stf_acc'>
-                <div class='accordion-body p-0 '>
-                    <ul class='btn-group p-0'>";
-                    for ($index = 0; $index < count($uniData[$faculty]['did']); $index++) {
-                        echo "<a href='home.php?{$uniData[$faculty]['did'][$index]}' class = 'badge tradi-yellow1 tradi-yellow1-border p-1 m-1 fw-medium'>";
-                        echo $uniData[$faculty]['dname'][$index];
-                        echo '</a>';
-                    }
-                    echo "</ul>
-                        </div>
-                    </div>
-                </div>";
-                }
-                ?>
-            </div>
-        </section>
-        <section class="multiFormsCont">
-            <form class="formContainer form3">
-                <h3>Submit Student Results</h3>
-                <select>
-                    <option>Select Subject</option>
-                    <option>Java Programming</option>
-                </select>
-                <input class="inputBarDesign" type="text" placeholder="Student ID">
-                <input class="inputBarDesign" type="text" placeholder="results">
-                <button class="generalButton">Submit</button>
-            </form>
-            <form class="formContainer form2">
-                <h3>Assign Tasks</h3>
-                <select>
-                    <option>Select Assignment Type</option>
-                    <option>Group Wise</option>
-                    <option>Department Wise</option>
-                    <option>Gender Wise</option>
-                </select>
-                <textarea placeholder="Enter task details" class="inputBarDesign message-box"></textarea>
-                <button class="generalButton">Assign</button>
-            </form>
-            <form class="formContainer form2 speci1">
-                <h3>Send Message</h3>
-                <input class="inputBarDesign form2" type="text" placeholder="Enter Student ID">
-                <textarea class="inputBarDesign message-box" placeholder="Type your message here"></textarea>
-                <button class="generalButton">Send</button>
-            </form>
-        </section>
+        <?php
+        if (isset($_GET['dashboard'])) {
+            include('dashboard.php');
+        } else if (isset($_GET['setting'])) {
+            include('setting.php');
+        }
+        ?>
     </div>
-    <script src="../JavaScript/function.js"></script>
     <script>
         const ctx = document.getElementById('activityChart').getContext('2d');
         const gradient = ctx.createLinearGradient(0, 0, 0, 300);
@@ -440,6 +308,7 @@ include('../Includes/function.php');
             }
         });
     </script>
+    <script src="../JavaScript/function.js"></script>
 </body>
 
 </html>

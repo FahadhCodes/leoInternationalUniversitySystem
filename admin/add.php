@@ -1,5 +1,6 @@
 <?php
 require '../Includes/connection.php';
+global $con;
 include('../Includes/function.php');
 ?>
 <?php

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../Includes/connection.php';
+global $con;
 include('../Includes/function.php');
 if (!empty($_SESSION['message'])) {
   notify($message = [$_SESSION['type'] => $_SESSION['message']], $_SESSION['type']);

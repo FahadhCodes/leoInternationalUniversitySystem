@@ -361,7 +361,7 @@ include('Includes/function.php');
               if (!empty($_SESSION['STDID']) && empty($_SESSION['STFID'])) {
                 echo "<a href='stdDashboard/student.php?dashboard' class='btn generalButton'>Dashboard</a>";
               } else if (empty($_SESSION['STDID']) && !empty($_SESSION['STFID'])) {
-                echo "<a href='lectureDashboard/home.php' class='btn generalButton'>Dashboard</a>";
+                echo "<a href='lectureDashboard/home.php?dashboard' class='btn generalButton'>Dashboard</a>";
               }
               ?>
             </form>
