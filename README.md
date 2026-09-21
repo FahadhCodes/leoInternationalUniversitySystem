@@ -13,23 +13,27 @@ An enterprise-grade, multi-tenant University Management & Learning Platform engi
 
 ## 📌 Table of Contents
 
-- [Executive Summary](#-executive-summary)
-- [System UI Showcase](#-system-ui-showcase)
-- [System Architecture](#-system-architecture)
-- [Database Schema & ER Model](#-database-schema--er-model)
-- [Directory Structure](#-directory-structure)
-- [Core Functional Modules](#-core-functional-modules)
-  - [1. Public University Portal](#1-public-university-portal)
-  - [2. Administrative Governance Center](#2-administrative-governance-center)
-  - [3. Lecturer Academic Management Dashboard](#3-lecturer-academic-management-dashboard)
-  - [4. Student Academic & Learning Dashboard](#4-student-academic--learning-dashboard)
-  - [5. Central Asynchronous API & Payload Engine (`Server.php`)](#5-central-asynchronous-api--payload-engine-serverphp)
-- [Development Logs & Milestone Changelog](#-development-logs--milestone-changelog)
-- [Component Development Status](#-component-development-status)
-- [Future Roadmap](#-future-roadmap)
-- [Installation & Local Setup](#-installation--local-setup)
-- [Security & Technical Highlights](#-security--technical-highlights)
-- [Developer & Project Inquiries](#-developer--project-inquiries)
+- [🎓 Leo International University Management System (LMS / UMS)](#-leo-international-university-management-system-lms--ums)
+  - [📌 Table of Contents](#-table-of-contents)
+  - [🏛 Executive Summary](#-executive-summary)
+  - [📸 System UI Showcase](#-system-ui-showcase)
+  - [🏗 System Architecture](#-system-architecture)
+  - [🗄 Database Schema \& ER Model](#-database-schema--er-model)
+  - [📂 Directory Structure](#-directory-structure)
+  - [🚀 Core Functional Modules](#-core-functional-modules)
+    - [1. Public University Portal](#1-public-university-portal)
+    - [2. Administrative Governance Center](#2-administrative-governance-center)
+    - [3. Lecturer Academic Management Dashboard](#3-lecturer-academic-management-dashboard)
+    - [4. Student Academic \& Learning Dashboard](#4-student-academic--learning-dashboard)
+    - [5. Central Asynchronous API \& Payload Engine (`Server.php`)](#5-central-asynchronous-api--payload-engine-serverphp)
+  - [📈 Development Logs \& Milestone Changelog](#-development-logs--milestone-changelog)
+  - [📊 Component Development Status](#-component-development-status)
+  - [🔮 Future Roadmap](#-future-roadmap)
+  - [💻 Installation \& Local Setup](#-installation--local-setup)
+    - [Prerequisites](#prerequisites)
+    - [Step-by-Step Installation](#step-by-step-installation)
+  - [🛡 Security \& Technical Highlights](#-security--technical-highlights)
+  - [👨‍💻 Developer \& Project Inquiries](#-developer--project-inquiries)
 
 ---
 
@@ -66,13 +70,13 @@ The application adopts a modular, service-assisted MVC/SPA hybrid design. Centra
 
 ```mermaid
 flowchart TD
-    Client[Web Browser Client] -->|HTTP Requests| Router[Application Layer / Router]
+    Client["Web Browser Client"] -->|HTTP Requests| Router["Application Layer / Router"]
 
-    subgraph Frontend Interfaces
-        Portal[Public Portal & Auth<br/>index.php]
-        AdminPanel[Admin Governance Panel<br/>/admin]
-        LecDashboard[Lecturer Dashboard<br/>/lectureDashboard]
-        StdDashboard[Student Dashboard<br/>/stdDashboard]
+    subgraph Frontend ["Frontend Interfaces"]
+        Portal["Public Portal & Auth (index.php)"]
+        AdminPanel["Admin Governance Panel (/admin)"]
+        LecDashboard["Lecturer Dashboard (/lectureDashboard)"]
+        StdDashboard["Student Dashboard (/stdDashboard)"]
     end
 
     Router --> Portal
@@ -80,19 +84,21 @@ flowchart TD
     Router --> LecDashboard
     Router --> StdDashboard
 
-    subgraph Service & API Layer
-        ServerAPI[Central Payload API Gateway<br/>Server.php & getData.php]
-        ClientJS[Dynamic Interaction Engine<br/>function.js]
+    subgraph ServiceAPI ["Service & API Layer"]
+        ServerAPI["Central Payload API Gateway (Server.php)"]
+        ClientJS["Dynamic Interaction Engine (function.js)"]
     end
 
-    LecDashboard <-->|JSON Payloads / Fetch API| ServerAPI
-    StdDashboard <-->|JSON Queries / Fetch API| ServerAPI
-    AdminPanel <-->|JSON Mutations / Fetch API| ServerAPI
-    ClientJS <--> ServerAPI
+    LecDashboard -->|JSON Payloads / Fetch API| ServerAPI
+    ServerAPI -->|JSON Response| LecDashboard
+    StdDashboard -->|JSON Queries / Fetch API| ServerAPI
+    ServerAPI -->|JSON Response| StdDashboard
+    AdminPanel -->|JSON Mutations / Fetch API| ServerAPI
+    ClientJS --> ServerAPI
 
-    subgraph Core Backend & Data Layer
-        DBHelper[Database & Core Libraries<br/>Includes/connection.php & function.php]
-        MySQL[(MariaDB / MySQL<br/>leouni_db: 14 Relational Tables)]
+    subgraph BackendData ["Core Backend & Data Layer"]
+        DBHelper["Database & Core Libraries (connection.php & function.php)"]
+        MySQL[("MariaDB / MySQL (14 Relational Tables)")]
     end
 
     Portal --> DBHelper
@@ -127,96 +133,96 @@ erDiagram
     STAFFS ||--o{ FINALEXAM : "verifies"
 
     FACULTY {
-        varchar(5) faculty_id PK
-        varchar(50) facultyName
+        string faculty_id PK
+        string facultyName
     }
     DEPARTMENT {
-        varchar(5) department_id PK
-        varchar(100) department_name
-        varchar(5) faculty_id FK
+        string department_id PK
+        string department_name
+        string faculty_id FK
         datetime date
     }
     SUBJECT {
-        varchar(20) subject_id PK
-        varchar(5) department_id FK
-        varchar(2) Year
-        varchar(2) semester
-        varchar(255) subject_name
+        string subject_id PK
+        string department_id FK
+        string Year
+        string semester
+        string subject_name
     }
     STUDETS {
-        varchar(20) stdID PK
-        varchar(50) std_fname
-        varchar(50) std_lname
-        varchar(5) faculty_id FK
-        varchar(5) department_id FK
-        varchar(10) aYear
-        varchar(255) profile_pic_path
+        string stdID PK
+        string std_fname
+        string std_lname
+        string faculty_id FK
+        string department_id FK
+        string aYear
+        string profile_pic_path
     }
     STAFFS {
-        varchar(20) staffID PK
-        varchar(50) staff_fname
-        varchar(50) staff_lname
-        varchar(20) role
-        varchar(20) sub_role
-        varchar(255) mail
+        string staffID PK
+        string staff_fname
+        string staff_lname
+        string role
+        string sub_role
+        string mail
     }
     STAFFSACCOUNT {
-        varchar(20) staffID PK
-        varchar(50) userName
-        varchar(255) pswrd
-        varchar(500) faculty_ids
-        varchar(500) department_ids
-        varchar(255) subjects
+        string staffID PK
+        string userName
+        string pswrd
+        string faculty_ids
+        string department_ids
+        string subjects
     }
     STUDENTACCOUNT {
-        varchar(20) stdID PK
-        varchar(50) userName
-        varchar(255) pswrd
+        string stdID PK
+        string userName
+        string pswrd
     }
     LECTUREANNOUNCEMENT {
         int message_id PK
-        varchar(200) staffID FK
-        varchar(255) subject_ids
-        varchar(255) title
+        string staffID FK
+        string subject_ids
+        string title
         text message
         datetime due_at
         timestamp created_at
     }
     ASSESSMENT {
-        varchar(255) assessment_id PK
-        varchar(20) subject_id FK
-        varchar(20) assessment_type
+        string assessment_id PK
+        string subject_id FK
+        string assessment_type
         int max_marks
         decimal weight
         datetime closing_date
     }
     STUDENTMARKINGS {
-        varchar(255) marking_id PK
-        varchar(20) stdID FK
-        varchar(255) assessment_id FK
+        string marking_id PK
+        string stdID FK
+        string assessment_id FK
         decimal marks_obtained
     }
     FINALEXAM {
-        varchar(20) exam_id PK
-        varchar(20) stdID FK
-        varchar(20) subject_id FK
-        varchar(20) staffID FK
+        string exam_id PK
+        string stdID FK
+        string subject_id FK
+        string staffID FK
         decimal marks
     }
     NOTICE {
         int id PK
-        varchar(255) title
+        string title
         text content
         datetime created_at
     }
     EVENTTABLE {
         int id PK
-        varchar(255) eventName
-        varchar(255) imagePath
+        string eventName
+        string imagePath
     }
     ROLE {
         int role_id PK
-        varchar(50) role_name
+        string role_name
     }
 ```
 
