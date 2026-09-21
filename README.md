@@ -14,6 +14,7 @@ An enterprise-grade, multi-tenant University Management & Learning Platform engi
 ## 📌 Table of Contents
 
 - [Executive Summary](#-executive-summary)
+- [System UI Showcase](#-system-ui-showcase)
 - [System Architecture](#-system-architecture)
 - [Database Schema & ER Model](#-database-schema--er-model)
 - [Directory Structure](#-directory-structure)
@@ -22,12 +23,13 @@ An enterprise-grade, multi-tenant University Management & Learning Platform engi
   - [2. Administrative Governance Center](#2-administrative-governance-center)
   - [3. Lecturer Academic Management Dashboard](#3-lecturer-academic-management-dashboard)
   - [4. Student Academic & Learning Dashboard](#4-student-academic--learning-dashboard)
-  - [5. Central Asynchronous API & Payload Engine](#5-central-asynchronous-api--payload-engine)
+  - [5. Central Asynchronous API & Payload Engine (`Server.php`)](#5-central-asynchronous-api--payload-engine-serverphp)
 - [Development Logs & Milestone Changelog](#-development-logs--milestone-changelog)
 - [Component Development Status](#-component-development-status)
 - [Future Roadmap](#-future-roadmap)
 - [Installation & Local Setup](#-installation--local-setup)
 - [Security & Technical Highlights](#-security--technical-highlights)
+- [Developer & Project Inquiries](#-developer--project-inquiries)
 
 ---
 
@@ -39,6 +41,22 @@ The **Leo International University System** is built to bridge the operational g
 - **Payload-Driven Asynchronous APIs:** REST-style JSON payload dispatchers (`00001` through `00004`) consumed by native JavaScript `fetch()` calls for live, non-blocking UI mutations.
 - **Institutional Branding System:** Tailored university design palette (Royal Navy `#122044`, Institutional Gold `#b48f2e`, Soft Sky `#80b3e7`) built directly into a modular custom CSS system.
 - **Dynamic Academic Hierarchy:** Multi-tier relational binding between faculties, sub-departments, curriculum modules, continuous assessment markings, targeted broadcasts, and staff teaching affiliations.
+
+---
+
+## 📸 System UI Showcase
+
+<div align="center">
+
+|                                                                              🏛️ Public Institutional Portal & Landing Page                                                                               |                                                                                  🔐 Role-Based Authentication & ID Generator                                                                                  |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|     <img src="image.png" width="470" alt="Landing Page Showcase" /><br><sub><b>Figure 1.1:</b> Public landing portal featuring dynamic event carousel, campus highlights, and faculty catalog.</sub>     |  <img src="image-1.png" width="470" alt="Login & Sign In Gateway" /><br><sub><b>Figure 1.2:</b> Unified authentication modal with role-based sign-in and dynamic student/staff identity card preview.</sub>   |
+|                                                                                   **📊 Lecturer Academic Workstation**                                                                                   |                                                                                   **🎓 Student Learning & Progress Portal**                                                                                   |
+| <img src="image-2.png" width="470" alt="Lecturer Dashboard" /><br><sub><b>Figure 1.3:</b> Lecturer workstation featuring Chart.js activity analytics, modular sidebar, and affiliations accordion.</sub> |        <img src="image-3.png" width="470" alt="Student Dashboard" /><br><sub><b>Figure 1.4:</b> Student portal tracking continuous assessment progress, quizzes, tasks, and asynchronous search.</sub>        |
+|                                                                                   **🛡️ Administrative Security Gate**                                                                                    |                                                                                **⚙️ Central Administrative Governance Panel**                                                                                 |
+|               <img src="image-4.png" width="470" alt="Admin Panel Login" /><br><sub><b>Figure 1.5:</b> Administrative authentication gateway with encrypted credential verification.</sub>               | <img src="image-5.png" width="470" alt="Admin Panel Management" /><br><sub><b>Figure 1.6:</b> Admin management panel providing full CRUD operations across students, staff, faculties, and departments.</sub> |
+
+</div>
 
 ---
 
