@@ -70,13 +70,13 @@ The application adopts a modular, service-assisted MVC/SPA hybrid design. Centra
 
 ```mermaid
 flowchart TD
-    Client["Web Browser Client"] -->|HTTP Requests| Router["Application Layer / Router"]
+    Client["Web Browser Client"] -->|HTTP Requests| Router["Application Layer Router"]
 
-    subgraph Frontend ["Frontend Interfaces"]
-        Portal["Public Portal & Auth (index.php)"]
-        AdminPanel["Admin Governance Panel (/admin)"]
-        LecDashboard["Lecturer Dashboard (/lectureDashboard)"]
-        StdDashboard["Student Dashboard (/stdDashboard)"]
+    subgraph Frontend["Frontend Interfaces"]
+        Portal["Public Portal and Auth - index.php"]
+        AdminPanel["Admin Governance Panel - admin"]
+        LecDashboard["Lecturer Dashboard - lectureDashboard"]
+        StdDashboard["Student Dashboard - stdDashboard"]
     end
 
     Router --> Portal
@@ -84,21 +84,21 @@ flowchart TD
     Router --> LecDashboard
     Router --> StdDashboard
 
-    subgraph ServiceAPI ["Service & API Layer"]
-        ServerAPI["Central Payload API Gateway (Server.php)"]
-        ClientJS["Dynamic Interaction Engine (function.js)"]
+    subgraph ServiceAPI["Service and API Layer"]
+        ServerAPI["Central Payload API Gateway - Server.php"]
+        ClientJS["Dynamic Interaction Engine - function.js"]
     end
 
-    LecDashboard -->|JSON Payloads / Fetch API| ServerAPI
+    LecDashboard -->|JSON Payloads| ServerAPI
     ServerAPI -->|JSON Response| LecDashboard
-    StdDashboard -->|JSON Queries / Fetch API| ServerAPI
+    StdDashboard -->|JSON Queries| ServerAPI
     ServerAPI -->|JSON Response| StdDashboard
-    AdminPanel -->|JSON Mutations / Fetch API| ServerAPI
+    AdminPanel -->|JSON Mutations| ServerAPI
     ClientJS --> ServerAPI
 
-    subgraph BackendData ["Core Backend & Data Layer"]
-        DBHelper["Database & Core Libraries (connection.php & function.php)"]
-        MySQL[("MariaDB / MySQL (14 Relational Tables)")]
+    subgraph BackendData["Core Backend and Data Layer"]
+        DBHelper["Database and Core Libraries - Includes"]
+        MySQL[("MariaDB MySQL Database - 14 Tables")]
     end
 
     Portal --> DBHelper
@@ -117,20 +117,22 @@ The relational architecture is governed by **14 normalized relational tables** f
 
 ```mermaid
 erDiagram
-    FACULTY ||--o{ DEPARTMENT : "houses"
-    DEPARTMENT ||--o{ SUBJECT : "offers"
-    FACULTY ||--o{ STUDETS : "enrolled_under"
-    DEPARTMENT ||--o{ STUDETS : "belongs_to"
-    STUDETS ||--|| STUDENTACCOUNT : "authenticates_as"
-    STAFFS ||--|| STAFFSACCOUNT : "authenticates_as"
-    STAFFS }|--|| ROLE : "holds_role"
-    STAFFS ||--o{ LECTUREANNOUNCEMENT : "dispatches"
-    SUBJECT ||--o{ ASSESSMENT : "contains"
-    ASSESSMENT ||--o{ STUDENTMARKINGS : "evaluates"
-    STUDETS ||--o{ STUDENTMARKINGS : "receives_marks"
-    STUDETS ||--o{ FINALEXAM : "completes"
-    SUBJECT ||--o{ FINALEXAM : "exam_for"
-    STAFFS ||--o{ FINALEXAM : "verifies"
+    FACULTY ||--o{ DEPARTMENT : houses
+    DEPARTMENT ||--o{ SUBJECT : offers
+    FACULTY ||--o{ STUDETS : enrolled_under
+    DEPARTMENT ||--o{ STUDETS : belongs_to
+    STUDETS ||--|| STUDENTACCOUNT : authenticates_as
+    STAFFS ||--|| STAFFSACCOUNT : authenticates_as
+    ROLE ||--o{ STAFFS : assigned_to
+    STAFFS ||--o{ LECTUREANNOUNCEMENT : dispatches
+    STAFFS ||--o{ NOTICE : publishes
+    STAFFS ||--o{ EVENTTABLE : manages
+    SUBJECT ||--o{ ASSESSMENT : contains
+    ASSESSMENT ||--o{ STUDENTMARKINGS : evaluates
+    STUDETS ||--o{ STUDENTMARKINGS : receives_marks
+    STUDETS ||--o{ FINALEXAM : completes
+    SUBJECT ||--o{ FINALEXAM : exam_for
+    STAFFS ||--o{ FINALEXAM : verifies
 
     FACULTY {
         string faculty_id PK
@@ -184,7 +186,7 @@ erDiagram
         string staffID FK
         string subject_ids
         string title
-        text message
+        string message
         datetime due_at
         timestamp created_at
     }
@@ -212,7 +214,7 @@ erDiagram
     NOTICE {
         int id PK
         string title
-        text content
+        string content
         datetime created_at
     }
     EVENTTABLE {
