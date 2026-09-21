@@ -55,13 +55,13 @@ foreach ($department_ids_arr as $dep) {
 #_____________________lectureDashboard__________________________________________________
 
 $rawData = file_get_contents("php://input");
-$data = json_decode($rawData, true);
-if (!empty($data["payloadid"]) && $data["payloadid"] == "00001") {
+$payload = json_decode($rawData, true);
+if (!empty($payload["payloadid"]) && $payload["payloadid"] == "00001") {
     $STFID = $_SESSION['STFID'] ?? "";
-    $selectedSubjects = $data['selectedSubjects'] ?? '';
-    $dueDate          = $data['dueDate'] ?? null;
-    $title            = $data['title'] ?? '';
-    $message          = $data['messageBox'] ?? '';
+    $selectedSubjects = $payload['selectedSubjects'] ?? '';
+    $dueDate          = $payload['dueDate'] ?? null;
+    $title            = $payload['title'] ?? '';
+    $message          = $payload['messageBox'] ?? '';
 
     $insertQuery = "INSERT INTO `lectureannouncement`( `staffID`, `subject_ids`, `title`, `message`, `due_at`) VALUES ('$STFID','$selectedSubjects','$title','$message','$dueDate')";
     mysqli_query($con, $insertQuery);
@@ -69,9 +69,9 @@ if (!empty($data["payloadid"]) && $data["payloadid"] == "00001") {
         "type" => "successes",
         "message" => "Message received successfully",
     ]);
-} else if (!empty($data["payloadid"]) && $data["payloadid"] == "00002") {
+} else if (!empty($payload["payloadid"]) && $payload["payloadid"] == "00002") {
     $STFID = $_SESSION['STFID'] ?? "";
-    $setting_userName = $data['setting_userName'] ?? '';
+    $setting_userName = $payload['setting_userName'] ?? '';
 
     $updateQuery = "UPDATE `staffsaccount` SET `userName`='$setting_userName' WHERE `staffID`='$STFID'";
     mysqli_query($con, $updateQuery);
@@ -79,10 +79,10 @@ if (!empty($data["payloadid"]) && $data["payloadid"] == "00001") {
         "type" => "successes",
         "message" => "Username changed successfully",
     ]);
-} else if (!empty($data["payloadid"]) && $data["payloadid"] == "00003") {
+} else if (!empty($payload["payloadid"]) && $payload["payloadid"] == "00003") {
     $STFID = $_SESSION['STFID'] ?? "";
-    $setting_current_pswrd = $data['setting_current_pswrd'] ?? '';
-    $setting_confirm_pswrd = $data['setting_confirm_pswrd'] ?? '';
+    $setting_current_pswrd = $payload['setting_current_pswrd'] ?? '';
+    $setting_confirm_pswrd = $payload['setting_confirm_pswrd'] ?? '';
     $selectQuery = "SELECT `pswrd` FROM `staffsaccount` WHERE `staffID` = '$STFID'";
     $row = mysqli_fetch_assoc(mysqli_query($con, $selectQuery));
     if (password_verify($setting_current_pswrd, $row['pswrd'])) {
@@ -98,9 +98,9 @@ if (!empty($data["payloadid"]) && $data["payloadid"] == "00001") {
             "message" => "Your Current password does not matched with previous password if you wanna reset cont",
         ]);
     }
-} else if (!empty($data["payloadid"]) && $data["payloadid"] == "00004") {
+} else if (!empty($payload["payloadid"]) && $payload["payloadid"] == "00004") {
     $response_data = [];
-    $setting_faculty_ids = $data["setting_faculty_ids"] ?? '';
+    $setting_faculty_ids = $payload["setting_faculty_ids"] ?? '';
     if (!empty($setting_faculty_ids)) {
         $selectQuery = "SELECT `faculty_id`, `facultyName` FROM `faculty` WHERE `faculty_id` LIKE '%$setting_faculty_ids%'";
         $result = mysqli_query($con, $selectQuery);

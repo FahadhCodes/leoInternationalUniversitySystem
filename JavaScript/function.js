@@ -446,14 +446,16 @@ function departmentCheckBox(checkBox) {
     })
     .then((data) => {
       container.innerHTML = "";
-      data.forEach((item) => {
-        container.innerHTML += `
-          <div class="checkBox">
-            <input class="selDep" type="checkbox" name="${item.department_name}" id="${item.department_id}" value="${item.department_id}">
-            <label class='tradi-blue1 fw-medium depCheckBox' for="${item.department_id}">${item.department_name}</label>
-          </div>
-        `;
-      });
+      if (Array.isArray(data)) {
+        data.forEach((item) => {
+          container.innerHTML += `
+            <div class="checkBox">
+              <input class="selDep" type="checkbox" name="${item.department_name}" id="${item.department_id}" value="${item.department_id}">
+              <label class='tradi-blue1 fw-medium depCheckBox' for="${item.department_id}">${item.department_name}</label>
+            </div>
+          `;
+        });
+      }
       const depCheckboxes = document.querySelectorAll(".selDep");
       const selcDep = document.querySelector(".selc.dep");
       storingCheckedBoxes(depCheckboxes, depcheckedBox, depNameList, selcDep);
@@ -475,27 +477,29 @@ faccheckBoxs.forEach((checkBox) => {
       fetch(`../Server.php?faculty_id=${checkBox.value}`)
         .then((res) => res.json())
         .then((data) => {
-          data.forEach((item) => {
-            console.log("Eliminating departments list:", item.department_id);
-            if (
-              //checking the uncheked faculty's deparments included in the arrya or not
-              depcheckedBox.includes(item.department_id) ||
-              depNameList.includes(item.department_name)
-            ) {
-              //eliminating spefic department id from "depcheckedBox" array
-              depcheckedBox.splice(depcheckedBox.indexOf(item.department_id), 1);
-              //eliminating spefic department name from "depNameList" array
-              depNameList.splice(depNameList.indexOf(item.department_name), 1);
-              //subjectFixing
+          if (Array.isArray(data)) {
+            data.forEach((item) => {
+              console.log("Eliminating departments list:", item.department_id);
+              if (
+                //checking the uncheked faculty's deparments included in the arrya or not
+                depcheckedBox.includes(item.department_id) ||
+                depNameList.includes(item.department_name)
+              ) {
+                //eliminating spefic department id from "depcheckedBox" array
+                depcheckedBox.splice(depcheckedBox.indexOf(item.department_id), 1);
+                //eliminating spefic department name from "depNameList" array
+                depNameList.splice(depNameList.indexOf(item.department_name), 1);
+                //subjectFixing
 
-              //subjectFixing
-              //refreshing and displaying
-              document.querySelector(".selc.dep").innerHTML = CheckedListUI_property(depNameList);
-              faculties = faccheckedBox.join("|");
-              departments = depcheckedBox.join("|");
-              console.log("A list of departments after elimination based on unchecked faculties:", depcheckedBox);
-            }
-          });
+                //subjectFixing
+                //refreshing and displaying
+                document.querySelector(".selc.dep").innerHTML = CheckedListUI_property(depNameList);
+                faculties = faccheckedBox.join("|");
+                departments = depcheckedBox.join("|");
+                console.log("A list of departments after elimination based on unchecked faculties:", depcheckedBox);
+              }
+            });
+          }
         });
     }
   });
@@ -665,95 +669,99 @@ requester(
 );
 //____Lecture Username_______________________________________________________________________________________
 //____Lecture pwd_______________________________________________________________________________________
-const setting_current_pswrd = document.getElementById("setting_current_pswrd");
-const setting_confirm_pswrd = document.getElementById("setting_confirm_pswrd");
-const setting_new_pswrd = document.getElementById("setting_new_pswrd");
-requester(
-  () => {
-    if (setting_confirm_pswrd.value == setting_new_pswrd.value) {
-      return {
-        payloadid: "00003",
-        setting_current_pswrd: setting_current_pswrd.value,
-        setting_confirm_pswrd: setting_confirm_pswrd.value,
-      };
-    } else {
-      autoToast("dangers", "The entered passwords does not match!");
-    }
-  },
-  "click",
-  document.getElementById("btnUpdatePassword"),
-  true,
-);
+try {
+  const setting_current_pswrd = document.getElementById("setting_current_pswrd");
+  const setting_confirm_pswrd = document.getElementById("setting_confirm_pswrd");
+  const setting_new_pswrd = document.getElementById("setting_new_pswrd");
+  requester(
+    () => {
+      if (setting_confirm_pswrd.value == setting_new_pswrd.value) {
+        return {
+          payloadid: "00003",
+          setting_current_pswrd: setting_current_pswrd.value,
+          setting_confirm_pswrd: setting_confirm_pswrd.value,
+        };
+      } else {
+        autoToast("dangers", "The entered passwords does not match!");
+      }
+    },
+    "click",
+    document.getElementById("btnUpdatePassword"),
+    true,
+  );
+} catch (error) {}
 //____Lecture pwd_______________________________________________________________________________________
 //____Affiliations_______________________________________________________________________________________
-const pickedFaculties = [];
-const pickedDepartment = [];
-const pickedSubjects = [];
-const affiliatins = {
-  pickedFaculties: pickedFaculties,
-  pickedDepartment: pickedDepartment,
-  pickedSubjects: pickedSubjects,
-};
 try {
-  const setting_faculty_ids = document.getElementById("setting_faculty_ids");
-} catch (error) {}
-requester(
-  () => {
-    return {
-      payloadid: "00004",
-      setting_faculty_ids: setting_faculty_ids.value,
-    };
-  },
-  "keyup",
-  setting_faculty_ids,
-  false,
-  (data) => {
-    const suggestions = document.querySelector(".suggestBadges");
-    suggestions.innerHTML = "";
-    console.log("TEST::::::::", data);
-    data.forEach((item) => {
-      suggestions.innerHTML += `
-         <button type="button" class="badge tradi-yellow1-bg text-dark border tradi-yellow1-border px-2 py-1"
-            id="${item.faculty_id}"
-            data-bs-toggle="tooltip" data-bs-placement="top"
-            data-bs-custom-class="custom-tooltip"
-            data-bs-title="${item.facultyName}">
-            <i class="fa-solid fa-book me-1"></i> ${item.faculty_id}
-        </button>
-      `;
-    });
-    document
-      .querySelector(".suggestBadges")
-      .querySelectorAll(".badge")
-      .forEach((item) => {
-        item.addEventListener("click", () => {
-          pickedFaculties.push(item.id);
-          let uniqueIds = [...new Set(pickedFaculties)];
-          document.querySelector(".pickedFaculties").innerHTML = "";
-          uniqueIds.forEach((id) => {
-            document.querySelector(".pickedFaculties").innerHTML += `
-           <div class="btn btn-group">
-                <div class="text-dark badge btn tradi-blue2-bg">${id}</div>
-                <div id="${id}" class="text-dark badge btn tradi-yellow2-bg close"><i class="fa-solid fa-close"></i></div>
-            </div>
-          `;
+  const pickedFaculties = [];
+  const pickedDepartment = [];
+  const pickedSubjects = [];
+  const affiliatins = {
+    pickedFaculties: pickedFaculties,
+    pickedDepartment: pickedDepartment,
+    pickedSubjects: pickedSubjects,
+  };
+  try {
+    const setting_faculty_ids = document.getElementById("setting_faculty_ids");
+  } catch (error) {}
+  requester(
+    () => {
+      return {
+        payloadid: "00004",
+        setting_faculty_ids: setting_faculty_ids.value,
+      };
+    },
+    "keyup",
+    setting_faculty_ids,
+    false,
+    (data) => {
+      const suggestions = document.querySelector(".suggestBadges");
+      suggestions.innerHTML = "";
+      console.log("TEST::::::::", data);
+      data.forEach((item) => {
+        suggestions.innerHTML += `
+           <button type="button" class="badge tradi-yellow1-bg text-dark border tradi-yellow1-border px-2 py-1"
+              id="${item.faculty_id}"
+              data-bs-toggle="tooltip" data-bs-placement="top"
+              data-bs-custom-class="custom-tooltip"
+              data-bs-title="${item.facultyName}">
+              <i class="fa-solid fa-book me-1"></i> ${item.faculty_id}
+          </button>
+        `;
+      });
+      document
+        .querySelector(".suggestBadges")
+        .querySelectorAll(".badge")
+        .forEach((item) => {
+          item.addEventListener("click", () => {
+            pickedFaculties.push(item.id);
+            let uniqueIds = [...new Set(pickedFaculties)];
+            document.querySelector(".pickedFaculties").innerHTML = "";
+            uniqueIds.forEach((id) => {
+              document.querySelector(".pickedFaculties").innerHTML += `
+             <div class="btn btn-group">
+                  <div class="text-dark badge btn tradi-blue2-bg">${id}</div>
+                  <div id="${id}" class="text-dark badge btn tradi-yellow2-bg close"><i class="fa-solid fa-close"></i></div>
+              </div>
+            `;
+            });
           });
         });
-      });
-    document.querySelector(".pickedFaculties").addEventListener("click", (e) => {
-      const closeBtn = e.target.closest(".badge.close");
-      if (closeBtn) {
-        const index = pickedFaculties.indexOf(closeBtn.id);
-        if (index > -1) {
-          pickedFaculties.splice(index, 1);
+      document.querySelector(".pickedFaculties").addEventListener("click", (e) => {
+        const closeBtn = e.target.closest(".badge.close");
+        if (closeBtn) {
+          const index = pickedFaculties.indexOf(closeBtn.id);
+          if (index > -1) {
+            pickedFaculties.splice(index, 1);
+          }
+          console.log(pickedFaculties);
+          closeBtn.closest(".btn-group").remove();
         }
-        console.log(pickedFaculties);
-        closeBtn.closest(".btn-group").remove();
-      }
-    });
+      });
 
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
-  },
-);
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+    },
+  );
+} catch (error) {}
 //____Affiliations_______________________________________________________________________________________
