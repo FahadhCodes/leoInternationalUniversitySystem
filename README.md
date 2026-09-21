@@ -439,5 +439,4 @@ Derived from chronological engineering iterations documented in `project_log.txt
 - **Lead Engineer:** Fahadh Muhammadh
 - **Project Repository:** [FahadhCodes/leoInternationalUniversitySystem](https://github.com/FahadhCodes/leoInternationalUniversitySystem)
 - **Academic Institution:** Leo International University
-
-_Crafted with precision for academic excellence and modern institutional governance._
+  _Crafted with precision for academic excellence and modern institutional governance._
